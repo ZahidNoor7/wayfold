@@ -1,5 +1,6 @@
 import "server-only";
 import { notFound } from "next/navigation";
+import { connection } from "next/server";
 import { cache } from "react";
 import { todayIn } from "@/lib/dates";
 import { withTenant, type TenantScope } from "../db/context";
@@ -12,6 +13,9 @@ import { resolveSite, type SiteTenant } from "../tenancy/resolve";
  * request, so layouts and pages can all call it.
  */
 export const getSite = cache(async (site: string): Promise<SiteTenant> => {
+  // Storefront data is per request (and opening a database connection uses
+  // random values), so prerendering stops here rather than at the database.
+  await connection();
   let key: string;
   try {
     key = decodeURIComponent(site);
