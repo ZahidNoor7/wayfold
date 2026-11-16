@@ -52,3 +52,6 @@ next-env.d.ts
 
 # Playwright MCP session output
 /.playwright-mcp/
+
+# Local-only secrets and sign-ins
+*.local
