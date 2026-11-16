@@ -1,6 +1,7 @@
 import "server-only";
 import { cookies, headers } from "next/headers";
 import { redirect } from "next/navigation";
+import { connection } from "next/server";
 import { cache } from "react";
 import { env } from "../env";
 import type { Permission } from "../rbac/permissions";
@@ -32,6 +33,10 @@ export async function clearSessionCookie(): Promise<void> {
 /** Current session, validated against the database once per request. */
 export const getSession = cache(async (): Promise<Session | null> => {
   const token = (await cookies()).get(sessionCookieName())?.value;
+  // Next.js prefetches pages by prerendering them with the visitor's cookies.
+  // Opening a database connection there is refused (its handshake draws random
+  // bytes), so the session lookup waits for the real request.
+  await connection();
   return validateSessionToken(token);
 });
 

@@ -6,6 +6,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState, type FocusEvent } from "react";
 import { SwapIn } from "@/components/motion";
+import { ReviewMedia } from "@/components/storefront-content/review-media";
+import type { ReviewFile } from "@/lib/review-display";
 import { formatCount, formatMonthYear, initials, isCloudinaryUrl, pluralize } from "@/lib/storefront-format";
 import { cn } from "@/lib/utils";
 
@@ -18,6 +20,8 @@ export interface CarouselReview {
   reviewedOn: string;
   tourTitle: string | null;
   avatarUrl: string | null;
+  /** Photos and videos shared with the review, in display order. */
+  media: ReviewFile[];
 }
 
 export interface ReviewCarouselProps {
@@ -42,10 +46,12 @@ export function ReviewCarousel({ reviews, average, total }: ReviewCarouselProps)
   const [paused, setPaused] = useState(false);
   const [hovered, setHovered] = useState(false);
   const [focused, setFocused] = useState(false);
+  // The viewer lives in a portal, outside the carousel, so focus leaving for it must not restart rotation.
+  const [viewing, setViewing] = useState(false);
 
   const count = reviews.length;
   const canRotate = count > 1 && !reduce;
-  const rotating = canRotate && !paused && !hovered && !focused;
+  const rotating = canRotate && !paused && !hovered && !focused && !viewing;
 
   useEffect(() => {
     if (!rotating) return;
@@ -88,6 +94,14 @@ export function ReviewCarousel({ reviews, average, total }: ReviewCarouselProps)
                   <span className="text-muted-foreground/40">{"★".repeat(5 - stars)}</span>
                 </p>
                 <blockquote className="font-display text-2xl italic leading-snug sm:text-[34px]">“{review.body}”</blockquote>
+                <ReviewMedia
+                  items={review.media}
+                  customerName={review.customerName}
+                  visible={4}
+                  thumbClassName="size-16 sm:size-20"
+                  className="mt-8 justify-center"
+                  onViewerChange={setViewing}
+                />
                 <div className="mt-10 flex items-center justify-center gap-4">
                   {isCloudinaryUrl(review.avatarUrl) ? (
                     <Image src={review.avatarUrl} alt="" width={56} height={56} className="h-14 w-14 shrink-0 rounded-full object-cover" />

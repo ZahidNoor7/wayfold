@@ -103,15 +103,15 @@ export function contactFormSchema(today: string) {
           .min(MESSAGE_MIN, `Write a short message (at least ${MESSAGE_MIN} characters).`)
           .max(MESSAGE_MAX, `Keep your message under ${MESSAGE_MAX} characters.`),
       ),
-    /** Honeypot: people never see it, so it stays empty. */
-    topic: z.string(),
+    /** Hidden trap field: people never see it, so it normally stays empty. */
+    trap: z.string(),
   });
 }
 
 export type ContactFormValues = z.input<ReturnType<typeof contactFormSchema>>;
 export type ContactFormOutput = z.output<ReturnType<typeof contactFormSchema>>;
 
-export const EMPTY_CONTACT_FORM: ContactFormValues = { name: "", email: "", phone: "", preferredDate: "", tourId: "", message: "", topic: "" };
+export const EMPTY_CONTACT_FORM: ContactFormValues = { name: "", email: "", phone: "", preferredDate: "", tourId: "", message: "", trap: "" };
 
 /** Form fields in the order they appear, for moving focus to the first one with an error. */
 export const CONTACT_FIELD_ORDER = ["name", "email", "phone", "preferredDate", "tourId", "message"] as const;

@@ -24,6 +24,12 @@ import { addMember, createGrant, createPlatformAdmin } from "./support";
 // next/headers needs a live Next.js request; next/navigation is the real one,
 // so redirects are the genuine NEXT_REDIRECT errors the framework throws.
 vi.mock("next/headers", () => import("./fake-request"));
+vi.mock("next/server", async (importOriginal) => ({
+  ...(await importOriginal<typeof import("next/server")>()),
+  // Tests run outside a Next.js request, where `connection()` has nothing to wait for.
+  connection: () => waitForRequest(),
+}));
+const waitForRequest = vi.hoisted(() => vi.fn(async () => undefined));
 
 const ORIGINAL_APP_URL = process.env.APP_URL;
 
@@ -83,6 +89,12 @@ describe("session cookie", () => {
 });
 
 describe("getSession", () => {
+  it("waits for the real request before touching the database", async () => {
+    waitForRequest.mockClear();
+    await getSession();
+    expect(waitForRequest).toHaveBeenCalledTimes(1);
+  });
+
   it("is null without a cookie", async () => {
     expect(await getSession()).toBeNull();
   });

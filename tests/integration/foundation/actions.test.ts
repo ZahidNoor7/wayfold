@@ -29,6 +29,8 @@ const scheduled = vi.hoisted(() => [] as (() => unknown)[]);
 vi.mock("next/server", async (importOriginal) => ({
   ...(await importOriginal<typeof import("next/server")>()),
   after: (task: () => unknown) => void scheduled.push(task),
+  // Tests run outside a Next.js request, where `connection()` has nothing to wait for.
+  connection: async () => undefined,
 }));
 
 const noteSchema = z.object({ name: z.string().trim().min(2, "Enter a name.") });

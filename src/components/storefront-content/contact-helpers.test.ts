@@ -99,7 +99,7 @@ describe("contactFormSchema", () => {
 
   it("accepts a minimal message and tidies whitespace", () => {
     const result = schema.parse({ ...valid, name: "  Daniel   Okafor ", email: " daniel@example.com ", phone: " +44  7700 900123 ", message: "  Line one\r\nline two  " });
-    expect(result).toMatchObject({ name: "Daniel Okafor", email: "daniel@example.com", phone: "+44 7700 900123", message: "Line one\nline two", preferredDate: "", tourId: "", topic: "" });
+    expect(result).toMatchObject({ name: "Daniel Okafor", email: "daniel@example.com", phone: "+44 7700 900123", message: "Line one\nline two", preferredDate: "", tourId: "", trap: "" });
   });
 
   it("starts empty and reports the three required fields", () => {
@@ -129,8 +129,8 @@ describe("contactFormSchema", () => {
     expect(messagesFor({ ...valid, preferredDate: "next May" }).preferredDate).toBe("Choose a date from the calendar.");
   });
 
-  it("passes the tour choice and the honeypot through untouched", () => {
-    expect(schema.parse({ ...valid, tourId: "abc", topic: "spam" })).toMatchObject({ tourId: "abc", topic: "spam" });
+  it("passes the tour choice and the trap field through untouched", () => {
+    expect(schema.parse({ ...valid, tourId: "abc", trap: "spam" })).toMatchObject({ tourId: "abc", trap: "spam" });
   });
 });
 

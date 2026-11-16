@@ -20,6 +20,11 @@ import {
   type ContactFormValues,
 } from "./contact-helpers";
 
+/** Milliseconds since `start`, or null when the start was never recorded. */
+function msSince(start: number | null): number | null {
+  return start === null ? null : Date.now() - start;
+}
+
 interface ContactMessage {
   name: string;
   email: string;
@@ -28,6 +33,7 @@ interface ContactMessage {
   preferredDate?: string | null;
   message: string;
   topic?: string;
+  elapsedMs?: number | null;
 }
 
 interface ContactFormProps {
@@ -66,6 +72,8 @@ export function ContactForm({ action, businessName, tours, today, responseTime, 
   const confirmation = useRef<HTMLHeadingElement>(null);
   const failure = useRef<HTMLDivElement>(null);
   const startingOver = useRef(false);
+  // When the form appeared, so the server can tell a person from a script (see isAutomatedSubmission).
+  const shownAt = useRef<number | null>(null);
   const messageId = useId();
   const messageLength = useWatch({ control, name: "message" }).length;
   // A failure that belongs to no field is shown above the button.
@@ -73,6 +81,10 @@ export function ContactForm({ action, businessName, tours, today, responseTime, 
 
   // The confirmation replaces the form (and the form replaces it again), so
   // focus is carried across instead of being dropped on <body>.
+  useEffect(() => {
+    if (!sent) shownAt.current = Date.now();
+  }, [sent]);
+
   useEffect(() => {
     if (sent) confirmation.current?.focus();
     else if (startingOver.current) {
@@ -85,7 +97,9 @@ export function ContactForm({ action, businessName, tours, today, responseTime, 
     if (formError) failure.current?.focus();
   }, [formError]);
 
-  const onSubmit = handleSubmit(async (values) => {
+  // Built per submit, with the time the visitor took measured in the event handler.
+  const send = (elapsedMs: number | null) =>
+    handleSubmit(async (values) => {
     const result = await run({
       name: values.name,
       email: values.email,
@@ -93,7 +107,8 @@ export function ContactForm({ action, businessName, tours, today, responseTime, 
       tourId: values.tourId || null,
       preferredDate: values.preferredDate || null,
       message: values.message,
-      topic: values.topic,
+      topic: values.trap,
+      elapsedMs,
     });
     if (result.ok) {
       setSent({ firstName: firstName(values.name), email: values.email });
@@ -149,7 +164,7 @@ export function ContactForm({ action, businessName, tours, today, responseTime, 
   const messageError = errors.message?.message ?? null;
 
   return (
-    <form noValidate onSubmit={onSubmit} className="card relative flex flex-col gap-5 p-6 sm:p-9">
+    <form noValidate onSubmit={(event) => void send(msSince(shownAt.current))(event)} className="card relative flex flex-col gap-5 p-6 sm:p-9">
       <div>
         <h2 className="font-display text-3xl font-medium text-primary">Send a message</h2>
         {responseTime ? <p className="mt-1 text-sm text-muted-foreground">{responseTime}</p> : null}
@@ -216,11 +231,25 @@ export function ContactForm({ action, businessName, tours, today, responseTime, 
         </span>
       </div>
 
-      {/* Honeypot. Off-screen, out of the tab order and hidden from assistive technology: only a script fills it. */}
+      {/*
+        Trap field: off-screen, out of the tab order and hidden from assistive
+        technology, so only a script fills it. Its name and the data-* hints keep
+        browser autofill and password managers away from it; if one fills it
+        anyway, the server still keeps the message (see isAutomatedSubmission).
+      */}
       <div aria-hidden="true" className="absolute -left-[9999px] top-0 h-px w-px overflow-hidden">
         <label>
           Leave this field empty
-          <input {...register("topic")} type="text" tabIndex={-1} autoComplete="off" />
+          <input
+            {...register("trap")}
+            type="text"
+            tabIndex={-1}
+            autoComplete="off"
+            data-1p-ignore=""
+            data-lpignore="true"
+            data-bwignore=""
+            data-form-type="other"
+          />
         </label>
       </div>
 

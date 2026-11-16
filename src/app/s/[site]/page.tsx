@@ -141,6 +141,7 @@ async function Home({ params }: HomeProps) {
             reviewedOn: review.reviewedOn,
             tourTitle: review.tour?.title ?? null,
             avatarUrl: review.avatarUrl,
+            media: review.media.map(({ id, url, alt, resourceType }) => ({ id, url, alt, resourceType })),
           }))}
           average={data.reviewSummary.average}
           total={data.reviewSummary.total}

@@ -19,6 +19,8 @@ interface ReviewMediaProps {
   thumbClassName?: string;
   /** Viewer surfaces sit on a dark scrim; the strip itself follows the page. */
   className?: string;
+  /** Told when the viewer opens and closes, e.g. so a rotating carousel holds still meanwhile. */
+  onViewerChange?: (open: boolean) => void;
 }
 
 const VIEWER_BUTTON = "btn btn-icon-lg rounded-full border border-white/40 text-white hover:bg-white/10";
@@ -29,11 +31,17 @@ const VIEWER_BUTTON = "btn btn-icon-lg rounded-full border border-white/40 text-
  * (focus trapped and returned, Escape closes); arrow keys and a horizontal
  * swipe move between files, and videos play with the browser's own controls.
  */
-export function ReviewMedia({ items, customerName, visible = 4, thumbClassName = "size-16 sm:size-[72px]", className }: ReviewMediaProps) {
+export function ReviewMedia({ items, customerName, visible = 4, thumbClassName = "size-16 sm:size-[72px]", className, onViewerChange }: ReviewMediaProps) {
   const files = playableReviewFiles(items, isCloudinaryUrl);
   const [index, setIndex] = useState<number | null>(null);
   const swipeStart = useRef<number | null>(null);
+  // The thumbnail that opened the viewer, so closing it returns focus there.
+  const opener = useRef<HTMLButtonElement | null>(null);
   const total = files.length;
+  const view = (next: number | null) => {
+    setIndex(next);
+    onViewerChange?.(next !== null);
+  };
   if (total === 0) return null;
 
   const shown = files.slice(0, Math.max(1, visible));
@@ -74,7 +82,10 @@ export function ReviewMedia({ items, customerName, visible = 4, thumbClassName =
                   thumbClassName,
                 )}
                 aria-label={`Open ${describeReviewFile(item, position, total, customerName)}${more ? `, and ${hidden} more` : ""}`}
-                onClick={() => setIndex(position)}
+                onClick={(event) => {
+                  opener.current = event.currentTarget;
+                  view(position);
+                }}
               >
                 <Image
                   src={item.resourceType === "video" ? videoPosterUrl(item.url) : item.url}
@@ -101,15 +112,20 @@ export function ReviewMedia({ items, customerName, visible = 4, thumbClassName =
         })}
       </ul>
 
-      <Dialog.Root open={current !== null} onOpenChange={(next) => (next ? undefined : setIndex(null))}>
+      <Dialog.Root open={current !== null} onOpenChange={(next) => (next ? undefined : view(null))}>
         <Dialog.Portal>
           <Dialog.Overlay className="overlay z-[60] bg-black/90" />
           <Dialog.Content
             aria-describedby={undefined}
             className="fixed inset-0 z-[60] flex animate-fade-in flex-col items-center justify-center p-4 outline-none sm:p-8"
             onKeyDown={onKeyDown}
+            onCloseAutoFocus={(event) => {
+              if (!opener.current?.isConnected) return;
+              event.preventDefault();
+              opener.current.focus();
+            }}
             onClick={(event) => {
-              if (event.target === event.currentTarget) setIndex(null);
+              if (event.target === event.currentTarget) view(null);
             }}
           >
             <Dialog.Title className="sr-only">Photos and videos from {customerName}</Dialog.Title>
