@@ -28,10 +28,28 @@ export const reviews = pgTable(
     updatedAt: updatedAt(),
   },
   (t) => [
+    unique("reviews_tenant_id_id_key").on(t.tenantId, t.id),
     index("reviews_tenant_published_idx").on(t.tenantId, t.isPublished, t.reviewedOn),
     foreignKey({ name: "reviews_tour_fk", columns: [t.tenantId, t.tourId], foreignColumns: [tours.tenantId, tours.id] }),
     foreignKey({ name: "reviews_avatar_fk", columns: [t.tenantId, t.avatarMediaId], foreignColumns: [mediaAssets.tenantId, mediaAssets.id] }),
     check("reviews_rating_check", sql`${t.rating} between 1 and 5`),
+  ],
+);
+
+/** Photos and videos attached to a review, in display order. */
+export const reviewMedia = pgTable(
+  "review_media",
+  {
+    id: id(),
+    tenantId: tenantId().references(() => tenants.id, { onDelete: "cascade" }),
+    reviewId: uuid("review_id").notNull(),
+    mediaId: uuid("media_id").notNull(),
+    sortOrder: integer("sort_order").notNull().default(0),
+  },
+  (t) => [
+    uniqueIndex("review_media_key").on(t.tenantId, t.reviewId, t.mediaId),
+    foreignKey({ name: "review_media_review_fk", columns: [t.tenantId, t.reviewId], foreignColumns: [reviews.tenantId, reviews.id] }).onDelete("cascade"),
+    foreignKey({ name: "review_media_media_fk", columns: [t.tenantId, t.mediaId], foreignColumns: [mediaAssets.tenantId, mediaAssets.id] }).onDelete("cascade"),
   ],
 );
 

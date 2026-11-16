@@ -1,11 +1,14 @@
 import "server-only";
-import { and, asc, count, desc, eq, ilike, or, type SQL } from "drizzle-orm";
+import { and, asc, count, desc, eq, ilike, inArray, or, type SQL } from "drizzle-orm";
 import { z } from "zod";
 import { recordAudit } from "../audit";
 import type { TenantScope } from "../db/context";
-import { mediaAssets, reviews, tours } from "../db/schema";
+import { mediaAssets, reviewMedia, reviews, tours } from "../db/schema";
 import { NotFoundError } from "../errors";
 import { guardedWrite, isoDate, likePattern, pageSchema, parseInput, plainText, requireId, type ConstraintMap, type Page } from "./shared";
+
+/** Most photos and videos one review can carry. */
+export const REVIEW_MEDIA_MAX = 12;
 
 const fields = {
   customerName: plainText(120, { min: 2, minMessage: "Add the customer's name." }),
@@ -21,6 +24,11 @@ const fields = {
   isVerified: z.boolean(),
   isFeatured: z.boolean(),
   isPublished: z.boolean(),
+  /** Photos and videos from the media library, in display order. */
+  mediaIds: z
+    .array(z.uuid())
+    .max(REVIEW_MEDIA_MAX, `Attach up to ${REVIEW_MEDIA_MAX} photos or videos.`)
+    .refine((ids) => new Set(ids).size === ids.length, { error: "Each file can only be attached once." }),
 };
 
 // No Zod defaults here on purpose: in Zod 4 a default also fires for a key
@@ -34,8 +42,18 @@ const CONSTRAINTS: ConstraintMap = {
   foreignKeys: {
     reviews_tour_fk: { field: "tourId", message: "Choose one of your tours." },
     reviews_avatar_fk: { field: "avatarMediaId", message: "Choose an image from your media library." },
+    review_media_media_fk: { field: "mediaIds", message: "Choose photos and videos from your media library." },
   },
 };
+
+export interface ReviewMediaItem {
+  id: string;
+  url: string;
+  alt: string;
+  resourceType: "image" | "video";
+  width: number | null;
+  height: number | null;
+}
 
 export interface ReviewView {
   id: string;
@@ -50,6 +68,8 @@ export interface ReviewView {
   isPublished: boolean;
   tour: { id: string; title: string } | null;
   avatar: { id: string; url: string } | null;
+  /** Attached photos and videos, in display order. */
+  media: ReviewMediaItem[];
   createdAt: Date;
   updatedAt: Date;
 }
@@ -97,13 +117,50 @@ interface ViewRow {
   updatedAt: Date;
 }
 
-function toView(row: ViewRow): ReviewView {
+function toView(row: ViewRow, media: ReviewMediaItem[] = []): ReviewView {
   const { tourId, tourTitle, avatarMediaId, avatarUrl, ...rest } = row;
   return {
     ...rest,
     tour: tourId && tourTitle !== null ? { id: tourId, title: tourTitle } : null,
     avatar: avatarMediaId && avatarUrl !== null ? { id: avatarMediaId, url: avatarUrl } : null,
+    media,
   };
+}
+
+/** Attached media for a page of reviews, in one query, keyed by review id. */
+async function mediaFor(scope: TenantScope, reviewIds: string[]): Promise<Map<string, ReviewMediaItem[]>> {
+  const byReview = new Map<string, ReviewMediaItem[]>();
+  if (reviewIds.length === 0) return byReview;
+  const rows = await scope.tx
+    .select({
+      reviewId: reviewMedia.reviewId,
+      id: mediaAssets.id,
+      url: mediaAssets.url,
+      alt: mediaAssets.alt,
+      resourceType: mediaAssets.resourceType,
+      width: mediaAssets.width,
+      height: mediaAssets.height,
+    })
+    .from(reviewMedia)
+    .innerJoin(mediaAssets, and(eq(mediaAssets.tenantId, reviewMedia.tenantId), eq(mediaAssets.id, reviewMedia.mediaId)))
+    .where(and(eq(reviewMedia.tenantId, scope.tenantId), inArray(reviewMedia.reviewId, reviewIds)))
+    .orderBy(reviewMedia.reviewId, asc(reviewMedia.sortOrder));
+  for (const { reviewId, ...item } of rows) {
+    const list = byReview.get(reviewId) ?? [];
+    list.push(item);
+    byReview.set(reviewId, list);
+  }
+  return byReview;
+}
+
+/** Replaces a review's attachments with `mediaIds`, in that order. */
+async function replaceMedia(scope: TenantScope, reviewId: string, mediaIds: string[]): Promise<void> {
+  await scope.tx.delete(reviewMedia).where(and(eq(reviewMedia.tenantId, scope.tenantId), eq(reviewMedia.reviewId, reviewId)));
+  if (mediaIds.length === 0) return;
+  // The composite key refuses another workspace's file; guardedWrite turns that into a field error.
+  await guardedWrite(scope, CONSTRAINTS, (tx) =>
+    tx.insert(reviewMedia).values(mediaIds.map((mediaId, index) => ({ tenantId: scope.tenantId, reviewId, mediaId, sortOrder: index }))),
+  );
 }
 
 export async function getReview(scope: TenantScope, id: string): Promise<ReviewView> {
@@ -117,7 +174,7 @@ export async function getReview(scope: TenantScope, id: string): Promise<ReviewV
     .limit(1);
   // Same answer whether the id is unknown or belongs to another workspace.
   if (!row) throw new NotFoundError("Review");
-  return toView(row);
+  return toView(row, (await mediaFor(scope, [row.id])).get(row.id));
 }
 
 export const listReviewsSchema = z.object({
@@ -155,7 +212,8 @@ export async function listReviews(scope: TenantScope, input: ListReviewsInput = 
     .limit(filters.limit)
     .offset(filters.offset);
   const [totals] = await scope.tx.select({ total: count() }).from(reviews).where(where);
-  return { items: rows.map(toView), total: totals?.total ?? 0 };
+  const media = await mediaFor(scope, rows.map((row) => row.id));
+  return { items: rows.map((row) => toView(row, media.get(row.id))), total: totals?.total ?? 0 };
 }
 
 export async function createReview(scope: TenantScope, input: CreateReviewInput): Promise<ReviewView> {
@@ -183,6 +241,7 @@ export async function createReview(scope: TenantScope, input: CreateReviewInput)
       .returning({ id: reviews.id }),
   );
   const id = row!.id;
+  if (data.mediaIds?.length) await replaceMedia(scope, id, data.mediaIds);
   await recordAudit(scope, { action: "review.created", targetType: "review", targetId: id });
   return getReview(scope, id);
 }
@@ -200,12 +259,15 @@ async function patchReview(scope: TenantScope, id: string, patch: Partial<typeof
 }
 
 export async function updateReview(scope: TenantScope, id: string, input: UpdateReviewInput): Promise<ReviewView> {
-  const data = parseInput(updateReviewSchema, input);
+  const { mediaIds, ...data } = parseInput(updateReviewSchema, input);
   // Only keys the caller actually sent; everything else keeps its value.
   const patch = Object.fromEntries(Object.entries(data).filter(([, value]) => value !== undefined));
-  if (Object.keys(patch).length === 0) return getReview(scope, id);
-  await patchReview(scope, id, patch);
-  await recordAudit(scope, { action: "review.updated", targetType: "review", targetId: id, metadata: { fields: Object.keys(patch) } });
+  if (Object.keys(patch).length === 0 && mediaIds === undefined) return getReview(scope, id);
+  if (Object.keys(patch).length > 0) await patchReview(scope, id, patch);
+  else await getReview(scope, id); // a media-only change still needs the review to be this workspace's
+  if (mediaIds !== undefined) await replaceMedia(scope, id, mediaIds);
+  const changed = [...Object.keys(patch), ...(mediaIds !== undefined ? ["mediaIds"] : [])];
+  await recordAudit(scope, { action: "review.updated", targetType: "review", targetId: id, metadata: { fields: changed } });
   return getReview(scope, id);
 }
 
@@ -248,6 +310,8 @@ export interface PublicReview {
   /** Present only while the tour itself is published. */
   tour: { id: string; slug: string; title: string } | null;
   avatarUrl: string | null;
+  /** Attached photos and videos, in display order. */
+  media: ReviewMediaItem[];
 }
 
 const publicColumns = {
@@ -269,15 +333,15 @@ const publicColumns = {
 // A draft or archived tour must not surface through a review that links to it.
 const publishedTourJoin = and(tourJoin, eq(tours.status, "published"));
 
-interface PublicRow extends Omit<PublicReview, "tour"> {
+interface PublicRow extends Omit<PublicReview, "tour" | "media"> {
   tourId: string | null;
   tourSlug: string | null;
   tourTitle: string | null;
 }
 
-function toPublic(row: PublicRow): PublicReview {
+function toPublic(row: PublicRow, media: ReviewMediaItem[] = []): PublicReview {
   const { tourId, tourSlug, tourTitle, ...rest } = row;
-  return { ...rest, tour: tourId && tourSlug !== null && tourTitle !== null ? { id: tourId, slug: tourSlug, title: tourTitle } : null };
+  return { ...rest, tour: tourId && tourSlug !== null && tourTitle !== null ? { id: tourId, slug: tourSlug, title: tourTitle } : null, media };
 }
 
 export const listPublishedReviewsSchema = z.object({
@@ -314,7 +378,8 @@ export async function listPublishedReviews(scope: TenantScope, input: ListPublis
     .limit(options.limit)
     .offset(options.offset);
   const [totals] = await scope.tx.select({ total: count() }).from(reviews).where(where);
-  return { items: rows.map(toPublic), total: totals?.total ?? 0 };
+  const media = await mediaFor(scope, rows.map((row) => row.id));
+  return { items: rows.map((row) => toPublic(row, media.get(row.id))), total: totals?.total ?? 0 };
 }
 
 /** Featured testimonials for the home page and the reviews page header. */
@@ -328,7 +393,8 @@ export async function listFeaturedReviews(scope: TenantScope, limit = 6): Promis
     .where(and(eq(reviews.tenantId, scope.tenantId), eq(reviews.isPublished, true), eq(reviews.isFeatured, true)))
     .orderBy(desc(reviews.reviewedOn), desc(reviews.createdAt), desc(reviews.id))
     .limit(size);
-  return rows.map(toPublic);
+  const media = await mediaFor(scope, rows.map((row) => row.id));
+  return rows.map((row) => toPublic(row, media.get(row.id)));
 }
 
 export type Rating = 1 | 2 | 3 | 4 | 5;

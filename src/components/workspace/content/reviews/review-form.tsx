@@ -9,6 +9,8 @@ import { Spinner } from "@/components/overlays";
 import { PLAIN_LINE_HINT, PLAIN_TEXT_HINT, plainTextField, serverErrorEntries } from "@/components/workspace/content/helpers";
 import { MediaField, type MediaChoice } from "@/components/workspace/content/media-field";
 import { useAction } from "@/hooks/use-action";
+import { ReviewMediaField } from "./review-media-field";
+import type { ReviewMediaChoice } from "./review-media";
 import { StarRatingInput } from "./star-rating-input";
 import type { ReviewItem, TourOption } from "./types";
 
@@ -22,6 +24,7 @@ const reviewSchema = z.object({
   reviewedOn: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Choose the date of the review."),
   tourId: z.string(),
   avatar: z.custom<MediaChoice | null>(),
+  media: z.custom<ReviewMediaChoice[]>(),
   isVerified: z.boolean(),
   isFeatured: z.boolean(),
   isPublished: z.boolean(),
@@ -29,7 +32,7 @@ const reviewSchema = z.object({
 type ReviewValues = z.infer<typeof reviewSchema>;
 
 /** Server field names that differ from the form's. */
-const SERVER_FIELD: Record<string, keyof ReviewValues> = { avatarMediaId: "avatar" };
+const SERVER_FIELD: Record<string, keyof ReviewValues> = { avatarMediaId: "avatar", mediaIds: "media" };
 const FORM_FIELDS = new Set<string>(Object.keys(reviewSchema.shape));
 
 function defaultsFor(review: ReviewItem | null, today: string): ReviewValues {
@@ -42,6 +45,7 @@ function defaultsFor(review: ReviewItem | null, today: string): ReviewValues {
     reviewedOn: review?.reviewedOn ?? today,
     tourId: review?.tour?.id ?? "",
     avatar: review?.avatar ? { id: review.avatar.id, url: review.avatar.url } : null,
+    media: review?.media.map(({ id, url, alt, resourceType }) => ({ id, url, alt, resourceType })) ?? [],
     isVerified: review?.isVerified ?? false,
     isFeatured: review?.isFeatured ?? false,
     // A review the guide adds is published straight away unless switched off.
@@ -77,6 +81,7 @@ export function ReviewForm({ review, tours, today, canUpload, onCancel, onSaved 
       reviewedOn: values.reviewedOn,
       tourId: values.tourId || null,
       avatarMediaId: values.avatar?.id ?? null,
+      mediaIds: values.media.map((item) => item.id),
       isVerified: values.isVerified,
       isFeatured: values.isFeatured,
       isPublished: values.isPublished,
@@ -157,6 +162,12 @@ export function ReviewForm({ review, tours, today, canUpload, onCancel, onSaved 
               pickerTitle="Choose a customer photo"
             />
           )}
+        />
+
+        <Controller
+          control={form.control}
+          name="media"
+          render={({ field }) => <ReviewMediaField value={field.value} onChange={field.onChange} error={message("media")} canUpload={canUpload} />}
         />
 
         <label className="flex cursor-pointer items-center gap-3 text-sm font-semibold">

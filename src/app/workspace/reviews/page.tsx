@@ -58,6 +58,7 @@ function toItem(review: ReviewView): ReviewItem {
     isPublished: review.isPublished,
     tour: review.tour,
     avatar: review.avatar,
+    media: review.media.map(({ id, url, alt, resourceType }) => ({ id, url, alt, resourceType })),
   };
 }
 

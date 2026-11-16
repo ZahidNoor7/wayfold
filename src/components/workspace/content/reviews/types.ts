@@ -13,6 +13,8 @@ export interface ReviewItem {
   isPublished: boolean;
   tour: { id: string; title: string } | null;
   avatar: { id: string; url: string } | null;
+  /** Photos and videos shared with the review, in display order. */
+  media: { id: string; url: string; alt: string; resourceType: "image" | "video" }[];
 }
 
 /** A tour a review can be linked to. */

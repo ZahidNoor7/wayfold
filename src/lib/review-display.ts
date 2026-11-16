@@ -159,3 +159,24 @@ export function showingLine(shown: number, total: number, rating: Rating | null)
   const base = `Showing ${visible} of ${total}`;
   return rating ? `${base} · ${rating}-star only` : base;
 }
+
+/* ------------------------------------------------- photos and videos */
+
+/** A photo or video shared with a review, as the website shows it. */
+export interface ReviewFile {
+  id: string;
+  url: string;
+  alt: string;
+  resourceType: "image" | "video";
+}
+
+/** Only files delivered from a media library are shown; any other address is skipped. */
+export function playableReviewFiles<T extends ReviewFile>(items: readonly T[], isLibraryUrl: (url: string) => boolean): T[] {
+  return items.filter((item) => isLibraryUrl(item.url));
+}
+
+/** The file's own description, or "Photo 2 of 3 from Anna" when it has none. */
+export function describeReviewFile(item: ReviewFile, position: number, total: number, customerName: string): string {
+  const kind = item.resourceType === "video" ? "Video" : "Photo";
+  return item.alt.trim() || `${kind} ${position + 1} of ${total} from ${customerName}`;
+}

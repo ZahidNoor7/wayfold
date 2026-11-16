@@ -23,6 +23,7 @@ import {
 import { isCloudinaryUrl } from "@/lib/storefront-format";
 import { cn } from "@/lib/utils";
 import type { PublicReview } from "@/server/content/reviews";
+import { ReviewMedia } from "./review-media";
 import { Paragraphs, Stars } from "./prose";
 
 /**
@@ -98,6 +99,7 @@ function ReviewCard({ review, index }: { review: PublicReview; index: number }) 
       <Stars rating={review.rating} className="tracking-[2px]" />
       {review.title ? <h3 className="font-display text-2xl font-semibold text-primary">{review.title}</h3> : null}
       <Paragraphs text={review.body} className="gap-3" paragraphClassName="text-[15px] leading-relaxed text-foreground/85" />
+      <ReviewMedia items={review.media} customerName={review.customerName} className="mt-1" />
       <div className="mt-2 flex flex-wrap items-center justify-between gap-2 border-t pt-4">
         {review.tour ? (
           <Link href={`/experiences/${review.tour.slug}`} className="text-[13px] font-semibold text-eyebrow underline-offset-4 hover:underline">

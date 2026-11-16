@@ -20,6 +20,7 @@ import { cn } from "@/lib/utils";
 import { getTourAvailability, MAX_AVAILABILITY_DAYS } from "@/server/bookings/availability";
 import { getPublishedTourBySlug, listPublishedTours, type PublicTourDetail } from "@/server/catalog/storefront";
 import { listPublishedReviews } from "@/server/content/reviews";
+import { ReviewMedia } from "@/components/storefront-content/review-media";
 import type { TenantScope } from "@/server/db/context";
 import { env } from "@/server/env";
 import { NotFoundError } from "@/server/errors";
@@ -475,6 +476,7 @@ async function Content({ params }: Props) {
                       <Stars rating={review.rating} className="mb-2" />
                       {review.title ? <p className="mb-1 font-semibold">{review.title}</p> : null}
                       <p className="whitespace-pre-line text-[15px] leading-relaxed text-foreground/85">{review.body}</p>
+                      <ReviewMedia items={review.media} customerName={review.customerName} visible={3} thumbClassName="size-14" className="mt-3" />
                       {review.isVerified ? (
                         <span className="badge badge-verified mt-4">
                           <Check aria-hidden="true" className="size-3" />

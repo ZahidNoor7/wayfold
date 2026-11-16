@@ -16,6 +16,7 @@ import { formatDate } from "@/lib/booking-display";
 import { initials, starLabel, starString } from "@/lib/review-display";
 import { reviewsListHref } from "./params";
 import { ReviewForm } from "./review-form";
+import { describeReviewMedia } from "./review-media";
 import type { ReviewItem, TourOption } from "./types";
 
 interface ReviewsBoardProps {
@@ -191,6 +192,21 @@ function ReviewCard({ review, busy, onEdit, onTogglePublish, onToggleFeature, on
       <p className="text-xs text-muted-foreground">{meta}</p>
       {review.title ? <p className="font-display text-xl font-semibold text-primary">{review.title}</p> : null}
       <p className="line-clamp-6 whitespace-pre-line text-[13px] leading-relaxed text-muted-foreground">{review.body}</p>
+
+      {review.media.length > 0 ? (
+        <ul className="flex gap-1.5" aria-label={`Attached: ${describeReviewMedia(review.media)}`}>
+          {review.media.slice(0, 4).map((item, index) => (
+            <li key={item.id} className="relative">
+              <MediaThumb media={item} alt="" className="size-12 rounded-md border" sizes="48px" />
+              {index === 3 && review.media.length > 4 ? (
+                <span aria-hidden="true" className="absolute inset-0 flex items-center justify-center rounded-md bg-black/55 text-xs font-bold text-white">
+                  +{review.media.length - 4}
+                </span>
+              ) : null}
+            </li>
+          ))}
+        </ul>
+      ) : null}
 
       <div className="flex flex-wrap gap-1.5">
         {review.isVerified ? <span className="badge badge-verified">Verified booking</span> : <span className="badge badge-manual">Added by guide</span>}

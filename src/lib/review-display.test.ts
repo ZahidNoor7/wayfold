@@ -1,5 +1,7 @@
 import { describe, expect, it } from "vitest";
 import {
+  describeReviewFile,
+  playableReviewFiles,
   clampShown,
   DEFAULT_REVIEW_FILTERS,
   distributionRows,
@@ -193,5 +195,23 @@ describe("copy helpers", () => {
   it("describes what is shown", () => {
     expect(showingLine(6, 14, null)).toBe("Showing 6 of 14");
     expect(showingLine(12, 4, 4)).toBe("Showing 4 of 4 · 4-star only");
+  });
+});
+
+describe("review photos and videos", () => {
+  const photo = { id: "1", url: "https://res.cloudinary.com/demo/image/upload/a.jpg", alt: "", resourceType: "image" as const };
+  const video = { id: "2", url: "https://res.cloudinary.com/demo/video/upload/b.mp4", alt: "Mud volcano", resourceType: "video" as const };
+  const foreign = { id: "3", url: "https://example.com/c.jpg", alt: "", resourceType: "image" as const };
+
+  it("keeps only library files, in order", () => {
+    const isLibrary = (url: string) => url.startsWith("https://res.cloudinary.com/");
+    expect(playableReviewFiles([photo, foreign, video], isLibrary)).toEqual([photo, video]);
+    expect(playableReviewFiles([], isLibrary)).toEqual([]);
+  });
+
+  it("describes a file by its own text, or by kind, position and reviewer", () => {
+    expect(describeReviewFile(video, 1, 2, "Aiko T.")).toBe("Mud volcano");
+    expect(describeReviewFile(photo, 0, 2, "Aiko T.")).toBe("Photo 1 of 2 from Aiko T.");
+    expect(describeReviewFile({ ...video, alt: "   " }, 1, 2, "Aiko T.")).toBe("Video 2 of 2 from Aiko T.");
   });
 });

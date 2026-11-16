@@ -249,6 +249,7 @@ describe("reviews: storefront", () => {
       isFeatured: true,
       tour: { id: published.id, slug: published.slug, title: "Old City Walk" },
       avatarUrl: avatar.url,
+      media: [],
     });
     expect(result.items.find((review) => review.customerName === "Four")).toMatchObject({ isVerified: true, tour: null, avatarUrl: null });
   });
