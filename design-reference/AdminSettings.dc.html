@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Settings &amp; Appearance — Aurelia Admin</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="/_blob/70d0ec09cb9bf09f570d988b94190c96">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>body{margin:0}</style>
+</helmet>
+
+<div data-theme="{{uiTheme}}" data-font="{{uiFont}}" data-radius="{{uiRadius}}" class="{{uiDark}} min-h-screen overflow-x-clip bg-muted/40 font-sans text-foreground antialiased lg:flex">
+<div class="sticky top-0 z-40 flex h-14 items-center justify-between gap-2 border-b bg-background/95 px-3 backdrop-blur lg:hidden">
+<button type="button" onClick="{{toggleNav}}" aria-label="Open navigation" aria-expanded="{{navExpanded}}" class="btn btn-ghost btn-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h10"></path></svg></button>
+<a href="AdminOverview.dc.html" class="flex items-baseline gap-1.5"><span class="font-display text-xl font-semibold text-primary">Aurelia</span><span class="text-[10px] font-semibold uppercase tracking-[0.28em] text-eyebrow">Admin</span></a>
+<div class="flex items-center"><button type="button" onClick="{{cycleMode}}" aria-label="{{modeLabel}}" class="btn btn-ghost btn-icon"><sc-if value="{{isDark}}" hint-placeholder-val="{{ false }}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path></svg></sc-if><sc-if value="{{isLight}}" hint-placeholder-val="{{ true }}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"></path></svg></sc-if></button><span class="avatar h-8 w-8 text-xs">LM</span></div>
+</div>
+<sc-if value="{{navOpen}}" hint-placeholder-val="{{ false }}">
+<div class="overlay lg:hidden" onClick="{{toggleNav}}"></div>
+<aside role="dialog" aria-modal="true" aria-label="Admin navigation" class="sheet-left overflow-y-auto lg:hidden">
+<div class="flex h-14 items-center justify-between border-b px-4"><span class="flex items-baseline gap-1.5"><span class="font-display text-2xl font-semibold text-primary">Aurelia</span><span class="text-[10px] font-semibold uppercase tracking-[0.28em] text-eyebrow">Admin</span></span><button type="button" onClick="{{toggleNav}}" aria-label="Close navigation" class="btn btn-ghost btn-icon">✕</button></div>
+<div class="py-3"><nav aria-label="Admin (mobile)" class="flex flex-col gap-1 px-3">
+<p class="px-3 pb-1 pt-2 text-xs font-semibold text-muted-foreground">Business</p>
+<a href="AdminOverview.dc.html" class="side-link h-11 lg:h-10"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="3" y="3" width="7" height="9" rx="1.5"></rect><rect x="14" y="3" width="7" height="5" rx="1.5"></rect><rect x="14" y="12" width="7" height="9" rx="1.5"></rect><rect x="3" y="16" width="7" height="5" rx="1.5"></rect></svg>Overview</a>
+<a href="AdminBookings.dc.html" class="side-link h-11 lg:h-10"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"></rect><path d="M3 10h18M8 3v4M16 3v4"></path></svg>Bookings<span class="badge badge-highlight ml-auto">7</span></a>
+<p class="px-3 pb-1 pt-4 text-xs font-semibold text-muted-foreground">Content</p>
+<a href="AdminPackages.dc.html" class="side-link h-11 lg:h-10"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"></path><circle cx="12" cy="9.5" r="2.5"></circle></svg>Packages, reviews &amp; journey</a>
+<a href="AdminPromotions.dc.html" class="side-link h-11 lg:h-10"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><path d="M20.6 13.4l-7.2 7.2a2 2 0 0 1-2.8 0L3 13V3h10l7.6 7.6a2 2 0 0 1 0 2.8z"></path><circle cx="7.5" cy="7.5" r="1.5"></circle></svg>Discounts &amp; offers<span class="badge badge-pending ml-auto">2</span></a>
+<p class="px-3 pb-1 pt-4 text-xs font-semibold text-muted-foreground">Website</p>
+<a href="AdminSettings.dc.html" aria-current="page" class="side-link h-11 lg:h-10"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><circle cx="13.5" cy="6.5" r="1.5"></circle><circle cx="17.5" cy="10.5" r="1.5"></circle><circle cx="8.5" cy="7.5" r="1.5"></circle><circle cx="6.5" cy="12.5" r="1.5"></circle><path d="M12 2a10 10 0 1 0 0 20c1 0 1.7-.8 1.7-1.7 0-.5-.2-.9-.5-1.2-.3-.3-.5-.7-.5-1.2 0-.9.8-1.7 1.7-1.7H16a6 6 0 0 0 6-6C22 5.8 17.5 2 12 2z"></path></svg>Settings &amp; appearance</a>
+</nav></div>
+<div class="mt-auto flex flex-col gap-3 border-t p-4">
+<label class="flex flex-col gap-1.5"><span class="text-xs font-semibold text-muted-foreground">Theme</span><select class="select" value="{{ui.theme}}" onChange="{{pickTheme}}"><option value="emerald">Emerald &amp; Gold</option><option value="caspian">Caspian Blue</option><option value="pomegranate">Pomegranate</option><option value="graphite">Graphite</option></select></label>
+<div class="flex items-center gap-3"><span class="avatar">LM</span><span class="min-w-0 flex-1 text-sm"><span class="block font-bold">Leyla Mammadova</span><a href="Main.dc.html" class="text-eyebrow underline-offset-4 hover:underline">View website ↗</a></span></div>
+</div>
+</aside>
+</sc-if>
+<aside class="hidden shrink-0 border-r bg-card lg:sticky lg:top-0 lg:flex lg:h-screen lg:w-64 lg:flex-col lg:overflow-y-auto">
+<div class="flex h-20 items-center px-5"><a href="AdminOverview.dc.html" class="flex items-baseline gap-2"><span class="font-display text-2xl font-semibold text-primary">Aurelia</span><span class="text-[10px] font-semibold uppercase tracking-[0.28em] text-eyebrow">Admin</span></a></div>
+<nav aria-label="Admin" class="flex flex-col gap-1 px-3">
+<p class="px-3 pb-1 pt-2 text-xs font-semibold text-muted-foreground">Business</p>
+<a href="AdminOverview.dc.html" class="side-link h-11 lg:h-10"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="3" y="3" width="7" height="9" rx="1.5"></rect><rect x="14" y="3" width="7" height="5" rx="1.5"></rect><rect x="14" y="12" width="7" height="9" rx="1.5"></rect><rect x="3" y="16" width="7" height="5" rx="1.5"></rect></svg>Overview</a>
+<a href="AdminBookings.dc.html" class="side-link h-11 lg:h-10"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"></rect><path d="M3 10h18M8 3v4M16 3v4"></path></svg>Bookings<span class="badge badge-highlight ml-auto">7</span></a>
+<p class="px-3 pb-1 pt-4 text-xs font-semibold text-muted-foreground">Content</p>
+<a href="AdminPackages.dc.html" class="side-link h-11 lg:h-10"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"></path><circle cx="12" cy="9.5" r="2.5"></circle></svg>Packages, reviews &amp; journey</a>
+<a href="AdminPromotions.dc.html" class="side-link h-11 lg:h-10"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><path d="M20.6 13.4l-7.2 7.2a2 2 0 0 1-2.8 0L3 13V3h10l7.6 7.6a2 2 0 0 1 0 2.8z"></path><circle cx="7.5" cy="7.5" r="1.5"></circle></svg>Discounts &amp; offers<span class="badge badge-pending ml-auto">2</span></a>
+<p class="px-3 pb-1 pt-4 text-xs font-semibold text-muted-foreground">Website</p>
+<a href="AdminSettings.dc.html" aria-current="page" class="side-link h-11 lg:h-10"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><circle cx="13.5" cy="6.5" r="1.5"></circle><circle cx="17.5" cy="10.5" r="1.5"></circle><circle cx="8.5" cy="7.5" r="1.5"></circle><circle cx="6.5" cy="12.5" r="1.5"></circle><path d="M12 2a10 10 0 1 0 0 20c1 0 1.7-.8 1.7-1.7 0-.5-.2-.9-.5-1.2-.3-.3-.5-.7-.5-1.2 0-.9.8-1.7 1.7-1.7H16a6 6 0 0 0 6-6C22 5.8 17.5 2 12 2z"></path></svg>Settings &amp; appearance</a>
+</nav>
+<div class="mt-auto flex items-center gap-3 border-t p-4"><span class="avatar">LM</span><span class="min-w-0 text-sm"><span class="block font-bold">Leyla Mammadova</span><a href="Main.dc.html" class="text-eyebrow underline-offset-4 hover:underline">View website ↗</a></span></div>
+</aside>
+
+<main class="min-w-0 flex-1 p-5 sm:p-8">
+<div class="mb-6"><p class="text-[13px] text-muted-foreground">Manage your profile, website content and how your site looks.</p><h1 class="font-display text-3xl font-semibold text-primary sm:text-4xl">Settings &amp; appearance</h1></div>
+<div role="tablist" aria-label="Settings sections" class="tabs-list no-scrollbar mb-6 max-w-full justify-start overflow-x-auto"><sc-for list="{{secs}}" as="t" hint-placeholder-count="4"><button type="button" role="tab" aria-selected="{{t.on}}" onClick="{{t.pick}}" class="tabs-trigger">{{t.label}}</button></sc-for></div>
+
+<sc-if value="{{secAppearance}}" hint-placeholder-val="{{ true }}">
+<div class="grid gap-6 2xl:grid-cols-[1fr_420px]">
+<div class="flex flex-col gap-6">
+<section class="card" aria-labelledby="th">
+<div class="card-header"><h2 id="th" class="card-title">Theme</h2><p class="card-description">Your brand colours across the public website and this dashboard. Changes apply instantly.</p></div>
+<div class="card-content"><div role="radiogroup" aria-labelledby="th" class="grid gap-4 sm:grid-cols-2">
+<sc-for list="{{themes}}" as="t" hint-placeholder-count="4">
+<button type="button" role="radio" aria-checked="{{t.on}}" onClick="{{t.pick}}" class="group flex flex-col gap-3 rounded-xl border-2 border-border p-3 text-left transition-all hover:border-ring aria-checked:border-primary aria-checked:shadow-md">
+<div data-theme="{{t.id}}" class="{{t.darkCls}} overflow-hidden rounded-lg border bg-background">
+<div class="flex h-14 items-end bg-hero p-3"><span class="font-display text-lg leading-none text-hero-foreground">Aurelia <span class="text-highlight">Journeys</span></span></div>
+<div class="flex items-center gap-2 p-3"><span class="h-7 flex-1 rounded-md bg-primary"></span><span class="h-7 w-10 rounded-md bg-highlight"></span><span class="h-7 w-10 rounded-md bg-secondary"></span><span class="h-7 w-10 rounded-md border bg-card"></span></div>
+</div>
+<span class="flex items-center justify-between gap-2"><span><span class="block font-bold">{{t.name}}</span><span class="text-xs text-muted-foreground">{{t.desc}}</span></span><span class="flex h-5 w-5 shrink-0 items-center justify-center rounded-full border-2 border-primary"><sc-if value="{{t.sel}}" hint-placeholder-val="{{ false }}"><span class="h-2.5 w-2.5 rounded-full bg-primary"></span></sc-if></span></span>
+</button>
+</sc-for>
+</div></div>
+</section>
+<section class="card" aria-labelledby="cs">
+<div class="card-header"><h2 id="cs" class="card-title">Colour scheme</h2><p class="card-description">Light, dark, or follow each visitor’s device setting.</p></div>
+<div class="card-content"><div role="radiogroup" aria-labelledby="cs" class="grid grid-cols-3 gap-3">
+<sc-for list="{{modes}}" as="m" hint-placeholder-count="3"><button type="button" role="radio" aria-checked="{{m.on}}" onClick="{{m.pick}}" class="flex flex-col items-center gap-2 rounded-lg border-2 border-border p-4 text-sm font-semibold transition-all hover:border-ring aria-checked:border-primary aria-checked:bg-accent"><svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="{{m.icon}}"></path></svg>{{m.label}}</button></sc-for>
+</div></div>
+</section>
+<div class="grid gap-6 md:grid-cols-2">
+<section class="card" aria-labelledby="rd"><div class="card-header"><h2 id="rd" class="card-title">Corner style</h2><p class="card-description">Buttons, cards and inputs.</p></div><div class="card-content"><div role="radiogroup" aria-labelledby="rd" class="grid grid-cols-4 gap-2"><sc-for list="{{radii}}" as="r" hint-placeholder-count="4"><button type="button" role="radio" aria-checked="{{r.on}}" onClick="{{r.pick}}" class="flex flex-col items-center gap-2 rounded-lg border-2 border-border p-3 text-xs font-semibold aria-checked:border-primary aria-checked:bg-accent"><span class="h-7 w-9 border-2 border-l-primary border-t-primary border-b-transparent border-r-transparent" style="border-top-left-radius: {{r.px}}"></span>{{r.label}}</button></sc-for></div></div></section>
+<section class="card" aria-labelledby="fn"><div class="card-header"><h2 id="fn" class="card-title">Heading font</h2><p class="card-description">Body text stays Manrope.</p></div><div class="card-content"><div role="radiogroup" aria-labelledby="fn" class="grid grid-cols-3 gap-2"><sc-for list="{{fonts}}" as="f" hint-placeholder-count="3"><button type="button" role="radio" aria-checked="{{f.on}}" onClick="{{f.pick}}" class="flex flex-col items-center gap-1 rounded-lg border-2 border-border p-3 aria-checked:border-primary aria-checked:bg-accent"><span data-font="{{f.id}}" class="font-display text-3xl leading-none">Aa</span><span class="text-xs font-semibold">{{f.label}}</span></button></sc-for></div></div></section>
+</div>
+<div class="flex flex-wrap gap-2"><a href="Main.dc.html" class="btn btn-default">Preview website ↗</a><button type="button" onClick="{{resetUi}}" class="btn btn-outline">Reset to default</button></div>
+</div>
+<aside class="card h-fit overflow-hidden 2xl:sticky 2xl:top-8" aria-label="Live preview">
+<div class="flex items-center justify-between border-b px-5 py-3"><span class="text-sm font-semibold">Live preview</span><span class="badge badge-outline">{{themeName}} · {{modeName}}</span></div>
+<div class="relative h-48 overflow-hidden bg-hero"><img src="{{I.oldcity}}" alt="" class="absolute inset-0 h-full w-full object-cover opacity-60"><div class="relative flex h-full flex-col justify-end p-5 text-hero-foreground"><p class="text-[10px] font-semibold uppercase tracking-[0.24em] text-highlight">Private journeys · Azerbaijan</p><p class="font-display text-3xl leading-none">Discover the world <em class="text-highlight">through local eyes.</em></p></div></div>
+<div class="flex flex-col gap-4 bg-background p-5">
+<div class="flex flex-wrap gap-2"><span class="btn btn-highlight btn-sm rounded-full">Book a Tour</span><span class="btn btn-default btn-sm rounded-full">Explore</span><span class="btn btn-outline btn-sm rounded-full">Contact</span></div>
+<div class="card overflow-hidden"><img src="{{I.sheki}}" alt="" class="h-28 w-full object-cover"><div class="flex flex-col gap-1 p-4"><span class="flex justify-between text-xs text-muted-foreground"><span>Sheki</span><span class="font-semibold text-foreground">★ 4.9</span></span><span class="font-display text-xl font-semibold text-primary">Silk Road to Sheki</span><span class="text-xs text-muted-foreground">3 days · from <strong class="text-foreground">$690</strong></span></div></div>
+<div class="flex flex-wrap gap-2"><span class="badge badge-default">Featured</span><span class="badge badge-secondary">Cultural</span><span class="badge badge-pending">Pending</span><span class="badge badge-confirmed">Confirmed</span></div>
+<label class="flex flex-col gap-1.5"><span class="label">Email</span><input class="input" placeholder="name@example.com"></label>
+</div>
+</aside>
+</div>
+</sc-if>
+
+<sc-if value="{{secProfile}}" hint-placeholder-val="{{ false }}">
+<form class="flex max-w-4xl flex-col gap-6">
+<section class="card"><div class="card-header"><h2 class="card-title">Profile</h2><p class="card-description">Shown on the About page and homepage introduction.</p></div><div class="card-content flex flex-col gap-4">
+<div class="flex flex-wrap items-center gap-4"><span class="avatar h-16 w-16 text-lg">LM</span><label class="btn btn-outline cursor-pointer">Change photo<input type="file" accept="image/*" class="sr-only"></label><label class="btn btn-outline cursor-pointer">Upload logo<input type="file" accept="image/*" class="sr-only"></label></div>
+<div class="grid gap-4 sm:grid-cols-2"><label class="flex flex-col gap-2"><span class="label">Full name</span><input class="input" value="{{st.name}}" onInput="{{onSt.name}}"></label><label class="flex flex-col gap-2"><span class="label">Brand name</span><input class="input" value="{{st.brand}}" onInput="{{onSt.brand}}"></label></div>
+<div class="grid gap-4 sm:grid-cols-2"><label class="flex flex-col gap-2"><span class="label">Languages</span><input class="input" value="{{st.langs}}" onInput="{{onSt.langs}}"></label><label class="flex flex-col gap-2"><span class="label">Years of experience</span><input class="input" type="number" value="{{st.years}}" onInput="{{onSt.years}}"></label></div>
+<label class="flex flex-col gap-2"><span class="label">About section</span><textarea class="textarea" rows="4" value="{{st.about}}" onInput="{{onSt.about}}"></textarea></label>
+<label class="flex flex-col gap-2"><span class="label">Experience &amp; qualifications <span class="font-normal text-muted-foreground">· one per line</span></span><textarea class="textarea" rows="3" value="{{st.quals}}" onInput="{{onSt.quals}}"></textarea></label>
+</div></section>
+<div class="flex gap-2"><button type="button" onClick="{{save}}" class="btn btn-default">Save changes</button></div>
+</form>
+</sc-if>
+
+<sc-if value="{{secContact}}" hint-placeholder-val="{{ false }}">
+<form class="flex max-w-4xl flex-col gap-6">
+<section class="card"><div class="card-header"><h2 class="card-title">Contact &amp; social</h2><p class="card-description">Used in the header, footer, contact page and WhatsApp buttons.</p></div><div class="card-content flex flex-col gap-4">
+<div class="grid gap-4 sm:grid-cols-3"><label class="flex flex-col gap-2"><span class="label">Email</span><input class="input" type="email" value="{{st.email}}" onInput="{{onSt.email}}"></label><label class="flex flex-col gap-2"><span class="label">WhatsApp number</span><input class="input" value="{{st.wa}}" onInput="{{onSt.wa}}"></label><label class="flex flex-col gap-2"><span class="label">Working hours</span><input class="input" value="{{st.hours}}" onInput="{{onSt.hours}}"></label></div>
+<div class="grid gap-4 sm:grid-cols-3"><label class="flex flex-col gap-2"><span class="label">Instagram</span><input class="input" value="{{st.ig}}" onInput="{{onSt.ig}}"></label><label class="flex flex-col gap-2"><span class="label">YouTube</span><input class="input" value="{{st.yt}}" onInput="{{onSt.yt}}"></label><label class="flex flex-col gap-2"><span class="label">Facebook</span><input class="input" value="{{st.fb}}" onInput="{{onSt.fb}}"></label></div>
+</div></section>
+<div><button type="button" onClick="{{save}}" class="btn btn-default">Save changes</button></div>
+</form>
+</sc-if>
+
+<sc-if value="{{secSeo}}" hint-placeholder-val="{{ false }}">
+<form class="flex max-w-4xl flex-col gap-6">
+<section class="card"><div class="card-header"><h2 class="card-title">SEO, homepage &amp; footer</h2><p class="card-description">How your site appears in search and what visitors see first.</p></div><div class="card-content flex flex-col gap-4">
+<label class="flex flex-col gap-2"><span class="label">SEO title <span class="font-normal text-muted-foreground">· {{seoTN}} / 60</span></span><input class="input" value="{{st.seoT}}" onInput="{{onSt.seoT}}"></label>
+<label class="flex flex-col gap-2"><span class="label">SEO description <span class="font-normal text-muted-foreground">· {{seoDN}} / 160</span></span><textarea class="textarea" rows="2" value="{{st.seoD}}" onInput="{{onSt.seoD}}"></textarea></label>
+<div class="rounded-lg border bg-muted/40 p-4"><p class="text-xs text-muted-foreground">Search preview</p><p class="mt-1 text-[17px] text-sky-700 dark:text-sky-400">{{st.seoT}}</p><p class="text-xs text-emerald-700 dark:text-emerald-400">aureliajourneys.az</p><p class="mt-0.5 text-[13px] text-muted-foreground">{{st.seoD}}</p></div>
+<div class="grid gap-4 sm:grid-cols-2"><label class="flex flex-col gap-2"><span class="label">Homepage headline</span><input class="input" value="{{st.hero}}" onInput="{{onSt.hero}}"></label><label class="flex flex-col gap-2"><span class="label">Homepage featured tours</span><select class="select" value="{{st.featMode}}" onChange="{{onSt.featMode}}"><option value="manual">Packages marked “Featured”</option><option value="popular">Most popular automatically</option><option value="rated">Highest rated automatically</option></select></label></div>
+<label class="flex flex-col gap-2"><span class="label">Footer description</span><textarea class="textarea" rows="2" value="{{st.footer}}" onInput="{{onSt.footer}}"></textarea></label>
+</div></section>
+<div><button type="button" onClick="{{save}}" class="btn btn-default">Save changes</button></div>
+</form>
+</sc-if>
+</main>
+<sc-if value="{{toast}}" hint-placeholder-val="{{ false }}"><div role="status" class="toast"><span class="h-2 w-2 rounded-full bg-emerald-500"></span>{{toast}}</div></sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1500},"startSection":{"editor":"enum","options":["appearance","profile","contact","seo"],"default":"appearance"},"theme":{"editor":"enum","options":["admin","emerald","caspian","pomegranate","graphite"],"default":"admin","section":"Theme"},"mode":{"editor":"enum","options":["admin","light","dark","system"],"default":"admin","section":"Theme"}}'>
+class Component extends DCLogic {
+  constructor(p){ super(p); this.state = { sec: p.startSection || 'appearance', toast:'', st: { name:'Leyla Mammadova', brand:'Aurelia Journeys', langs:'Azerbaijani, English, Russian, Turkish', years:'12', about:'Born inside the walls of Icherisheher and trained as an art historian, I have spent twelve years sharing Azerbaijan with travellers from 41 countries.', quals:'Licensed Tour Guide — Azerbaijan Tourism Board\nMA Art History — Baku State University\nWilderness First Responder — NOLS', email:'hello@aureliajourneys.az', wa:'+994 50 123 45 67', hours:'Mon–Sat 9:00–19:00 AZT', ig:'@aureliajourneys', yt:'youtube.com/@aureliajourneys', fb:'facebook.com/aureliajourneys', seoT:'Aurelia Journeys — Private Tours in Azerbaijan', seoD:'Small-group and private journeys through Baku, Sheki, Gobustan and Khinalug, guided by licensed guide Leyla Mammadova.', hero:'Discover the world through local eyes.', featMode:'manual', footer:'Private and small-group journeys across Azerbaijan.' } }; }
+  img(){ return { baku:'/_blob/53de85c911d3fd172f7f056fc041c3f6', oldcity:'/_blob/71ba1da1636ea18bc8040e2f214c9564', gobustan:'/_blob/1d3b95a6d499c80338e0cfbcce073964', yanardag:'/_blob/caa98c1d37e045432aedeba5937e3fb1', sheki:'/_blob/99cec70a9ac8cc922169a9d4cda6cfd7', khinalug:'/_blob/b1e6bea4cb0d3847910a8759889b2e6b', caspian:'/_blob/feb92edafca2a9ad4057997c2c80419b', lankaran:'/_blob/b1af8e934de14e2a69509a83bda2b0e7' }; }
+  uiDefault(){ return { theme: 'emerald', mode: 'light', radius: 'md', font: 'classic' }; }
+  loadUi(){ try { const v = JSON.parse(window.localStorage.getItem('aj-ui') || 'null'); if (v) this.setState({ ui: { ...this.uiDefault(), ...v } }); } catch (e) {} }
+  uiInit(){
+    this.loadUi();
+    this._onStorage = (e) => { if (!e || !e.key || e.key === 'aj-ui') this.loadUi(); };
+    window.addEventListener('storage', this._onStorage);
+    try { this._bc = new BroadcastChannel('aj-ui'); this._bc.onmessage = (m) => { if (m && m.data) this.setState({ ui: { ...this.uiDefault(), ...m.data } }); }; } catch (e) {}
+    try { this._mq = window.matchMedia('(prefers-color-scheme: dark)'); this._mqh = () => this.forceUpdate(); this._mq.addEventListener('change', this._mqh); } catch (e) {}
+    this._onScroll = () => { const s = (window.scrollY || 0) > 40; if (s !== !!(this.state || {}).scrolled) this.setState({ scrolled: s }); };
+    window.addEventListener('scroll', this._onScroll, { passive: true });
+  }
+  uiDestroy(){
+    window.removeEventListener('storage', this._onStorage); window.removeEventListener('scroll', this._onScroll);
+    try { this._bc && this._bc.close(); } catch (e) {} try { this._mq && this._mq.removeEventListener('change', this._mqh); } catch (e) {}
+  }
+  saveUi(patch){
+    const u = { ...this.uiDefault(), ...((this.state || {}).ui || {}), ...patch };
+    try { window.localStorage.setItem('aj-ui', JSON.stringify(u)); } catch (e) {}
+    try { const bc = new BroadcastChannel('aj-ui'); bc.postMessage(u); bc.close(); } catch (e) {}
+    this.setState({ ui: u });
+  }
+  uiVals(overHero){
+    const st = this.state || {}, p = this.props || {};
+    const u = { ...this.uiDefault(), ...(st.ui || {}) };
+    if (p.theme && p.theme !== 'admin') u.theme = p.theme;
+    if (p.mode && p.mode !== 'admin') u.mode = p.mode;
+    let dark = u.mode === 'dark';
+    if (u.mode === 'system') { try { dark = window.matchMedia('(prefers-color-scheme: dark)').matches; } catch (e) {} }
+    const solid = !overHero || st.scrolled || st.menu;
+    const hdr = solid
+      ? { cls: 'sticky top-0 z-40 border-b bg-background/90 backdrop-blur-md transition-colors duration-300' + (overHero ? ' -mb-20' : ''), link: '', logo: 'text-primary', sub: 'text-eyebrow', icon: 'btn-outline' }
+      : { cls: 'sticky top-0 z-40 -mb-20 border-b border-transparent bg-transparent transition-colors duration-300', link: 'text-hero-foreground hover:bg-hero-foreground/10 hover:text-hero-foreground aria-[current=page]:text-highlight', logo: 'text-hero-foreground', sub: 'text-highlight', icon: 'btn-hero-outline' };
+    return {
+      ui: u, uiTheme: u.theme, uiFont: u.font, uiRadius: u.radius, uiDark: dark ? 'dark' : 'light', isDark: dark, isLight: !dark,
+      offerCount: (() => { try { const D = this.promoData ? this.promoData() : null; return D ? D.campaigns.filter(x => this.campStatus(x) === 'Active' && x.visibility === 'public').length : 4; } catch (e) { return 4; } })(),
+      navOpen: !!st.nav, navExpanded: st.nav ? 'true' : 'false', toggleNav: () => this.setState({ nav: !(this.state || {}).nav }),
+      hdr, menuOpen: !!st.menu, menuExpanded: st.menu ? 'true' : 'false', toggleMenu: () => this.setState({ menu: !(this.state || {}).menu }),
+      cycleMode: () => this.saveUi({ mode: dark ? 'light' : 'dark' }), modeLabel: dark ? 'Switch to light mode' : 'Switch to dark mode',
+      pickTheme: (e) => this.saveUi({ theme: e.target.value })
+    };
+  }
+
+  componentDidMount(){ this.uiInit(); }
+  componentWillUnmount(){ this.uiDestroy(); clearTimeout(this.tt); }
+  flash(m){ clearTimeout(this.tt); this.setState({ toast:m }); this.tt = setTimeout(() => this.setState({ toast:'' }), 3000); }
+  renderVals(){
+    const s = this.state, v = this.uiVals(false), u = v.ui;
+    const TH = [ ['emerald','Emerald & Gold','Deep emerald, ivory and champagne'], ['caspian','Caspian Blue','Sea blue, sand and copper'], ['pomegranate','Pomegranate','Garnet red, cream and saffron'], ['graphite','Graphite','Neutral shadcn zinc with amber'] ];
+    const MO = [ ['light','Light','M12 3v2M12 19v2M5 5l1.5 1.5M17.5 17.5L19 19M3 12h2M19 12h2M5 19l1.5-1.5M17.5 6.5L19 5M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8z'], ['dark','Dark','M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z'], ['system','System','M3 5h18v11H3zM8 20h8M12 16v4'] ];
+    const set = (patch, msg) => { this.saveUi(patch); this.flash(msg); };
+    const onSt = {}; Object.keys(s.st).forEach(k => onSt[k] = (e) => this.setState({ st: { ...this.state.st, [k]: e.target.value } }));
+    return {
+      ...v, I: this.img(),
+      secs: [['appearance','Appearance'],['profile','Profile'],['contact','Contact & social'],['seo','SEO & homepage']].map(([k, l]) => ({ label:l, on: s.sec === k ? 'true' : 'false', pick: () => this.setState({ sec:k }) })),
+      secAppearance: s.sec === 'appearance', secProfile: s.sec === 'profile', secContact: s.sec === 'contact', secSeo: s.sec === 'seo',
+      themes: TH.map(([id, name, desc]) => ({ id, name, desc, sel: u.theme === id, on: u.theme === id ? 'true' : 'false', darkCls: v.isDark ? 'dark' : 'light', pick: () => set({ theme:id }, name + ' theme applied to your website') })),
+      modes: MO.map(([id, label, icon]) => ({ label, icon, on: u.mode === id ? 'true' : 'false', pick: () => set({ mode:id }, label + ' colour scheme applied') })),
+      radii: [['none','Sharp','2px'],['sm','Subtle','6px'],['md','Soft','12px'],['lg','Round','20px']].map(([id, label, px]) => ({ label, px, on: u.radius === id ? 'true' : 'false', pick: () => set({ radius:id }, label + ' corners applied') })),
+      fonts: [['classic','Classic'],['modern','Modern'],['sans','Sans']].map(([id, label]) => ({ id, label, on: u.font === id ? 'true' : 'false', pick: () => set({ font:id }, label + ' headings applied') })),
+      themeName: (TH.find(t => t[0] === u.theme) || TH[0])[1], modeName: u.mode.charAt(0).toUpperCase() + u.mode.slice(1),
+      resetUi: () => set(this.uiDefault(), 'Appearance reset to default'),
+      st: s.st, onSt, seoTN: s.st.seoT.length, seoDN: s.st.seoD.length,
+      save: (e) => { e.preventDefault(); this.flash('Saved — changes are live on your website'); },
+      toast: s.toast
+    };
+  }
+}
+</script>
+</body>
+</html>

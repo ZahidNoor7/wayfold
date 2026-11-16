@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Mobile — Home</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="/_blob/70d0ec09cb9bf09f570d988b94190c96">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>body{margin:0}</style>
+</helmet>
+
+<div data-theme="{{uiTheme}}" data-font="{{uiFont}}" data-radius="{{uiRadius}}" class="{{uiDark}} relative overflow-x-clip min-h-[4300px] w-[390px] overflow-x-hidden bg-background font-sans text-foreground antialiased">
+<header class="{{hdrCls}}">
+<a href="MHome.dc.html" class="flex items-baseline gap-1.5"><span class="{{logoCls}}">Aurelia</span><span class="text-[9px] font-semibold uppercase tracking-[0.3em] text-highlight">Journeys</span></a>
+<div class="flex items-center gap-2"><a href="MBooking.dc.html" class="btn btn-highlight btn-sm rounded-full">Book</a><button type="button" onClick="{{toggleMenu}}" aria-label="Open menu" aria-expanded="{{menuExpanded}}" class="{{menuBtnCls}}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h10"></path></svg></button></div>
+</header>
+
+<section class="relative -mt-16 flex h-[640px] items-end overflow-hidden bg-hero">
+<img src="{{I.oldcity}}" alt="Maiden Tower and the walls of Icherisheher at golden hour" class="absolute inset-0 h-full w-full animate-hero-zoom object-cover">
+<div aria-hidden="true" class="absolute inset-0 bg-gradient-to-b from-hero/60 via-hero/10 to-hero/95"></div>
+<div class="relative w-full px-5 pb-10">
+<p class="mb-4 animate-rise text-[11px] font-semibold uppercase tracking-[0.26em] text-highlight delay-1">Private journeys · Azerbaijan</p>
+<h1 class="animate-rise font-display text-[46px] font-medium leading-[0.98] text-hero-foreground delay-2">Discover the world <em class="text-highlight">through local eyes.</em></h1>
+<p class="mt-4 animate-rise text-[15px] leading-relaxed text-hero-foreground/85 delay-3">Slow, personal journeys through the Land of Fire with Baku-born guide Leyla Mammadova.</p>
+<div class="mt-7 flex animate-rise flex-col gap-3 delay-4"><a href="MExperiences.dc.html" class="btn btn-highlight btn-xl rounded-full">Explore Experiences</a><a href="MBooking.dc.html" class="btn btn-hero-outline btn-xl rounded-full">Book Your Private Tour</a></div>
+</div>
+</section>
+
+<section aria-label="Highlights" class="grid grid-cols-2 gap-y-5 bg-primary px-5 py-7 text-primary-foreground">
+<div><p class="font-display text-3xl text-highlight">2,900+</p><p class="text-xs opacity-80">Guests guided</p></div><div><p class="font-display text-3xl text-highlight">940</p><p class="text-xs opacity-80">Tours completed</p></div><div><p class="font-display text-3xl text-highlight">48</p><p class="text-xs opacity-80">Places explored</p></div><div><p class="font-display text-3xl text-highlight">4.9 ★</p><p class="text-xs opacity-80">386 reviews</p></div>
+</section>
+
+<section class="py-14">
+<div class="px-5"><p class="eyebrow mb-3">Featured experiences</p><h2 class="font-display text-[34px] font-medium leading-tight text-primary">Journeys guests return for.</h2></div>
+<div role="group" aria-label="Filter by category" class="no-scrollbar mt-5 flex gap-2 overflow-x-auto px-5"><sc-for list="{{cats}}" as="c" hint-placeholder-count="6"><button type="button" class="chip h-9 shrink-0 px-3.5 text-[13px]" aria-pressed="{{c.on}}" onClick="{{c.pick}}">{{c.label}}</button></sc-for></div>
+<div class="no-scrollbar mt-5 flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-px-5 px-5 pb-2">
+<sc-for list="{{featured}}" as="t" hint-placeholder-count="3">
+<a href="MTour.dc.html" class="card flex w-[300px] shrink-0 snap-start flex-col overflow-hidden">
+<div class="relative h-48"><img src="{{t.img}}" alt="{{t.title}}" class="h-full w-full object-cover"><span class="badge badge-overlay absolute left-3 top-3">{{t.cat}}</span></div>
+<div class="flex flex-1 flex-col gap-1.5 p-4"><div class="flex justify-between text-xs text-muted-foreground"><span>{{t.place}} · {{t.dur}}</span><span class="font-semibold text-foreground">★ {{t.rating}}</span></div><h3 class="font-display text-2xl font-semibold leading-tight text-primary">{{t.title}}</h3><p class="mt-auto pt-2 text-[13px] text-muted-foreground">from <strong class="font-display text-xl text-primary">{{t.price}}</strong></p></div>
+</a>
+</sc-for>
+</div>
+<div class="mt-3 flex justify-center gap-1.5" aria-hidden="true"><span class="h-1.5 w-5 rounded-full bg-primary"></span><span class="h-1.5 w-1.5 rounded-full bg-muted-foreground/40"></span><span class="h-1.5 w-1.5 rounded-full bg-muted-foreground/40"></span></div>
+<div class="mt-5 px-5"><a href="MExperiences.dc.html" class="btn btn-outline btn-lg w-full rounded-full">View all 9 experiences</a></div>
+</section>
+
+<section class="bg-secondary/60 px-5 py-14">
+<div class="relative mb-10 overflow-hidden rounded-2xl bg-hero"><img src="{{I.sheki}}" alt="" class="h-72 w-full object-cover opacity-50"><div class="absolute inset-0 flex flex-col items-center justify-center gap-2 text-hero-foreground"><span class="flex h-24 w-24 items-center justify-center rounded-full border border-highlight font-display text-4xl text-highlight">LM</span><span class="text-[10px] uppercase tracking-[0.24em]">Portrait</span></div><div class="absolute bottom-4 right-4 rounded-lg bg-primary px-4 py-3 text-primary-foreground"><p class="font-display text-3xl leading-none text-highlight">12</p><p class="text-[11px]">years guiding</p></div></div>
+<p class="eyebrow mb-3">Your guide</p>
+<h2 class="font-display text-[40px] font-medium leading-none text-primary">Leyla Mammadova</h2>
+<p class="mb-4 mt-1 font-display text-lg italic text-eyebrow">Licensed guide · Art historian</p>
+<p class="text-[15px] leading-relaxed text-foreground/85">Born inside the walls of Icherisheher, I’ve spent twelve years sharing my country — from Quba’s carpet workshops to the stained glass of Sheki.</p>
+<div class="my-6 flex flex-wrap gap-2"><span class="badge badge-outline px-3 py-1">Azerbaijani</span><span class="badge badge-outline px-3 py-1">English</span><span class="badge badge-outline px-3 py-1">Russian</span><span class="badge badge-outline px-3 py-1">Turkish</span></div>
+<a href="About.dc.html" class="btn btn-default btn-lg w-full rounded-full">Discover My Story</a>
+</section>
+
+<section class="py-14">
+<div class="px-5"><p class="eyebrow mb-3">Popular destinations</p><h2 class="font-display text-[34px] font-medium leading-tight text-primary">From the Caspian to the Caucasus.</h2></div>
+<div class="no-scrollbar mt-6 flex snap-x snap-mandatory gap-3 overflow-x-auto scroll-px-5 px-5">
+<sc-for list="{{dests}}" as="d" hint-placeholder-count="4"><a href="MExperiences.dc.html" class="relative block h-96 w-[280px] shrink-0 snap-start overflow-hidden rounded-xl text-hero-foreground"><img src="{{d.img}}" alt="{{d.name}}" class="absolute inset-0 h-full w-full object-cover"><div aria-hidden="true" class="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-hero/90"></div><div class="absolute inset-x-5 bottom-5"><p class="text-[10px] font-semibold uppercase tracking-[0.22em] text-highlight">{{d.region}}</p><p class="font-display text-3xl">{{d.name}}</p><p class="text-[13px] opacity-90">{{d.line}}</p></div></a></sc-for>
+</div>
+</section>
+
+<section class="bg-hero px-5 py-14 text-hero-foreground">
+<p class="eyebrow mb-3 !text-highlight">Why travel with me</p>
+<h2 class="mb-6 font-display text-[34px] font-medium leading-tight">A guide, a host and a friend on the road.</h2>
+<div class="divide-y divide-highlight/25 border-y border-highlight/25">
+<sc-for list="{{why}}" as="w" hint-placeholder-count="6"><div><button type="button" onClick="{{w.toggle}}" aria-expanded="{{w.exp}}" class="accordion-trigger !py-4 text-left font-display text-xl font-medium hover:no-underline">{{w.t}}<svg class="!text-highlight" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg></button><sc-if value="{{w.open}}" hint-placeholder-val="{{ false }}"><p class="animate-fade-in pb-4 text-sm leading-relaxed text-hero-foreground/75">{{w.d}}</p></sc-if></div></sc-for>
+</div>
+</section>
+
+<section class="bg-secondary/60 px-5 py-14 text-center">
+<p class="eyebrow mb-3">Guest stories</p>
+<p class="mb-5 text-lg tracking-[3px] text-highlight" aria-label="5 out of 5 stars">★★★★★</p>
+<blockquote class="font-display text-[26px] italic leading-snug">“{{rev.text}}”</blockquote>
+<div class="mt-6 flex items-center justify-center gap-3"><span class="avatar">{{rev.init}}</span><div class="text-left"><p class="text-sm font-bold">{{rev.name}}</p><p class="text-xs text-muted-foreground">{{rev.tour}}</p></div></div>
+<div class="mt-6 flex items-center justify-center gap-3"><button type="button" onClick="{{prev}}" aria-label="Previous review" class="btn btn-outline btn-icon-lg rounded-full">←</button><span class="text-sm text-muted-foreground">{{revPos}}</span><button type="button" onClick="{{next}}" aria-label="Next review" class="btn btn-outline btn-icon-lg rounded-full">→</button></div>
+</section>
+
+<section class="relative overflow-hidden bg-hero px-5 py-20 text-center text-hero-foreground"><img src="{{I.baku}}" alt="" class="absolute inset-0 h-full w-full object-cover opacity-55"><div class="relative"><h2 class="font-display text-[40px] font-medium leading-none">Your next journey <em class="text-highlight">starts here.</em></h2><p class="mx-auto mt-4 text-[15px] text-hero-foreground/85">I reply personally within 24 hours.</p><div class="mt-7 flex flex-col gap-3"><a href="MBooking.dc.html" class="btn btn-highlight btn-xl rounded-full">Book Your Tour</a><a href="https://wa.me/994501234567" class="btn btn-hero-outline btn-xl rounded-full">WhatsApp Leyla</a></div></div></section>
+
+<footer class="bg-hero px-5 pb-28 pt-10 text-[13px] text-hero-foreground/75"><p class="font-display text-2xl text-hero-foreground">Aurelia <span class="text-highlight">Journeys</span></p><p class="mt-2">hello@aureliajourneys.az · +994 50 123 45 67</p><div class="mt-5 flex flex-wrap gap-x-5 gap-y-2"><a href="About.dc.html">About</a><a href="Reviews.dc.html">Reviews</a><a href="Contact.dc.html">Contact</a><a href="Contact.dc.html">Privacy</a><a href="Contact.dc.html">Terms</a></div><p class="mt-6 border-t border-hero-foreground/15 pt-5">© 2026 Aurelia Journeys</p></footer>
+
+<nav aria-label="App" class="sticky bottom-0 z-40 grid grid-cols-4 border-t bg-background/95 pb-5 pt-2 backdrop-blur">
+<a href="MHome.dc.html" aria-current="page" class="flex flex-col items-center gap-1 py-1 text-[11px] font-semibold text-muted-foreground aria-[current=page]:text-primary"><svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"></path></svg>Home</a>
+<a href="MExperiences.dc.html" class="flex flex-col items-center gap-1 py-1 text-[11px] font-semibold text-muted-foreground"><svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-4-4"></path></svg>Explore</a>
+<a href="Journey.dc.html" class="flex flex-col items-center gap-1 py-1 text-[11px] font-semibold text-muted-foreground"><svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"></rect><circle cx="9" cy="11" r="2"></circle><path d="M21 16l-5-5-8 8"></path></svg>Journey</a>
+<a href="MBooking.dc.html" class="flex flex-col items-center gap-1 py-1 text-[11px] font-semibold text-muted-foreground"><svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"></rect><path d="M3 10h18M8 3v4M16 3v4"></path></svg>Book</a>
+</nav>
+
+<sc-if value="{{menuOpen}}" hint-placeholder-val="{{ false }}">
+<div class="absolute inset-0 z-50 flex animate-fade-in flex-col bg-hero px-6 pb-10 pt-5 text-hero-foreground">
+<div class="mb-10 flex items-center justify-between"><span class="font-display text-2xl">Aurelia <span class="text-highlight">Journeys</span></span><button type="button" onClick="{{toggleMenu}}" aria-label="Close menu" class="btn btn-icon btn-hero-outline rounded-full">✕</button></div>
+<nav aria-label="Mobile" class="flex flex-col">
+<a href="MHome.dc.html" class="animate-menu-item border-b border-hero-foreground/15 py-3 font-display text-4xl text-highlight" style="animation-delay: .04s">Home</a>
+<a href="About.dc.html" class="animate-menu-item border-b border-hero-foreground/15 py-3 font-display text-4xl" style="animation-delay: .08s">About Me</a>
+<a href="MExperiences.dc.html" class="animate-menu-item border-b border-hero-foreground/15 py-3 font-display text-4xl" style="animation-delay: .12s">Experiences</a>
+<a href="Journey.dc.html" class="animate-menu-item border-b border-hero-foreground/15 py-3 font-display text-4xl" style="animation-delay: .16s">My Journey</a>
+<a href="Reviews.dc.html" class="animate-menu-item border-b border-hero-foreground/15 py-3 font-display text-4xl" style="animation-delay: .2s">Reviews</a>
+<a href="Contact.dc.html" class="animate-menu-item border-b border-hero-foreground/15 py-3 font-display text-4xl" style="animation-delay: .24s">Contact</a>
+</nav>
+<div class="mt-10 flex flex-col gap-3"><a href="MBooking.dc.html" class="btn btn-highlight btn-xl rounded-full">Book a Tour</a><a href="https://wa.me/994501234567" class="btn btn-hero-outline btn-xl rounded-full">Chat on WhatsApp</a></div>
+</div>
+</sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":4300},"menuOpen":{"editor":"boolean","default":false,"section":"States"},"theme":{"editor":"enum","options":["admin","emerald","caspian","pomegranate","graphite"],"default":"admin","section":"Theme"},"mode":{"editor":"enum","options":["admin","light","dark","system"],"default":"admin","section":"Theme"}}'>
+class Component extends DCLogic {
+  constructor(p){ super(p); this.state = { cat:'All', idx:0, why:0, menu: !!p.menuOpen }; }
+  img(){ return { baku:'/_blob/53de85c911d3fd172f7f056fc041c3f6', oldcity:'/_blob/71ba1da1636ea18bc8040e2f214c9564', gobustan:'/_blob/1d3b95a6d499c80338e0cfbcce073964', yanardag:'/_blob/caa98c1d37e045432aedeba5937e3fb1', sheki:'/_blob/99cec70a9ac8cc922169a9d4cda6cfd7', khinalug:'/_blob/b1e6bea4cb0d3847910a8759889b2e6b', caspian:'/_blob/feb92edafca2a9ad4057997c2c80419b', lankaran:'/_blob/b1af8e934de14e2a69509a83bda2b0e7' }; }
+  uiDefault(){ return { theme: 'emerald', mode: 'light', radius: 'md', font: 'classic' }; }
+  loadUi(){ try { const v = JSON.parse(window.localStorage.getItem('aj-ui') || 'null'); if (v) this.setState({ ui: { ...this.uiDefault(), ...v } }); } catch (e) {} }
+  uiInit(){
+    this.loadUi();
+    this._onStorage = (e) => { if (!e || !e.key || e.key === 'aj-ui') this.loadUi(); };
+    window.addEventListener('storage', this._onStorage);
+    try { this._bc = new BroadcastChannel('aj-ui'); this._bc.onmessage = (m) => { if (m && m.data) this.setState({ ui: { ...this.uiDefault(), ...m.data } }); }; } catch (e) {}
+    try { this._mq = window.matchMedia('(prefers-color-scheme: dark)'); this._mqh = () => this.forceUpdate(); this._mq.addEventListener('change', this._mqh); } catch (e) {}
+    this._onScroll = () => { const s = (window.scrollY || 0) > 40; if (s !== !!(this.state || {}).scrolled) this.setState({ scrolled: s }); };
+    window.addEventListener('scroll', this._onScroll, { passive: true });
+  }
+  uiDestroy(){
+    window.removeEventListener('storage', this._onStorage); window.removeEventListener('scroll', this._onScroll);
+    try { this._bc && this._bc.close(); } catch (e) {} try { this._mq && this._mq.removeEventListener('change', this._mqh); } catch (e) {}
+  }
+  saveUi(patch){
+    const u = { ...this.uiDefault(), ...((this.state || {}).ui || {}), ...patch };
+    try { window.localStorage.setItem('aj-ui', JSON.stringify(u)); } catch (e) {}
+    try { const bc = new BroadcastChannel('aj-ui'); bc.postMessage(u); bc.close(); } catch (e) {}
+    this.setState({ ui: u });
+  }
+  uiVals(overHero){
+    const st = this.state || {}, p = this.props || {};
+    const u = { ...this.uiDefault(), ...(st.ui || {}) };
+    if (p.theme && p.theme !== 'admin') u.theme = p.theme;
+    if (p.mode && p.mode !== 'admin') u.mode = p.mode;
+    let dark = u.mode === 'dark';
+    if (u.mode === 'system') { try { dark = window.matchMedia('(prefers-color-scheme: dark)').matches; } catch (e) {} }
+    const solid = !overHero || st.scrolled || st.menu;
+    const hdr = solid
+      ? { cls: 'sticky top-0 z-40 border-b bg-background/90 backdrop-blur-md transition-colors duration-300' + (overHero ? ' -mb-20' : ''), link: '', logo: 'text-primary', sub: 'text-eyebrow', icon: 'btn-outline' }
+      : { cls: 'sticky top-0 z-40 -mb-20 border-b border-transparent bg-transparent transition-colors duration-300', link: 'text-hero-foreground hover:bg-hero-foreground/10 hover:text-hero-foreground aria-[current=page]:text-highlight', logo: 'text-hero-foreground', sub: 'text-highlight', icon: 'btn-hero-outline' };
+    return {
+      ui: u, uiTheme: u.theme, uiFont: u.font, uiRadius: u.radius, uiDark: dark ? 'dark' : 'light', isDark: dark, isLight: !dark,
+      offerCount: (() => { try { const D = this.promoData ? this.promoData() : null; return D ? D.campaigns.filter(x => this.campStatus(x) === 'Active' && x.visibility === 'public').length : 4; } catch (e) { return 4; } })(),
+      navOpen: !!st.nav, navExpanded: st.nav ? 'true' : 'false', toggleNav: () => this.setState({ nav: !(this.state || {}).nav }),
+      hdr, menuOpen: !!st.menu, menuExpanded: st.menu ? 'true' : 'false', toggleMenu: () => this.setState({ menu: !(this.state || {}).menu }),
+      cycleMode: () => this.saveUi({ mode: dark ? 'light' : 'dark' }), modeLabel: dark ? 'Switch to light mode' : 'Switch to dark mode',
+      pickTheme: (e) => this.saveUi({ theme: e.target.value })
+    };
+  }
+
+  componentDidMount(){ this.uiInit(); }
+  componentDidUpdate(pp){ if (pp.menuOpen !== this.props.menuOpen) this.setState({ menu: !!this.props.menuOpen }); }
+  componentWillUnmount(){ this.uiDestroy(); }
+  renderVals(){
+    const I = this.img(), s = this.state, v = this.uiVals(true);
+    const tours = [ { title:'Fire & Stone: Gobustan & Yanar Dag', place:'Absheron', cat:'Adventure', dur:'1 day', price:'$165', rating:'5.0', img:I.gobustan }, { title:'Icherisheher & Flame Towers', place:'Baku', cat:'Historical', dur:'6 h', price:'$120', rating:'4.9', img:I.oldcity }, { title:'Silk Road to Sheki', place:'Sheki', cat:'Cultural', dur:'3 days', price:'$690', rating:'4.9', img:I.sheki }, { title:'Baku Food & Wine Evening', place:'Baku', cat:'Food & Local', dur:'4 h', price:'$85', rating:'4.9', img:I.baku }, { title:'Lankaran Tea & Hirkan Forest', place:'Lankaran', cat:'Family', dur:'3 days', price:'$560', rating:'4.8', img:I.lankaran } ];
+    const reviews = [ { text:'Leyla turned a holiday into the most meaningful two weeks of our lives.', name:'Eleanor Whitfield', tour:'Bespoke Azerbaijan', init:'EW' }, { text:'She knows every lane of Icherisheher — and every carpet seller’s grandmother.', name:'Daniel Okafor', tour:'Icherisheher & Flame Towers', init:'DO' }, { text:'Our children still talk about the mud volcanoes and the burning mountain.', name:'Sofia & Marco Bellini', tour:'Fire & Stone', init:'SB' } ];
+    const solid = s.scrolled || s.menu;
+    const W = [ ['Local expertise','Born in Baku’s old city and trained as an art historian — context you won’t find in a guidebook.'], ['Personalised journeys','Every itinerary starts with a conversation about what you love.'], ['Flexible itineraries','Weather, mood or a chance invitation — we adapt as the day unfolds.'], ['Professional guidance','Licensed, first-aid certified and trained for mountain routes.'], ['Safe & comfortable','Hand-picked drivers, vetted boutique stays and 24/7 support.'], ['Memorable moments','Long dinners, quiet viewpoints and friendships that outlast the trip.'] ];
+    return {
+      ...v, I,
+      hdrCls: 'sticky top-0 z-40 flex h-16 items-center justify-between px-5 transition-colors duration-300 ' + (solid ? 'border-b bg-background/95 backdrop-blur' : 'bg-transparent'),
+      logoCls: 'font-display text-[22px] font-semibold leading-none ' + (solid ? 'text-primary' : 'text-hero-foreground'),
+      menuBtnCls: 'btn btn-icon rounded-full ' + (solid ? 'btn-outline' : 'btn-hero-outline'),
+      cats: ['All','Cultural','Historical','Adventure','Food & Local','Family'].map(c => ({ label:c, on: c === s.cat ? 'true' : 'false', pick: () => this.setState({ cat:c }) })),
+      featured: s.cat === 'All' ? tours.slice(0, 3) : tours.filter(t => t.cat === s.cat),
+      dests: [ { name:'Baku', region:'Absheron', line:'Old walls and Flame Towers.', img:I.oldcity }, { name:'Sheki', region:'Shaki-Zagatala', line:'Silk Road palaces and halva.', img:I.sheki }, { name:'Gobustan', region:'Absheron', line:'Rock art and mud volcanoes.', img:I.gobustan }, { name:'Khinalug', region:'Quba', line:'A village at 2,300 m.', img:I.khinalug } ],
+      why: W.map(([t, d], i) => ({ t, d, open: s.why === i, exp: s.why === i ? 'true' : 'false', toggle: () => this.setState({ why: s.why === i ? -1 : i }) })),
+      rev: reviews[s.idx], revPos: (s.idx + 1) + ' / ' + reviews.length, prev: () => this.setState({ idx: (s.idx + 2) % 3 }), next: () => this.setState({ idx: (s.idx + 1) % 3 })
+    };
+  }
+}
+</script>
+</body>
+</html>

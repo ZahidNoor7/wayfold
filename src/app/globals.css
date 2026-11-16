@@ -1,0 +1,262 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+@import "./themes.css";
+@import "./components.css";
+
+/*
+ * Dark mode follows the surface, not the browser: a themed root carries
+ * `.dark`, `.light`, or `.mode-system` (which defers to the OS setting).
+ */
+@custom-variant dark {
+  &:where(.dark, .dark *) {
+    @slot;
+  }
+  @media (prefers-color-scheme: dark) {
+    &:where(.mode-system, .mode-system *) {
+      @slot;
+    }
+  }
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  /* Wayfold additions to the shadcn vocabulary. */
+  --color-hero: var(--hero);
+  --color-hero-foreground: var(--hero-foreground);
+  --color-highlight: var(--highlight);
+  --color-highlight-foreground: var(--highlight-foreground);
+  --color-eyebrow: var(--eyebrow);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+
+  --font-sans: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--wf-font-display);
+  --font-heading: var(--wf-font-display);
+  --font-mono: ui-monospace, "SF Mono", Menlo, monospace;
+
+  /* In-between sizes the design uses constantly. */
+  --text-2xs: 0.6875rem;
+  --text-2xs--line-height: 1rem;
+
+  --radius-sm: calc(var(--radius) * 0.5);
+  --radius-md: calc(var(--radius) * 0.75);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.35);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.4);
+
+  --ease-out-soft: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --ease-sheet: cubic-bezier(0.32, 0.72, 0, 1);
+
+  --animate-rise: rise 0.65s var(--ease-out-soft) both;
+  --animate-fade-in: fade-in 0.25s ease-out both;
+  --animate-menu-item: menu-item 0.45s var(--ease-out-soft) both;
+  --animate-sheet-bottom: sheet-bottom 0.34s var(--ease-sheet) both;
+  --animate-sheet-right: sheet-right 0.34s var(--ease-sheet) both;
+  --animate-sheet-left: sheet-left 0.34s var(--ease-sheet) both;
+  --animate-hero-zoom: hero-zoom 12s ease-out both;
+  --animate-pop: pop 0.45s var(--ease-out-soft) both;
+  --animate-grow: grow 0.7s var(--ease-out-soft) both;
+  --animate-dialog-in: dialog-in 0.22s var(--ease-out-soft) both;
+  --animate-page-in: page-in 0.32s var(--ease-out-soft) both;
+  --animate-swap-in: page-in 0.24s var(--ease-out-soft) both;
+
+  @keyframes rise {
+    from {
+      opacity: 0;
+      transform: translateY(16px);
+    }
+  }
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+  }
+  @keyframes menu-item {
+    from {
+      opacity: 0;
+      transform: translateX(20px);
+    }
+  }
+  @keyframes sheet-bottom {
+    from {
+      transform: translateY(100%);
+    }
+  }
+  @keyframes sheet-right {
+    from {
+      transform: translateX(100%);
+    }
+  }
+  @keyframes sheet-left {
+    from {
+      transform: translateX(-100%);
+    }
+  }
+  @keyframes hero-zoom {
+    from {
+      transform: scale(1.1);
+    }
+  }
+  @keyframes pop {
+    0% {
+      opacity: 0;
+      transform: scale(0.6);
+    }
+    60% {
+      transform: scale(1.08);
+    }
+  }
+  @keyframes grow {
+    from {
+      transform: scaleY(0);
+    }
+  }
+  @keyframes page-in {
+    from {
+      opacity: 0;
+      transform: translateY(6px);
+    }
+  }
+  @keyframes dialog-in {
+    from {
+      opacity: 0;
+      transform: translate(-50%, -48%) scale(0.97);
+    }
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    @apply font-sans;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    margin: 0;
+  }
+
+  /* One focus treatment everywhere; the design's markup carries none. */
+  :focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
+  }
+
+  button:not(:disabled),
+  [role="button"]:not([aria-disabled="true"]),
+  summary,
+  label[for],
+  select:not(:disabled) {
+    cursor: pointer;
+  }
+
+  /* Large display type tightens as it grows; body copy stays neutral. */
+  .font-display {
+    font-optical-sizing: auto;
+    letter-spacing: -0.012em;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  ::selection {
+    background: color-mix(in oklab, var(--highlight) 45%, transparent);
+  }
+
+  /* Anything positioned by an in-page anchor clears the sticky header. */
+  :target {
+    scroll-margin-top: 6rem;
+  }
+}
+
+@utility container-x {
+  margin-inline: auto;
+  width: 100%;
+  max-width: 80rem;
+  padding-inline: 1.25rem;
+  @variant sm {
+    padding-inline: 2rem;
+  }
+  @variant lg {
+    padding-inline: 3rem;
+  }
+}
+
+@utility no-scrollbar {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@utility safe-b {
+  padding-bottom: max(0.75rem, env(safe-area-inset-bottom));
+}
+
+@utility safe-t {
+  padding-top: env(safe-area-inset-top);
+}
+
+/* Stagger steps for `animate-rise` (the design called these delay-1..4). */
+@utility stagger-1 {
+  animation-delay: 0.1s;
+}
+@utility stagger-2 {
+  animation-delay: 0.2s;
+}
+@utility stagger-3 {
+  animation-delay: 0.3s;
+}
+@utility stagger-4 {
+  animation-delay: 0.4s;
+}
+
+/*
+ * Motion is an enhancement. People who ask for less get the final state at
+ * once: no slides, zooms or parallax, only the short fades that explain change.
+ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    animation-delay: 0s !important;
+    scroll-behavior: auto !important;
+  }
+  .animate-fade-in,
+  .overlay {
+    animation-duration: 0.15s !important;
+  }
+  .animate-spin {
+    animation-duration: 1s !important;
+    animation-iteration-count: infinite !important;
+  }
+}

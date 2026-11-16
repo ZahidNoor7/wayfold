@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Contact Leyla — Aurelia Journeys</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="/_blob/70d0ec09cb9bf09f570d988b94190c96">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>body{margin:0}</style>
+</helmet>
+
+<div data-theme="{{uiTheme}}" data-font="{{uiFont}}" data-radius="{{uiRadius}}" class="{{uiDark}} min-h-screen overflow-x-clip bg-background font-sans text-foreground antialiased">
+<header class="{{hdr.cls}}">
+<div class="container-x flex h-20 items-center justify-between gap-4">
+<a href="Main.dc.html" aria-label="Aurelia Journeys home" class="flex items-baseline gap-2"><span class="font-display text-[24px] font-semibold leading-none sm:text-[26px] {{hdr.logo}}">Aurelia</span><span class="text-[10px] font-semibold uppercase tracking-[0.32em] {{hdr.sub}}">Journeys</span></a>
+<nav aria-label="Main" class="hidden items-center gap-0.5 xl:flex">
+<a href="Main.dc.html" class="nav-link {{hdr.link}}">Home</a>
+<a href="About.dc.html" class="nav-link {{hdr.link}}">About Me</a>
+<a href="Experiences.dc.html" class="nav-link {{hdr.link}}">Experiences</a>
+<a href="Offers.dc.html" class="nav-link {{hdr.link}}">Offers<span class="ml-1.5 rounded-full bg-highlight px-1.5 text-[10px] font-bold text-highlight-foreground">{{offerCount}}</span></a>
+<a href="Journey.dc.html" class="nav-link {{hdr.link}}">My Journey</a>
+<a href="Reviews.dc.html" class="nav-link {{hdr.link}}">Reviews</a>
+<a href="Contact.dc.html" aria-current="page" class="nav-link {{hdr.link}}">Contact</a>
+</nav>
+<div class="flex items-center gap-2">
+<a href="https://wa.me/994501234567" aria-label="Chat on WhatsApp" class="btn btn-icon hidden rounded-full sm:inline-flex {{hdr.icon}}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21l1.6-4.8A8.5 8.5 0 1 1 7.8 19.4L3 21z"></path><path d="M9 9.5c.3 1.8 1.7 3.6 3.6 4.6l1.3-1.1 2 .9-.4 1.8c-3.6.2-7.4-3.4-7.3-7.1l1.8-.4.9 2z"></path></svg></a>
+<a href="Booking.dc.html" class="btn btn-highlight rounded-full px-4 sm:px-5"><span class="sm:hidden">Book</span><span class="hidden sm:inline">Book a Tour</span></a>
+<button type="button" onClick="{{toggleMenu}}" aria-label="Open menu" aria-expanded="{{menuExpanded}}" class="btn btn-icon rounded-full xl:hidden {{hdr.icon}}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h10"></path></svg></button>
+</div>
+</div>
+</header>
+<sc-if value="{{menuOpen}}" hint-placeholder-val="{{ false }}">
+<div class="overlay" onClick="{{toggleMenu}}"></div>
+<div role="dialog" aria-modal="true" aria-label="Menu" class="sheet-right border-hero bg-hero p-6 text-hero-foreground sm:max-w-md">
+<div class="mb-10 flex items-center justify-between"><span class="font-display text-2xl font-semibold">Aurelia <span class="text-highlight">Journeys</span></span><button type="button" onClick="{{toggleMenu}}" aria-label="Close menu" class="btn btn-icon btn-hero-outline rounded-full"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg></button></div>
+<nav aria-label="Mobile" class="flex flex-col">
+<a href="Main.dc.html" class="mnav animate-menu-item border-b border-hero-foreground/15 py-3 font-display text-4xl aria-[current=page]:text-highlight" style="animation-delay: .04s">Home</a>
+<a href="About.dc.html" class="mnav animate-menu-item border-b border-hero-foreground/15 py-3 font-display text-4xl aria-[current=page]:text-highlight" style="animation-delay: .08s">About Me</a>
+<a href="Experiences.dc.html" class="mnav animate-menu-item border-b border-hero-foreground/15 py-3 font-display text-4xl aria-[current=page]:text-highlight" style="animation-delay: .12s">Experiences</a>
+<a href="Offers.dc.html" class="mnav animate-menu-item border-b border-hero-foreground/15 py-3 font-display text-4xl aria-[current=page]:text-highlight" style="animation-delay: .14s">Special offers</a>
+<a href="Journey.dc.html" class="mnav animate-menu-item border-b border-hero-foreground/15 py-3 font-display text-4xl aria-[current=page]:text-highlight" style="animation-delay: .16s">My Journey</a>
+<a href="Reviews.dc.html" class="mnav animate-menu-item border-b border-hero-foreground/15 py-3 font-display text-4xl aria-[current=page]:text-highlight" style="animation-delay: .2s">Reviews</a>
+<a href="Contact.dc.html" aria-current="page" class="mnav animate-menu-item border-b border-hero-foreground/15 py-3 font-display text-4xl aria-[current=page]:text-highlight" style="animation-delay: .24s">Contact</a>
+</nav>
+<div class="mt-auto flex flex-col gap-3 pt-8">
+<a href="Booking.dc.html" class="btn btn-highlight btn-xl rounded-full">Book a Tour</a>
+<a href="https://wa.me/994501234567" class="btn btn-hero-outline btn-xl rounded-full">Chat on WhatsApp</a>
+<p class="text-center text-sm text-hero-foreground/70">hello@aureliajourneys.az · +994 50 123 45 67</p>
+</div>
+</div>
+</sc-if>
+
+<section class="pb-28 pt-16 lg:pt-24">
+<div class="container-x">
+<p class="eyebrow mb-4">Contact</p>
+<h1 class="mb-12 max-w-3xl font-display text-5xl font-medium leading-none text-primary sm:text-6xl lg:text-[76px]">Let’s talk about your <em class="text-eyebrow">journey.</em></h1>
+<div class="grid gap-10 lg:grid-cols-[5fr_7fr] lg:gap-14">
+<div class="flex flex-col gap-5">
+<a href="https://wa.me/994501234567" class="flex items-center gap-4 rounded-xl bg-primary p-6 text-primary-foreground transition-opacity hover:opacity-95"><span class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-highlight text-highlight-foreground"><svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21l1.6-4.8A8.5 8.5 0 1 1 7.8 19.4L3 21z"></path></svg></span><span><span class="block text-[17px] font-bold">Chat on WhatsApp</span><span class="text-sm opacity-85">Fastest reply · usually within 2 hours</span></span></a>
+<div class="card flex flex-col gap-5 p-6 text-[15px]">
+<div><p class="mb-1 text-xs uppercase tracking-widest text-muted-foreground">Email</p><a href="mailto:hello@aureliajourneys.az" class="font-semibold text-primary underline-offset-4 hover:underline">hello@aureliajourneys.az</a></div>
+<div><p class="mb-1 text-xs uppercase tracking-widest text-muted-foreground">Phone</p><a href="tel:+994501234567" class="font-semibold text-primary underline-offset-4 hover:underline">+994 50 123 45 67</a></div>
+<div><p class="mb-1 text-xs uppercase tracking-widest text-muted-foreground">Service locations</p><p class="font-semibold">Baku · Absheron · Gobustan · Sheki · Quba · Khinalug · Shamakhi · Lankaran</p></div>
+<div><p class="mb-1 text-xs uppercase tracking-widest text-muted-foreground">Working hours (AZT, UTC+4)</p><p class="leading-relaxed">Mon – Sat · 9:00 – 19:00<br>Sunday · WhatsApp only</p><p class="mt-2 flex items-center gap-2 text-sm font-semibold text-emerald-700 dark:text-emerald-400"><span class="h-2 w-2 rounded-full bg-emerald-500"></span>Currently guiding in Sheki — replies may take a little longer</p></div>
+<div class="flex flex-wrap gap-2"><a href="https://instagram.com" class="btn btn-outline btn-sm rounded-full">Instagram</a><a href="https://youtube.com" class="btn btn-outline btn-sm rounded-full">YouTube</a><a href="https://facebook.com" class="btn btn-outline btn-sm rounded-full">Facebook</a></div>
+</div>
+<div class="relative h-64 overflow-hidden rounded-xl border bg-muted">
+<svg viewBox="0 0 400 260" preserveAspectRatio="none" aria-hidden="true" class="absolute inset-0 h-full w-full text-border"><path d="M0 190 Q120 120 240 170 T400 130" fill="none" stroke="currentColor" stroke-width="12"></path><path d="M70 0 L150 260 M270 0 L230 260 M0 80 L400 100" stroke="currentColor" stroke-width="5"></path><rect x="300" y="0" width="100" height="260" fill="hsl(var(--primary))" fill-opacity=".08"></rect></svg>
+<span class="absolute left-1/2 top-[44%] -translate-x-1/2 -translate-y-full text-primary"><svg class="size-9" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 22s-7-6.2-7-12a7 7 0 0 1 14 0c0 5.8-7 12-7 12z"></path><circle cx="12" cy="10" r="2.6" fill="hsl(var(--highlight))"></circle></svg></span>
+<div class="absolute inset-x-4 bottom-4 flex items-center justify-between gap-3 rounded-lg bg-background/95 p-3 text-sm"><span><strong>Icherisheher, Baku</strong><br><span class="text-muted-foreground">Google Maps embed</span></span><a href="https://maps.google.com/?q=Icherisheher+Baku" class="btn btn-outline btn-sm">Open map</a></div>
+</div>
+</div>
+<div>
+<sc-if value="{{notSent}}" hint-placeholder-val="{{ true }}">
+<form novalidate class="card flex flex-col gap-5 p-6 sm:p-9">
+<div><h2 class="font-display text-3xl font-medium text-primary">Send an inquiry</h2><p class="mt-1 text-sm text-muted-foreground">I reply personally within 24 hours.</p></div>
+<div class="grid gap-5 sm:grid-cols-2">
+<label class="flex flex-col gap-2"><span class="label">Name</span><input class="input" autocomplete="name" value="{{f.name}}" onInput="{{on.name}}" aria-invalid="{{e.nameInv}}"><sc-if value="{{e.name}}" hint-placeholder-val="{{ false }}"><span class="field-error" role="alert">{{e.name}}</span></sc-if></label>
+<label class="flex flex-col gap-2"><span class="label">Email</span><input class="input" type="email" autocomplete="email" value="{{f.email}}" onInput="{{on.email}}" aria-invalid="{{e.emailInv}}"><sc-if value="{{e.email}}" hint-placeholder-val="{{ false }}"><span class="field-error" role="alert">{{e.email}}</span></sc-if></label>
+</div>
+<div class="grid gap-5 sm:grid-cols-2">
+<label class="flex flex-col gap-2"><span class="label">Phone <span class="font-normal text-muted-foreground">(optional)</span></span><input class="input" type="tel" placeholder="+44 7700 900123" value="{{f.phone}}" onInput="{{on.phone}}"></label>
+<label class="flex flex-col gap-2"><span class="label">Preferred date <span class="font-normal text-muted-foreground">(optional)</span></span><input class="input" type="date" value="{{f.date}}" onInput="{{on.date}}"></label>
+</div>
+<label class="flex flex-col gap-2"><span class="label">Interested tour</span><select class="select" value="{{f.tour}}" onChange="{{on.tour}}"><option value="">Not sure yet — help me choose</option><option>Silk Road to Sheki</option><option>Fire &amp; Stone: Gobustan &amp; Yanar Dag</option><option>Icherisheher &amp; Flame Towers</option><option>Khinalug &amp; Quba Highlands</option><option>Baku Food &amp; Wine Evening</option><option>Bespoke Azerbaijan</option></select></label>
+<label class="flex flex-col gap-2"><span class="label">Message</span><textarea class="textarea min-h-[150px]" placeholder="Tell me who’s travelling, what you love and anything I should know…" value="{{f.msg}}" onInput="{{on.msg}}" aria-invalid="{{e.msgInv}}"></textarea><span class="flex justify-between gap-3"><sc-if value="{{e.msg}}" hint-placeholder-val="{{ false }}"><span class="field-error" role="alert">{{e.msg}}</span></sc-if><span class="field-hint ml-auto">{{msgCount}} / 1000</span></span></label>
+<sc-if value="{{failed}}" hint-placeholder-val="{{ false }}"><div role="alert" class="alert alert-destructive">Something went wrong sending your message. Please try again or reach me on WhatsApp.</div></sc-if>
+<button type="button" onClick="{{submit}}" disabled="{{loading}}" class="btn btn-default btn-xl rounded-full"><sc-if value="{{loading}}" hint-placeholder-val="{{ false }}"><svg class="animate-spin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9"></path></svg></sc-if>{{cta}}</button>
+<p class="text-center text-[13px] text-muted-foreground">By sending, you agree to the <a href="Contact.dc.html" class="underline underline-offset-4">Privacy Policy</a>. I never share your details.</p>
+</form>
+</sc-if>
+<sc-if value="{{sent}}" hint-placeholder-val="{{ false }}">
+<div role="status" class="card animate-rise p-10 text-center sm:p-14"><span class="inline-flex h-16 w-16 animate-pop items-center justify-center rounded-full bg-primary text-highlight"><svg class="size-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 12l5 5 9-10"></path></svg></span><h2 class="mb-3 mt-6 font-display text-4xl font-medium text-primary">Message sent — thank you, {{first}}.</h2><p class="mx-auto mb-7 max-w-md leading-relaxed text-muted-foreground">I’ll reply to {{f.email}} within 24 hours. For anything urgent, WhatsApp is quickest.</p><button type="button" onClick="{{again}}" class="btn btn-outline btn-lg rounded-full">Send another message</button></div>
+</sc-if>
+</div>
+</div>
+</div>
+</section>
+<footer class="bg-hero pb-10 pt-20 text-hero-foreground/80">
+<div class="container-x">
+<div class="grid gap-12 sm:grid-cols-2 lg:grid-cols-[2fr_1fr_1fr_1.4fr]">
+<div>
+<p class="font-display text-3xl text-hero-foreground">Aurelia <span class="text-highlight">Journeys</span></p>
+<p class="mt-4 max-w-sm text-[15px] leading-relaxed">Private and small-group journeys across Azerbaijan — from Baku’s old walls to the villages of the Greater Caucasus — led by licensed guide Leyla Mammadova.</p>
+<div class="mt-6 flex gap-2">
+<a href="https://instagram.com" aria-label="Instagram" class="btn btn-icon btn-hero-outline rounded-full"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle></svg></a>
+<a href="https://youtube.com" aria-label="YouTube" class="btn btn-icon btn-hero-outline rounded-full"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="2.5" y="5.5" width="19" height="13" rx="4"></rect><path d="M10 9.5v5l4.5-2.5z" fill="currentColor"></path></svg></a>
+<a href="https://facebook.com" aria-label="Facebook" class="btn btn-icon btn-hero-outline rounded-full"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M14 8h3V4h-3a4 4 0 0 0-4 4v3H7v4h3v6h4v-6h3l1-4h-4V8z"></path></svg></a>
+</div>
+</div>
+<div><p class="eyebrow mb-4 !text-highlight">Explore</p><ul class="flex flex-col gap-3 text-[15px]"><li><a href="Experiences.dc.html" class="hover:text-hero-foreground">Experiences</a></li><li><a href="Offers.dc.html" class="hover:text-hero-foreground">Special offers</a></li><li><a href="About.dc.html" class="hover:text-hero-foreground">About Me</a></li><li><a href="Journey.dc.html" class="hover:text-hero-foreground">My Journey</a></li><li><a href="Reviews.dc.html" class="hover:text-hero-foreground">Reviews</a></li><li><a href="Contact.dc.html" class="hover:text-hero-foreground">Contact</a></li></ul></div>
+<div><p class="eyebrow mb-4 !text-highlight">Destinations</p><ul class="flex flex-col gap-3 text-[15px]"><li><a href="Experiences.dc.html" class="hover:text-hero-foreground">Baku &amp; Absheron</a></li><li><a href="Experiences.dc.html" class="hover:text-hero-foreground">Sheki</a></li><li><a href="Experiences.dc.html" class="hover:text-hero-foreground">Gobustan</a></li><li><a href="Experiences.dc.html" class="hover:text-hero-foreground">Khinalug &amp; Quba</a></li><li><a href="Experiences.dc.html" class="hover:text-hero-foreground">Lankaran</a></li></ul></div>
+<div><p class="eyebrow mb-4 !text-highlight">Get in touch</p><ul class="flex flex-col gap-3 text-[15px]"><li><a href="mailto:hello@aureliajourneys.az" class="hover:text-hero-foreground">hello@aureliajourneys.az</a></li><li><a href="https://wa.me/994501234567" class="hover:text-hero-foreground">+994 50 123 45 67 (WhatsApp)</a></li><li>Icherisheher, Baku</li><li>Mon–Sat · 9:00–19:00 (AZT)</li></ul></div>
+</div>
+<div class="mt-16 flex flex-wrap justify-between gap-4 border-t border-hero-foreground/15 pt-7 text-[13px]">
+<span>© 2026 Aurelia Journeys. Licensed tour guide, Azerbaijan Tourism Board.</span>
+<span class="flex gap-6"><a href="Contact.dc.html" class="underline-offset-4 hover:underline">Privacy Policy</a><a href="Contact.dc.html" class="underline-offset-4 hover:underline">Terms &amp; Conditions</a></span>
+</div>
+</div>
+</footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1900},"simulateError":{"editor":"boolean","default":false},"theme":{"editor":"enum","options":["admin","emerald","caspian","pomegranate","graphite"],"default":"admin","section":"Theme"},"mode":{"editor":"enum","options":["admin","light","dark","system"],"default":"admin","section":"Theme"}}'>
+class Component extends DCLogic {
+  constructor(p){ super(p); this.state = { f:{ name:'', email:'', phone:'', date:'', tour:'', msg:'' }, touched:false, loading:false, sent:false, failed:false }; }
+  img(){ return { baku:'/_blob/53de85c911d3fd172f7f056fc041c3f6', oldcity:'/_blob/71ba1da1636ea18bc8040e2f214c9564', gobustan:'/_blob/1d3b95a6d499c80338e0cfbcce073964', yanardag:'/_blob/caa98c1d37e045432aedeba5937e3fb1', sheki:'/_blob/99cec70a9ac8cc922169a9d4cda6cfd7', khinalug:'/_blob/b1e6bea4cb0d3847910a8759889b2e6b', caspian:'/_blob/feb92edafca2a9ad4057997c2c80419b', lankaran:'/_blob/b1af8e934de14e2a69509a83bda2b0e7' }; }
+  uiDefault(){ return { theme: 'emerald', mode: 'light', radius: 'md', font: 'classic' }; }
+  loadUi(){ try { const v = JSON.parse(window.localStorage.getItem('aj-ui') || 'null'); if (v) this.setState({ ui: { ...this.uiDefault(), ...v } }); } catch (e) {} }
+  uiInit(){
+    this.loadUi();
+    this._onStorage = (e) => { if (!e || !e.key || e.key === 'aj-ui') this.loadUi(); };
+    window.addEventListener('storage', this._onStorage);
+    try { this._bc = new BroadcastChannel('aj-ui'); this._bc.onmessage = (m) => { if (m && m.data) this.setState({ ui: { ...this.uiDefault(), ...m.data } }); }; } catch (e) {}
+    try { this._mq = window.matchMedia('(prefers-color-scheme: dark)'); this._mqh = () => this.forceUpdate(); this._mq.addEventListener('change', this._mqh); } catch (e) {}
+    this._onScroll = () => { const s = (window.scrollY || 0) > 40; if (s !== !!(this.state || {}).scrolled) this.setState({ scrolled: s }); };
+    window.addEventListener('scroll', this._onScroll, { passive: true });
+  }
+  uiDestroy(){
+    window.removeEventListener('storage', this._onStorage); window.removeEventListener('scroll', this._onScroll);
+    try { this._bc && this._bc.close(); } catch (e) {} try { this._mq && this._mq.removeEventListener('change', this._mqh); } catch (e) {}
+  }
+  saveUi(patch){
+    const u = { ...this.uiDefault(), ...((this.state || {}).ui || {}), ...patch };
+    try { window.localStorage.setItem('aj-ui', JSON.stringify(u)); } catch (e) {}
+    try { const bc = new BroadcastChannel('aj-ui'); bc.postMessage(u); bc.close(); } catch (e) {}
+    this.setState({ ui: u });
+  }
+  uiVals(overHero){
+    const st = this.state || {}, p = this.props || {};
+    const u = { ...this.uiDefault(), ...(st.ui || {}) };
+    if (p.theme && p.theme !== 'admin') u.theme = p.theme;
+    if (p.mode && p.mode !== 'admin') u.mode = p.mode;
+    let dark = u.mode === 'dark';
+    if (u.mode === 'system') { try { dark = window.matchMedia('(prefers-color-scheme: dark)').matches; } catch (e) {} }
+    const solid = !overHero || st.scrolled || st.menu;
+    const hdr = solid
+      ? { cls: 'sticky top-0 z-40 border-b bg-background/90 backdrop-blur-md transition-colors duration-300' + (overHero ? ' -mb-20' : ''), link: '', logo: 'text-primary', sub: 'text-eyebrow', icon: 'btn-outline' }
+      : { cls: 'sticky top-0 z-40 -mb-20 border-b border-transparent bg-transparent transition-colors duration-300', link: 'text-hero-foreground hover:bg-hero-foreground/10 hover:text-hero-foreground aria-[current=page]:text-highlight', logo: 'text-hero-foreground', sub: 'text-highlight', icon: 'btn-hero-outline' };
+    return {
+      ui: u, uiTheme: u.theme, uiFont: u.font, uiRadius: u.radius, uiDark: dark ? 'dark' : 'light', isDark: dark, isLight: !dark,
+      offerCount: (() => { try { const D = this.promoData ? this.promoData() : null; return D ? D.campaigns.filter(x => this.campStatus(x) === 'Active' && x.visibility === 'public').length : 4; } catch (e) { return 4; } })(),
+      navOpen: !!st.nav, navExpanded: st.nav ? 'true' : 'false', toggleNav: () => this.setState({ nav: !(this.state || {}).nav }),
+      hdr, menuOpen: !!st.menu, menuExpanded: st.menu ? 'true' : 'false', toggleMenu: () => this.setState({ menu: !(this.state || {}).menu }),
+      cycleMode: () => this.saveUi({ mode: dark ? 'light' : 'dark' }), modeLabel: dark ? 'Switch to light mode' : 'Switch to dark mode',
+      pickTheme: (e) => this.saveUi({ theme: e.target.value })
+    };
+  }
+
+  componentDidMount(){ this.uiInit(); }
+  componentWillUnmount(){ this.uiDestroy(); }
+  renderVals(){
+    const s = this.state, f = s.f, all = {};
+    if (f.name.trim().length < 2) all.name = 'Please tell me your name.';
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(f.email.trim())) all.email = 'Enter a valid email address.';
+    if (f.msg.trim().length < 10) all.msg = 'A short message (10+ characters) helps me prepare.';
+    const e = {}; ['name','email','msg'].forEach(k => { e[k] = s.touched ? (all[k] || '') : ''; e[k + 'Inv'] = e[k] ? 'true' : 'false'; });
+    const on = {}; Object.keys(f).forEach(k => on[k] = (ev) => this.setState({ f: { ...this.state.f, [k]: ev.target.value.slice(0, k === 'msg' ? 1000 : 200) } }));
+    return {
+      ...this.uiVals(false), f, e, on, msgCount: f.msg.length, loading: s.loading, failed: s.failed, sent: s.sent, notSent: !s.sent, cta: s.loading ? 'Sending…' : 'Send message', first: f.name.trim().split(' ')[0],
+      submit: (ev) => { ev.preventDefault(); if (s.loading) return; if (Object.keys(all).length) { this.setState({ touched:true }); return; } this.setState({ loading:true, failed:false, touched:true }); setTimeout(() => this.setState(this.props.simulateError ? { loading:false, failed:true } : { loading:false, sent:true }), 1200); },
+      again: () => this.setState({ f:{ name:'', email:'', phone:'', date:'', tour:'', msg:'' }, touched:false, sent:false })
+    };
+  }
+}
+</script>
+</body>
+</html>

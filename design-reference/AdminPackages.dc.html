@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Content Manager — Aurelia Admin</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="/_blob/70d0ec09cb9bf09f570d988b94190c96">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>body{margin:0}</style>
+</helmet>
+
+<div data-theme="{{uiTheme}}" data-font="{{uiFont}}" data-radius="{{uiRadius}}" class="{{uiDark}} min-h-screen overflow-x-clip bg-muted/40 font-sans text-foreground antialiased lg:flex">
+<div class="sticky top-0 z-40 flex h-14 items-center justify-between gap-2 border-b bg-background/95 px-3 backdrop-blur lg:hidden">
+<button type="button" onClick="{{toggleNav}}" aria-label="Open navigation" aria-expanded="{{navExpanded}}" class="btn btn-ghost btn-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h10"></path></svg></button>
+<a href="AdminOverview.dc.html" class="flex items-baseline gap-1.5"><span class="font-display text-xl font-semibold text-primary">Aurelia</span><span class="text-[10px] font-semibold uppercase tracking-[0.28em] text-eyebrow">Admin</span></a>
+<div class="flex items-center"><button type="button" onClick="{{cycleMode}}" aria-label="{{modeLabel}}" class="btn btn-ghost btn-icon"><sc-if value="{{isDark}}" hint-placeholder-val="{{ false }}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path></svg></sc-if><sc-if value="{{isLight}}" hint-placeholder-val="{{ true }}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"></path></svg></sc-if></button><span class="avatar h-8 w-8 text-xs">LM</span></div>
+</div>
+<sc-if value="{{navOpen}}" hint-placeholder-val="{{ false }}">
+<div class="overlay lg:hidden" onClick="{{toggleNav}}"></div>
+<aside role="dialog" aria-modal="true" aria-label="Admin navigation" class="sheet-left overflow-y-auto lg:hidden">
+<div class="flex h-14 items-center justify-between border-b px-4"><span class="flex items-baseline gap-1.5"><span class="font-display text-2xl font-semibold text-primary">Aurelia</span><span class="text-[10px] font-semibold uppercase tracking-[0.28em] text-eyebrow">Admin</span></span><button type="button" onClick="{{toggleNav}}" aria-label="Close navigation" class="btn btn-ghost btn-icon">✕</button></div>
+<div class="py-3"><nav aria-label="Admin (mobile)" class="flex flex-col gap-1 px-3">
+<p class="px-3 pb-1 pt-2 text-xs font-semibold text-muted-foreground">Business</p>
+<a href="AdminOverview.dc.html" class="side-link h-11 lg:h-10"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="3" y="3" width="7" height="9" rx="1.5"></rect><rect x="14" y="3" width="7" height="5" rx="1.5"></rect><rect x="14" y="12" width="7" height="9" rx="1.5"></rect><rect x="3" y="16" width="7" height="5" rx="1.5"></rect></svg>Overview</a>
+<a href="AdminBookings.dc.html" class="side-link h-11 lg:h-10"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"></rect><path d="M3 10h18M8 3v4M16 3v4"></path></svg>Bookings<span class="badge badge-highlight ml-auto">7</span></a>
+<p class="px-3 pb-1 pt-4 text-xs font-semibold text-muted-foreground">Content</p>
+<a href="AdminPackages.dc.html" aria-current="page" class="side-link h-11 lg:h-10"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"></path><circle cx="12" cy="9.5" r="2.5"></circle></svg>Packages, reviews &amp; journey</a>
+<a href="AdminPromotions.dc.html" class="side-link h-11 lg:h-10"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><path d="M20.6 13.4l-7.2 7.2a2 2 0 0 1-2.8 0L3 13V3h10l7.6 7.6a2 2 0 0 1 0 2.8z"></path><circle cx="7.5" cy="7.5" r="1.5"></circle></svg>Discounts &amp; offers<span class="badge badge-pending ml-auto">2</span></a>
+<p class="px-3 pb-1 pt-4 text-xs font-semibold text-muted-foreground">Website</p>
+<a href="AdminSettings.dc.html" class="side-link h-11 lg:h-10"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><circle cx="13.5" cy="6.5" r="1.5"></circle><circle cx="17.5" cy="10.5" r="1.5"></circle><circle cx="8.5" cy="7.5" r="1.5"></circle><circle cx="6.5" cy="12.5" r="1.5"></circle><path d="M12 2a10 10 0 1 0 0 20c1 0 1.7-.8 1.7-1.7 0-.5-.2-.9-.5-1.2-.3-.3-.5-.7-.5-1.2 0-.9.8-1.7 1.7-1.7H16a6 6 0 0 0 6-6C22 5.8 17.5 2 12 2z"></path></svg>Settings &amp; appearance</a>
+</nav></div>
+<div class="mt-auto flex flex-col gap-3 border-t p-4">
+<label class="flex flex-col gap-1.5"><span class="text-xs font-semibold text-muted-foreground">Theme</span><select class="select" value="{{ui.theme}}" onChange="{{pickTheme}}"><option value="emerald">Emerald &amp; Gold</option><option value="caspian">Caspian Blue</option><option value="pomegranate">Pomegranate</option><option value="graphite">Graphite</option></select></label>
+<div class="flex items-center gap-3"><span class="avatar">LM</span><span class="min-w-0 flex-1 text-sm"><span class="block font-bold">Leyla Mammadova</span><a href="Main.dc.html" class="text-eyebrow underline-offset-4 hover:underline">View website ↗</a></span></div>
+</div>
+</aside>
+</sc-if>
+<aside class="hidden shrink-0 border-r bg-card lg:sticky lg:top-0 lg:flex lg:h-screen lg:w-64 lg:flex-col lg:overflow-y-auto">
+<div class="flex h-20 items-center px-5"><a href="AdminOverview.dc.html" class="flex items-baseline gap-2"><span class="font-display text-2xl font-semibold text-primary">Aurelia</span><span class="text-[10px] font-semibold uppercase tracking-[0.28em] text-eyebrow">Admin</span></a></div>
+<nav aria-label="Admin" class="flex flex-col gap-1 px-3">
+<p class="px-3 pb-1 pt-2 text-xs font-semibold text-muted-foreground">Business</p>
+<a href="AdminOverview.dc.html" class="side-link h-11 lg:h-10"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="3" y="3" width="7" height="9" rx="1.5"></rect><rect x="14" y="3" width="7" height="5" rx="1.5"></rect><rect x="14" y="12" width="7" height="9" rx="1.5"></rect><rect x="3" y="16" width="7" height="5" rx="1.5"></rect></svg>Overview</a>
+<a href="AdminBookings.dc.html" class="side-link h-11 lg:h-10"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"></rect><path d="M3 10h18M8 3v4M16 3v4"></path></svg>Bookings<span class="badge badge-highlight ml-auto">7</span></a>
+<p class="px-3 pb-1 pt-4 text-xs font-semibold text-muted-foreground">Content</p>
+<a href="AdminPackages.dc.html" aria-current="page" class="side-link h-11 lg:h-10"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"></path><circle cx="12" cy="9.5" r="2.5"></circle></svg>Packages, reviews &amp; journey</a>
+<a href="AdminPromotions.dc.html" class="side-link h-11 lg:h-10"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><path d="M20.6 13.4l-7.2 7.2a2 2 0 0 1-2.8 0L3 13V3h10l7.6 7.6a2 2 0 0 1 0 2.8z"></path><circle cx="7.5" cy="7.5" r="1.5"></circle></svg>Discounts &amp; offers<span class="badge badge-pending ml-auto">2</span></a>
+<p class="px-3 pb-1 pt-4 text-xs font-semibold text-muted-foreground">Website</p>
+<a href="AdminSettings.dc.html" class="side-link h-11 lg:h-10"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><circle cx="13.5" cy="6.5" r="1.5"></circle><circle cx="17.5" cy="10.5" r="1.5"></circle><circle cx="8.5" cy="7.5" r="1.5"></circle><circle cx="6.5" cy="12.5" r="1.5"></circle><path d="M12 2a10 10 0 1 0 0 20c1 0 1.7-.8 1.7-1.7 0-.5-.2-.9-.5-1.2-.3-.3-.5-.7-.5-1.2 0-.9.8-1.7 1.7-1.7H16a6 6 0 0 0 6-6C22 5.8 17.5 2 12 2z"></path></svg>Settings &amp; appearance</a>
+</nav>
+<div class="mt-auto flex items-center gap-3 border-t p-4"><span class="avatar">LM</span><span class="min-w-0 text-sm"><span class="block font-bold">Leyla Mammadova</span><a href="Main.dc.html" class="text-eyebrow underline-offset-4 hover:underline">View website ↗</a></span></div>
+</aside>
+
+<main class="min-w-0 flex-1 p-5 sm:p-8">
+<div class="mb-6 flex flex-wrap items-end justify-between gap-4"><div><p class="text-[13px] text-muted-foreground">Everything you publish here appears on your website.</p><h1 class="font-display text-3xl font-semibold text-primary sm:text-4xl">Content</h1></div><div class="hidden items-center gap-2 sm:flex">
+<label class="sr-only" for="qtheme">Theme</label>
+<select id="qtheme" class="select h-10 w-40" value="{{ui.theme}}" onChange="{{pickTheme}}"><option value="emerald">Emerald &amp; Gold</option><option value="caspian">Caspian Blue</option><option value="pomegranate">Pomegranate</option><option value="graphite">Graphite</option></select>
+<button type="button" onClick="{{cycleMode}}" aria-label="{{modeLabel}}" class="btn btn-outline btn-icon"><sc-if value="{{isDark}}" hint-placeholder-val="{{ false }}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path></svg></sc-if><sc-if value="{{isLight}}" hint-placeholder-val="{{ true }}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"></path></svg></sc-if></button>
+</div>
+</div>
+<div role="tablist" aria-label="Content type" class="tabs-list no-scrollbar mb-6 max-w-full justify-start overflow-x-auto"><sc-for list="{{tabs}}" as="t" hint-placeholder-count="4"><button type="button" role="tab" aria-selected="{{t.on}}" onClick="{{t.pick}}" class="tabs-trigger">{{t.label}} <span class="rounded-full bg-muted-foreground/15 px-1.5 text-xs">{{t.n}}</span></button></sc-for></div>
+
+<sc-if value="{{tPk}}" hint-placeholder-val="{{ true }}">
+<div class="mb-4 flex flex-wrap items-center justify-between gap-3"><p class="text-sm text-muted-foreground">{{pkPub}} published · {{pkDraft}} draft · {{pkFeat}} featured on homepage</p><button type="button" onClick="{{newPk}}" class="btn btn-default">+ Create package</button></div>
+<div class="card overflow-hidden">
+<div class="hidden overflow-x-auto md:block"><table class="table min-w-[880px]"><thead><tr><th class="pl-6">Package</th><th>Category</th><th>Duration</th><th>From</th><th>Featured</th><th>Published</th><th class="pr-6 text-right">Actions</th></tr></thead><tbody>
+<sc-for list="{{pks}}" as="p" hint-placeholder-count="6"><tr><td class="pl-6"><span class="flex items-center gap-3"><img src="{{p.img}}" alt="" class="h-11 w-16 shrink-0 rounded-md object-cover"><span><span class="block font-bold">{{p.title}}</span><span class="text-xs text-muted-foreground">{{p.dest}} · {{p.photos}} photos</span></span></span></td><td>{{p.cat}}</td><td>{{p.dur}}</td><td class="font-semibold">{{p.priceL}}</td>
+<td><button type="button" role="switch" class="switch" aria-checked="{{p.featA}}" aria-label="Featured: {{p.title}}" onClick="{{p.togFeat}}"><span class="switch-thumb"></span></button></td>
+<td><button type="button" role="switch" class="switch" aria-checked="{{p.pubA}}" aria-label="Published: {{p.title}}" onClick="{{p.togPub}}"><span class="switch-thumb"></span></button></td>
+<td class="whitespace-nowrap pr-6 text-right"><button type="button" onClick="{{p.edit}}" class="btn btn-outline btn-sm">Edit</button> <button type="button" onClick="{{p.del}}" aria-label="Delete {{p.title}}" class="btn btn-ghost btn-sm text-destructive hover:text-destructive">Delete</button></td></tr></sc-for>
+</tbody></table></div>
+<ul class="divide-y md:hidden"><sc-for list="{{pks}}" as="p" hint-placeholder-count="5"><li class="flex gap-3 p-4"><img src="{{p.img}}" alt="" class="h-16 w-20 shrink-0 rounded-md object-cover"><div class="min-w-0 flex-1"><p class="truncate font-bold">{{p.title}}</p><p class="text-xs text-muted-foreground">{{p.cat}} · {{p.dur}} · {{p.priceL}}</p><div class="mt-2 flex items-center gap-4 text-xs font-semibold"><span class="flex items-center gap-2"><button type="button" role="switch" class="switch" aria-checked="{{p.pubA}}" aria-label="Published: {{p.title}}" onClick="{{p.togPub}}"><span class="switch-thumb"></span></button>Live</span><button type="button" onClick="{{p.edit}}" class="btn btn-outline btn-sm ml-auto">Edit</button></div></div></li></sc-for></ul>
+<sc-if value="{{pkEmpty}}" hint-placeholder-val="{{ false }}"><div class="p-14 text-center"><p class="mb-3 font-bold">No packages yet</p><button type="button" onClick="{{newPk}}" class="btn btn-default">Create your first package</button></div></sc-if>
+</div>
+</sc-if>
+
+<sc-if value="{{tRv}}" hint-placeholder-val="{{ false }}">
+<div class="mb-4 flex flex-wrap items-center justify-between gap-3"><p class="text-sm text-muted-foreground">Reviews you add appear as “Added by guide” unless linked to a completed booking.</p><button type="button" onClick="{{newRv}}" class="btn btn-default">+ Add review</button></div>
+<div class="grid gap-4 sm:grid-cols-2 xl:grid-cols-3"><sc-for list="{{rvs}}" as="r" hint-placeholder-count="6">
+<article class="card flex flex-col gap-2.5 p-5"><div class="flex items-center justify-between gap-2"><span class="font-bold">{{r.name}}</span><span class="tracking-wider text-highlight" aria-label="{{r.rating}} stars">{{r.stars}}</span></div><p class="text-xs text-muted-foreground">{{r.country}} · {{r.tour}}</p><p class="font-display text-xl font-semibold text-primary">{{r.title}}</p><p class="text-[13px] leading-relaxed text-muted-foreground">{{r.text}}</p>
+<div class="flex flex-wrap gap-1.5"><span class="{{r.srcCls}}">{{r.src}}</span><sc-if value="{{r.feat}}" hint-placeholder-val="{{ false }}"><span class="badge badge-default">Featured</span></sc-if><sc-if value="{{r.hidden}}" hint-placeholder-val="{{ false }}"><span class="badge badge-secondary">Unpublished</span></sc-if></div>
+<div class="mt-auto flex flex-wrap gap-1.5 border-t pt-3"><button type="button" onClick="{{r.edit}}" class="btn btn-outline btn-sm">Edit</button><button type="button" onClick="{{r.togPub}}" class="btn btn-outline btn-sm">{{r.pubL}}</button><button type="button" onClick="{{r.togFeat}}" class="btn btn-outline btn-sm">{{r.featL}}</button><button type="button" onClick="{{r.del}}" aria-label="Delete review by {{r.name}}" class="btn btn-ghost btn-sm text-destructive hover:text-destructive">Delete</button></div></article>
+</sc-for></div>
+</sc-if>
+
+<sc-if value="{{tCu}}" hint-placeholder-val="{{ false }}">
+<div class="mb-4 flex flex-wrap items-center justify-between gap-3"><p class="text-sm text-muted-foreground">Created automatically from booking requests.</p><label class="relative w-full sm:w-80"><span class="sr-only">Search customers</span><input class="input" type="search" placeholder="Search name, email or country…" value="{{cq}}" onInput="{{onCq}}"></label></div>
+<div class="card overflow-hidden"><ul class="divide-y md:hidden"><sc-for list="{{cus}}" as="c" hint-placeholder-count="5"><li class="flex gap-3 p-4"><span class="avatar h-10 w-10 text-xs">{{c.init}}</span><div class="min-w-0 flex-1"><p class="flex items-center justify-between gap-2"><span class="font-bold">{{c.name}}</span><span class="badge badge-secondary">{{c.n}} tours</span></p><p class="text-xs text-muted-foreground">{{c.country}} · {{c.phone}}</p><a href="{{c.mail}}" class="block truncate text-sm text-primary underline-offset-4 hover:underline">{{c.email}}</a><p class="mt-1 text-xs text-muted-foreground">{{c.hist}}</p><p class="text-xs text-eyebrow">Note: {{c.note}}</p></div></li></sc-for></ul><div class="hidden overflow-x-auto md:block"><table class="table min-w-[820px]"><thead><tr><th class="pl-6">Customer</th><th>Email</th><th>Phone</th><th>Country</th><th>Tours</th><th class="pr-6">History &amp; notes</th></tr></thead><tbody>
+<sc-for list="{{cus}}" as="c" hint-placeholder-count="6"><tr class="align-top"><td class="pl-6"><span class="flex items-center gap-3"><span class="avatar h-9 w-9 text-xs">{{c.init}}</span><span class="font-bold">{{c.name}}</span></span></td><td><a href="{{c.mail}}" class="text-primary underline-offset-4 hover:underline">{{c.email}}</a></td><td class="whitespace-nowrap">{{c.phone}}</td><td>{{c.country}}</td><td class="font-bold">{{c.n}}</td><td class="pr-6 text-[13px] leading-relaxed"><span class="block text-muted-foreground">{{c.hist}}</span><span class="block text-eyebrow">Note: {{c.note}}</span></td></tr></sc-for>
+</tbody></table></div><sc-if value="{{cuEmpty}}" hint-placeholder-val="{{ false }}"><p class="p-10 text-center text-muted-foreground">No customers match “{{cq}}”.</p></sc-if></div>
+</sc-if>
+
+<sc-if value="{{tJo}}" hint-placeholder-val="{{ false }}">
+<div class="mb-4 flex flex-wrap items-center justify-between gap-3"><p class="text-sm text-muted-foreground">Entries appear in the My Journey gallery, timeline and map.</p><button type="button" onClick="{{newJo}}" class="btn btn-default">+ Add journal entry</button></div>
+<div class="grid gap-4 sm:grid-cols-2 xl:grid-cols-3"><sc-for list="{{jos}}" as="j" hint-placeholder-count="6"><article class="card flex flex-col overflow-hidden"><img src="{{j.img}}" alt="" class="h-36 w-full object-cover"><div class="flex flex-1 flex-col gap-1 p-4"><p class="text-xs text-muted-foreground">{{j.loc}} · {{j.date}} · {{j.photos}} photos</p><p class="font-display text-xl font-semibold text-primary">{{j.title}}</p><div class="mt-auto flex items-center justify-between pt-3"><span class="flex items-center gap-2 text-sm font-semibold"><button type="button" role="switch" class="switch" aria-checked="{{j.pubA}}" aria-label="Published: {{j.title}}" onClick="{{j.tog}}"><span class="switch-thumb"></span></button>{{j.pubL}}</span><button type="button" onClick="{{j.del}}" class="btn btn-ghost btn-sm text-destructive hover:text-destructive">Delete</button></div></div></article></sc-for></div>
+</sc-if>
+</main>
+
+<sc-if value="{{pkOpen}}" hint-placeholder-val="{{ false }}">
+<div class="overlay" onClick="{{closeAll}}"></div>
+<aside role="dialog" aria-modal="true" aria-label="{{pkHead}}" class="sheet-right overflow-y-auto sm:max-w-2xl">
+<form novalidate>
+<div class="sticky top-0 z-10 flex items-center justify-between border-b bg-background px-6 py-4"><h2 class="font-display text-3xl font-semibold text-primary">{{pkHead}}</h2><button type="button" onClick="{{closeAll}}" aria-label="Close" class="btn btn-outline btn-icon">✕</button></div>
+<div class="flex flex-col gap-4 p-6">
+<label class="flex flex-col gap-2"><span class="label">Package title</span><input class="input" value="{{pf.title}}" onInput="{{onPf.title}}" aria-invalid="{{pe.titleInv}}"><sc-if value="{{pe.title}}" hint-placeholder-val="{{ false }}"><span class="field-error" role="alert">{{pe.title}}</span></sc-if></label>
+<div class="grid gap-4 sm:grid-cols-2"><label class="flex flex-col gap-2"><span class="label">Destination</span><input class="input" value="{{pf.dest}}" onInput="{{onPf.dest}}"></label><label class="flex flex-col gap-2"><span class="label">Category</span><select class="select" value="{{pf.cat}}" onChange="{{onPf.cat}}"><option>Cultural</option><option>Historical</option><option>Adventure</option><option>Food &amp; Local</option><option>Private</option><option>Family</option><option>Customized</option></select></label></div>
+<div class="grid gap-4 sm:grid-cols-3"><label class="flex flex-col gap-2"><span class="label">Starting price (USD)</span><input class="input" type="number" min="0" value="{{pf.price}}" onInput="{{onPf.price}}" aria-invalid="{{pe.priceInv}}"><sc-if value="{{pe.price}}" hint-placeholder-val="{{ false }}"><span class="field-error" role="alert">{{pe.price}}</span></sc-if></label><label class="flex flex-col gap-2"><span class="label">Duration</span><input class="input" placeholder="e.g. 3 days" value="{{pf.dur}}" onInput="{{onPf.dur}}" aria-invalid="{{pe.durInv}}"><sc-if value="{{pe.dur}}" hint-placeholder-val="{{ false }}"><span class="field-error" role="alert">{{pe.dur}}</span></sc-if></label><label class="flex flex-col gap-2"><span class="label">Max group</span><input class="input" type="number" min="1" value="{{pf.group}}" onInput="{{onPf.group}}"></label></div>
+<label class="flex flex-col gap-2"><span class="label">Description</span><textarea class="textarea" rows="4" value="{{pf.desc}}" onInput="{{onPf.desc}}"></textarea></label>
+<div class="flex flex-col gap-2"><span class="label">Photos <span class="font-normal text-muted-foreground">· {{pf.photos}} uploaded · first is the cover</span></span><label class="flex cursor-pointer flex-col items-center gap-1 rounded-lg border-2 border-dashed bg-muted/40 p-6 text-center text-sm text-muted-foreground hover:bg-muted"><svg class="size-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M12 16V4M7 9l5-5 5 5M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3"></path></svg>Drag photos here or <span class="font-semibold text-primary underline">browse</span><span class="text-xs">JPG, PNG or WebP · up to 10 MB each</span><input type="file" accept="image/*" multiple onChange="{{onPhotos}}" class="sr-only"></label></div>
+<label class="flex flex-col gap-2"><span class="label">Itinerary <span class="font-normal text-muted-foreground">· one day per line, “Title: description”</span></span><textarea class="textarea" rows="4" value="{{pf.itin}}" onInput="{{onPf.itin}}"></textarea></label>
+<div class="grid gap-4 sm:grid-cols-2"><label class="flex flex-col gap-2"><span class="label">Included</span><textarea class="textarea" rows="4" placeholder="One per line" value="{{pf.inc}}" onInput="{{onPf.inc}}"></textarea></label><label class="flex flex-col gap-2"><span class="label">Excluded</span><textarea class="textarea" rows="4" placeholder="One per line" value="{{pf.exc}}" onInput="{{onPf.exc}}"></textarea></label></div>
+<label class="flex flex-col gap-2"><span class="label">Available dates <span class="font-normal text-muted-foreground">· comma-separated, blank = on request</span></span><input class="input" value="{{pf.dates}}" onInput="{{onPf.dates}}"></label>
+<div class="flex flex-col gap-3 rounded-lg border p-4"><sc-for list="{{pfToggles}}" as="t" hint-placeholder-count="3"><div class="flex items-center justify-between gap-4"><span><span class="block text-sm font-semibold">{{t.label}}</span><span class="text-xs text-muted-foreground">{{t.hint}}</span></span><button type="button" role="switch" class="switch" aria-checked="{{t.on}}" aria-label="{{t.label}}" onClick="{{t.tog}}"><span class="switch-thumb"></span></button></div></sc-for></div>
+</div>
+<div class="sticky bottom-0 flex justify-end gap-2 border-t bg-background px-6 py-4"><button type="button" onClick="{{closeAll}}" class="btn btn-outline">Cancel</button><button type="button" onClick="{{savePk}}" class="btn btn-default">Save package</button></div>
+</form>
+</aside>
+</sc-if>
+
+<sc-if value="{{rvOpen}}" hint-placeholder-val="{{ false }}">
+<div class="overlay" onClick="{{closeAll}}"></div>
+<aside role="dialog" aria-modal="true" aria-label="{{rvHead}}" class="sheet-right overflow-y-auto">
+<form novalidate class="flex flex-col gap-4 p-6">
+<div class="flex items-center justify-between"><h2 class="font-display text-3xl font-semibold text-primary">{{rvHead}}</h2><button type="button" onClick="{{closeAll}}" aria-label="Close" class="btn btn-outline btn-icon">✕</button></div>
+<div class="grid gap-4 sm:grid-cols-2"><label class="flex flex-col gap-2"><span class="label">Customer name</span><input class="input" value="{{rf.name}}" onInput="{{onRf.name}}" aria-invalid="{{re.nameInv}}"><sc-if value="{{re.name}}" hint-placeholder-val="{{ false }}"><span class="field-error" role="alert">{{re.name}}</span></sc-if></label><label class="flex flex-col gap-2"><span class="label">Country</span><input class="input" value="{{rf.country}}" onInput="{{onRf.country}}"></label></div>
+<div class="grid gap-4 sm:grid-cols-2"><label class="flex flex-col gap-2"><span class="label">Rating</span><select class="select" value="{{rf.rating}}" onChange="{{onRf.rating}}"><option value="5">★★★★★ 5</option><option value="4">★★★★ 4</option><option value="3">★★★ 3</option><option value="2">★★ 2</option><option value="1">★ 1</option></select></label><label class="flex flex-col gap-2"><span class="label">Tour</span><select class="select" value="{{rf.tour}}" onChange="{{onRf.tour}}"><sc-for list="{{pkTitles}}" as="t" hint-placeholder-count="5"><option value="{{t}}">{{t}}</option></sc-for></select></label></div>
+<label class="flex flex-col gap-2"><span class="label">Review title</span><input class="input" value="{{rf.title}}" onInput="{{onRf.title}}"></label>
+<label class="flex flex-col gap-2"><span class="label">Full review</span><textarea class="textarea" rows="5" value="{{rf.text}}" onInput="{{onRf.text}}" aria-invalid="{{re.textInv}}"></textarea><sc-if value="{{re.text}}" hint-placeholder-val="{{ false }}"><span class="field-error" role="alert">{{re.text}}</span></sc-if></label>
+<label class="flex cursor-pointer items-center justify-center gap-2 rounded-lg border-2 border-dashed bg-muted/40 p-5 text-sm text-muted-foreground hover:bg-muted">Upload customer photo or avatar · <span class="font-semibold text-primary underline">browse</span><input type="file" accept="image/*" class="sr-only"></label>
+<label class="flex cursor-pointer items-center gap-3 text-sm font-semibold"><input type="checkbox" class="checkbox h-5 w-5" checked="{{rf.verified}}" onChange="{{togRfVer}}">Linked to a completed booking (shows “Verified booking”)</label>
+<div class="flex justify-end gap-2 pt-2"><button type="button" onClick="{{closeAll}}" class="btn btn-outline">Cancel</button><button type="button" onClick="{{saveRv}}" class="btn btn-default">Save review</button></div>
+</form>
+</aside>
+</sc-if>
+
+<sc-if value="{{joOpen}}" hint-placeholder-val="{{ false }}">
+<div class="overlay" onClick="{{closeAll}}"></div>
+<aside role="dialog" aria-modal="true" aria-label="New journal entry" class="sheet-right overflow-y-auto">
+<form novalidate class="flex flex-col gap-4 p-6">
+<div class="flex items-center justify-between"><h2 class="font-display text-3xl font-semibold text-primary">New journal entry</h2><button type="button" onClick="{{closeAll}}" aria-label="Close" class="btn btn-outline btn-icon">✕</button></div>
+<label class="flex flex-col gap-2"><span class="label">Tour or destination name</span><input class="input" value="{{jf.title}}" onInput="{{onJf.title}}" aria-invalid="{{je.titleInv}}"><sc-if value="{{je.title}}" hint-placeholder-val="{{ false }}"><span class="field-error" role="alert">{{je.title}}</span></sc-if></label>
+<div class="grid gap-4 sm:grid-cols-2"><label class="flex flex-col gap-2"><span class="label">Location</span><input class="input" value="{{jf.loc}}" onInput="{{onJf.loc}}"></label><label class="flex flex-col gap-2"><span class="label">Date of visit</span><input class="input" type="month" value="{{jf.date}}" onInput="{{onJf.date}}"></label></div>
+<label class="flex flex-col gap-2"><span class="label">Description</span><textarea class="textarea" rows="4" value="{{jf.desc}}" onInput="{{onJf.desc}}"></textarea></label>
+<label class="flex flex-col gap-2"><span class="label">Highlights &amp; memorable moments <span class="font-normal text-muted-foreground">· one per line</span></span><textarea class="textarea" rows="3" value="{{jf.moments}}" onInput="{{onJf.moments}}"></textarea></label>
+<label class="flex cursor-pointer flex-col items-center gap-1 rounded-lg border-2 border-dashed bg-muted/40 p-5 text-center text-sm text-muted-foreground hover:bg-muted">Cover, gallery images &amp; videos · <span class="font-semibold text-primary underline">browse</span><span class="text-xs">{{jf.photos}} selected</span><input type="file" accept="image/*,video/*" multiple onChange="{{onJoPhotos}}" class="sr-only"></label>
+<div class="flex justify-end gap-2 pt-2"><button type="button" onClick="{{closeAll}}" class="btn btn-outline">Cancel</button><button type="button" onClick="{{saveJo}}" class="btn btn-default">Save as draft</button></div>
+</form>
+</aside>
+</sc-if>
+
+<sc-if value="{{confirmOpen}}" hint-placeholder-val="{{ false }}">
+<div class="overlay !z-[60]"></div>
+<div role="alertdialog" aria-modal="true" aria-label="Confirm delete" class="dialog !z-[60]"><div><h2 class="text-lg font-bold">Delete “{{confirmName}}”?</h2><p class="mt-2 text-sm text-muted-foreground">This removes it from your website immediately. This can’t be undone.</p></div><div class="flex justify-end gap-2"><button type="button" onClick="{{cancelDel}}" class="btn btn-outline">Keep it</button><button type="button" onClick="{{doDel}}" class="btn btn-destructive">Delete</button></div></div>
+</sc-if>
+<sc-if value="{{toast}}" hint-placeholder-val="{{ false }}"><div role="status" class="toast"><span class="h-2 w-2 rounded-full bg-emerald-500"></span>{{toast}}</div></sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1400},"startTab":{"editor":"enum","options":["packages","reviews","customers","journey"],"default":"packages"},"theme":{"editor":"enum","options":["admin","emerald","caspian","pomegranate","graphite"],"default":"admin","section":"Theme"},"mode":{"editor":"enum","options":["admin","light","dark","system"],"default":"admin","section":"Theme"}}'>
+class Component extends DCLogic {
+  constructor(p){ super(p);
+    const I = this.img(); this.seq = 100;
+    const P = (id, title, dest, cat, dur, price, img, photos, feat, pub) => ({ id, title, dest, cat, dur, price, img, photos, feat, pub, popular:false, group:8, desc:'', itin:'', inc:'', exc:'', dates:'' });
+    this.state = { tab: p.startTab || 'packages', toast:'', drawer:null, edit:null, pf:null, rf:null, jf:null, touched:false, confirm:null, cq:'',
+      pks: [ P(1,'Silk Road to Sheki','Sheki','Cultural','3 days',690,I.sheki,26,true,true), P(2,'Fire & Stone: Gobustan & Yanar Dag','Absheron','Adventure','1 day',165,I.gobustan,22,true,true), P(3,'Icherisheher & Flame Towers','Baku','Historical','6 hours',120,I.oldcity,18,true,true), P(4,'Khinalug & Quba Highlands','Quba','Adventure','2 days',480,I.khinalug,15,false,true), P(5,'Baku Food & Wine Evening','Baku','Food & Local','4 hours',85,I.baku,21,false,true), P(6,'Shamakhi Wine Route','Shamakhi','Food & Local','1 day',210,I.lankaran,12,false,true), P(7,'Lankaran Tea & Hirkan Forest','Lankaran','Family','3 days',560,I.lankaran,11,false,true), P(8,'Private Grand Azerbaijan','Nationwide','Private','8 days',2450,I.khinalug,19,true,true), P(9,'Gabala Mountain Escape','Gabala','Adventure','2 days',390,I.sheki,0,false,false) ],
+      rvs: [ { id:1, name:'Eleanor Whitfield', country:'United Kingdom', rating:5, tour:'Private Grand Azerbaijan', title:'Like coming home', text:'Leyla turned a holiday into the most meaningful two weeks of our lives.', verified:true, feat:true, pub:true }, { id:2, name:'Daniel Okafor', country:'Canada', rating:5, tour:'Icherisheher & Flame Towers', title:'Baku through a historian’s eyes', text:'She knows every lane of Icherisheher — and every carpet seller’s grandmother.', verified:true, feat:true, pub:true }, { id:3, name:'Priya Raman', country:'Singapore', rating:5, tour:'Baku Food & Wine Evening', title:'Come hungry!', text:'Seven stops, zero regrets. The saffron plov was unforgettable.', verified:false, feat:false, pub:true }, { id:4, name:'Fatima Al-Mansoori', country:'UAE', rating:4, tour:'Lankaran Tea & Hirkan Forest', title:'Wonderful with our kids', text:'Lovely, gentle pace for our children. One guesthouse was simpler than expected.', verified:true, feat:false, pub:true }, { id:5, name:'Maria Santos', country:'Brazil', rating:5, tour:'Fire & Stone: Gobustan & Yanar Dag', title:'Prehistory and fire', text:'Petroglyphs, mud volcanoes and a mountain on fire at dusk.', verified:false, feat:false, pub:false }, { id:6, name:'Thomas Becker', country:'Germany', rating:5, tour:'Private Grand Azerbaijan', title:'Trip of a lifetime', text:'Eight days, five regions and the most professional guiding I have experienced.', verified:true, feat:false, pub:true } ],
+      jos: [ { id:1, title:'Autumn in Sheki', loc:'Sheki', date:'Oct 2026', photos:46, img:I.sheki, pub:true }, { id:2, title:'Yanar Dag by night', loc:'Absheron', date:'Aug 2026', photos:28, img:I.yanardag, pub:true }, { id:3, title:'Mud volcanoes at dawn', loc:'Gobustan', date:'Jun 2026', photos:24, img:I.gobustan, pub:true }, { id:4, title:'Novruz in Icherisheher', loc:'Baku', date:'Mar 2026', photos:31, img:I.oldcity, pub:true }, { id:5, title:'Snow in Khinalug', loc:'Quba', date:'Jan 2026', photos:33, img:I.khinalug, pub:true }, { id:6, title:'Gabala in spring', loc:'Gabala', date:'Apr 2026', photos:9, img:I.lankaran, pub:false } ] };
+  }
+  img(){ return { baku:'/_blob/53de85c911d3fd172f7f056fc041c3f6', oldcity:'/_blob/71ba1da1636ea18bc8040e2f214c9564', gobustan:'/_blob/1d3b95a6d499c80338e0cfbcce073964', yanardag:'/_blob/caa98c1d37e045432aedeba5937e3fb1', sheki:'/_blob/99cec70a9ac8cc922169a9d4cda6cfd7', khinalug:'/_blob/b1e6bea4cb0d3847910a8759889b2e6b', caspian:'/_blob/feb92edafca2a9ad4057997c2c80419b', lankaran:'/_blob/b1af8e934de14e2a69509a83bda2b0e7' }; }
+  uiDefault(){ return { theme: 'emerald', mode: 'light', radius: 'md', font: 'classic' }; }
+  loadUi(){ try { const v = JSON.parse(window.localStorage.getItem('aj-ui') || 'null'); if (v) this.setState({ ui: { ...this.uiDefault(), ...v } }); } catch (e) {} }
+  uiInit(){
+    this.loadUi();
+    this._onStorage = (e) => { if (!e || !e.key || e.key === 'aj-ui') this.loadUi(); };
+    window.addEventListener('storage', this._onStorage);
+    try { this._bc = new BroadcastChannel('aj-ui'); this._bc.onmessage = (m) => { if (m && m.data) this.setState({ ui: { ...this.uiDefault(), ...m.data } }); }; } catch (e) {}
+    try { this._mq = window.matchMedia('(prefers-color-scheme: dark)'); this._mqh = () => this.forceUpdate(); this._mq.addEventListener('change', this._mqh); } catch (e) {}
+    this._onScroll = () => { const s = (window.scrollY || 0) > 40; if (s !== !!(this.state || {}).scrolled) this.setState({ scrolled: s }); };
+    window.addEventListener('scroll', this._onScroll, { passive: true });
+  }
+  uiDestroy(){
+    window.removeEventListener('storage', this._onStorage); window.removeEventListener('scroll', this._onScroll);
+    try { this._bc && this._bc.close(); } catch (e) {} try { this._mq && this._mq.removeEventListener('change', this._mqh); } catch (e) {}
+  }
+  saveUi(patch){
+    const u = { ...this.uiDefault(), ...((this.state || {}).ui || {}), ...patch };
+    try { window.localStorage.setItem('aj-ui', JSON.stringify(u)); } catch (e) {}
+    try { const bc = new BroadcastChannel('aj-ui'); bc.postMessage(u); bc.close(); } catch (e) {}
+    this.setState({ ui: u });
+  }
+  uiVals(overHero){
+    const st = this.state || {}, p = this.props || {};
+    const u = { ...this.uiDefault(), ...(st.ui || {}) };
+    if (p.theme && p.theme !== 'admin') u.theme = p.theme;
+    if (p.mode && p.mode !== 'admin') u.mode = p.mode;
+    let dark = u.mode === 'dark';
+    if (u.mode === 'system') { try { dark = window.matchMedia('(prefers-color-scheme: dark)').matches; } catch (e) {} }
+    const solid = !overHero || st.scrolled || st.menu;
+    const hdr = solid
+      ? { cls: 'sticky top-0 z-40 border-b bg-background/90 backdrop-blur-md transition-colors duration-300' + (overHero ? ' -mb-20' : ''), link: '', logo: 'text-primary', sub: 'text-eyebrow', icon: 'btn-outline' }
+      : { cls: 'sticky top-0 z-40 -mb-20 border-b border-transparent bg-transparent transition-colors duration-300', link: 'text-hero-foreground hover:bg-hero-foreground/10 hover:text-hero-foreground aria-[current=page]:text-highlight', logo: 'text-hero-foreground', sub: 'text-highlight', icon: 'btn-hero-outline' };
+    return {
+      ui: u, uiTheme: u.theme, uiFont: u.font, uiRadius: u.radius, uiDark: dark ? 'dark' : 'light', isDark: dark, isLight: !dark,
+      offerCount: (() => { try { const D = this.promoData ? this.promoData() : null; return D ? D.campaigns.filter(x => this.campStatus(x) === 'Active' && x.visibility === 'public').length : 4; } catch (e) { return 4; } })(),
+      navOpen: !!st.nav, navExpanded: st.nav ? 'true' : 'false', toggleNav: () => this.setState({ nav: !(this.state || {}).nav }),
+      hdr, menuOpen: !!st.menu, menuExpanded: st.menu ? 'true' : 'false', toggleMenu: () => this.setState({ menu: !(this.state || {}).menu }),
+      cycleMode: () => this.saveUi({ mode: dark ? 'light' : 'dark' }), modeLabel: dark ? 'Switch to light mode' : 'Switch to dark mode',
+      pickTheme: (e) => this.saveUi({ theme: e.target.value })
+    };
+  }
+
+  componentDidMount(){ this.uiInit(); }
+  componentWillUnmount(){ this.uiDestroy(); clearTimeout(this.tt); }
+  flash(m){ clearTimeout(this.tt); this.setState({ toast:m }); this.tt = setTimeout(() => this.setState({ toast:'' }), 3000); }
+  renderVals(){
+    const s = this.state, I = this.img();
+    const setList = (k, id, patch, msg) => { this.setState({ [k]: s[k].map(x => x.id === id ? { ...x, ...patch } : x) }); if (msg) this.flash(msg); };
+    const binder = (k) => { const o = {}; Object.keys(s[k] || {}).forEach(f => o[f] = (e) => this.setState({ [k]: { ...this.state[k], [f]: e.target.value } })); return o; };
+    const close = () => this.setState({ drawer:null, edit:null, pf:null, rf:null, jf:null, touched:false });
+    const pks = s.pks.map(p => ({ ...p, priceL: '$' + Number(p.price).toLocaleString('en-US'), featA: p.feat ? 'true' : 'false', pubA: p.pub ? 'true' : 'false',
+      togFeat: () => setList('pks', p.id, { feat: !p.feat }, p.feat ? 'Removed from homepage' : 'Featured on homepage'),
+      togPub: () => setList('pks', p.id, { pub: !p.pub }, p.pub ? '“' + p.title + '” unpublished' : '“' + p.title + '” is live'),
+      edit: () => this.setState({ drawer:'pk', edit:p.id, touched:false, pf: { ...p, price: String(p.price), group: String(p.group) } }),
+      del: () => this.setState({ confirm: { k:'pks', id:p.id, name:p.title } }) }));
+    const pf = s.pf || {}, pErr = {};
+    if (s.pf) { if ((pf.title || '').trim().length < 3) pErr.title = 'Add a title (3+ characters).'; if (!(Number(pf.price) > 0)) pErr.price = 'Enter a price above 0.'; if (!(pf.dur || '').trim()) pErr.dur = 'Add a duration.'; }
+    const pe = {}; ['title','price','dur'].forEach(k => { pe[k] = s.touched ? (pErr[k] || '') : ''; pe[k + 'Inv'] = pe[k] ? 'true' : 'false'; });
+    const rvs = s.rvs.map(r => ({ ...r, stars: '★'.repeat(r.rating), src: r.verified ? '✓ Verified booking' : '✎ Added by guide', srcCls: r.verified ? 'badge badge-verified' : 'badge badge-manual', hidden: !r.pub, pubL: r.pub ? 'Unpublish' : 'Publish', featL: r.feat ? 'Unfeature' : 'Feature',
+      togPub: () => setList('rvs', r.id, { pub: !r.pub }, r.pub ? 'Review hidden from site' : 'Review published'),
+      togFeat: () => setList('rvs', r.id, { feat: !r.feat }, r.feat ? 'Removed from featured' : 'Added to featured testimonials'),
+      edit: () => this.setState({ drawer:'rv', edit:r.id, touched:false, rf: { ...r, rating: String(r.rating) } }),
+      del: () => this.setState({ confirm: { k:'rvs', id:r.id, name:'review by ' + r.name } }) }));
+    const rf = s.rf || {}, rErr = {};
+    if (s.rf) { if ((rf.name || '').trim().length < 2) rErr.name = 'Add the customer’s name.'; if ((rf.text || '').trim().length < 10) rErr.text = 'Add the review text (10+ characters).'; }
+    const re = {}; ['name','text'].forEach(k => { re[k] = s.touched ? (rErr[k] || '') : ''; re[k + 'Inv'] = re[k] ? 'true' : 'false'; });
+    const CU = [ ['Eleanor Whitfield','eleanor@example.com','+44 7700 900821','United Kingdom',2,'Grand Azerbaijan (Oct 2026) · Sheki (pending)','Anniversary in April — arrange a private dinner.'], ['Priya Raman','priya@example.com','+65 8123 4567','Singapore',3,'Food & Wine ×2, Icherisheher','No pork.'], ['Omar Haddad','omar@example.com','+971 50 123 4567','UAE',2,'Fire & Stone (Dec), Lankaran (pending)','Travels with three children.'], ['Thomas Becker','thomas@example.com','+49 151 2345 6789','Germany',2,'Grand Azerbaijan 2026, 2027 (pending)','Astrophotographer — dark-sky stops.'], ['Fatima Al-Mansoori','fatima@example.com','+971 55 765 4321','UAE',1,'Lankaran Tea & Hirkan Forest (Oct 2026)','Prefers ground-floor rooms.'], ['Claire Dubois','claire@example.com','+33 6 12 34 56 78','France',1,'Icherisheher (Nov 2026)','Vegetarian.'] ];
+    const cq = s.cq.trim().toLowerCase();
+    const cus = CU.filter(c => !cq || (c[0] + c[1] + c[3]).toLowerCase().includes(cq)).map(c => ({ name:c[0], init: c[0].split(' ').map(w => w[0]).join('').slice(0, 2), email:c[1], mail:'mailto:' + c[1], phone:c[2], country:c[3], n:c[4], hist:c[5], note:c[6] }));
+    const jos = s.jos.map(j => ({ ...j, pubA: j.pub ? 'true' : 'false', pubL: j.pub ? 'Published' : 'Draft', tog: () => setList('jos', j.id, { pub: !j.pub }, j.pub ? 'Entry moved to drafts' : 'Entry published'), del: () => this.setState({ confirm: { k:'jos', id:j.id, name:j.title } }) }));
+    const jf = s.jf || {}, jErr = (s.jf && (jf.title || '').trim().length < 3) ? 'Add a name (3+ characters).' : '';
+    const TABS = [['packages','Packages', s.pks.length],['reviews','Reviews', s.rvs.length],['customers','Customers', CU.length],['journey','My Journey', s.jos.length]];
+    return {
+      ...this.uiVals(false),
+      tabs: TABS.map(([k, l, n]) => ({ label:l, n, on: s.tab === k ? 'true' : 'false', pick: () => this.setState({ tab:k }) })),
+      tPk: s.tab === 'packages', tRv: s.tab === 'reviews', tCu: s.tab === 'customers', tJo: s.tab === 'journey',
+      pks, pkEmpty: pks.length === 0, pkPub: s.pks.filter(p => p.pub).length, pkDraft: s.pks.filter(p => !p.pub).length, pkFeat: s.pks.filter(p => p.feat).length,
+      newPk: () => this.setState({ drawer:'pk', edit:null, touched:false, pf: { title:'', dest:'', cat:'Cultural', price:'', dur:'', group:'8', desc:'', itin:'', inc:'', exc:'', dates:'', photos:0, feat:false, popular:false, pub:false } }),
+      pkOpen: s.drawer === 'pk', pkHead: s.edit ? 'Edit package' : 'Create package', pf, onPf: binder('pf'), pe,
+      pfToggles: [ ['feat','Featured on homepage','Shows in the Featured Experiences section'], ['popular','“Popular” badge','Adds a badge on tour cards'], ['pub','Published','Visible on your website'] ].map(([k, l, h]) => ({ label:l, hint:h, on: pf[k] ? 'true' : 'false', tog: () => this.setState({ pf: { ...this.state.pf, [k]: !this.state.pf[k] } }) })),
+      onPhotos: (e) => this.setState({ pf: { ...pf, photos: (pf.photos || 0) + ((e.target.files && e.target.files.length) || 0) } }),
+      savePk: (e) => { e.preventDefault(); if (Object.keys(pErr).length) { this.setState({ touched:true }); return; } const rec = { ...pf, price: Number(pf.price), group: Number(pf.group) || 8, img: pf.img || I.caspian };
+        if (s.edit) this.setState({ pks: s.pks.map(p => p.id === s.edit ? { ...p, ...rec } : p) }); else this.setState({ pks: [{ ...rec, id: ++this.seq }, ...s.pks] });
+        close(); this.flash(s.edit ? 'Package updated' : 'Package created' + (pf.pub ? ' and published' : ' as draft')); },
+      rvs, newRv: () => this.setState({ drawer:'rv', edit:null, touched:false, rf: { name:'', country:'', rating:'5', tour: s.pks[0] ? s.pks[0].title : '', title:'', text:'', verified:false, feat:false, pub:true } }),
+      rvOpen: s.drawer === 'rv', rvHead: s.edit ? 'Edit review' : 'Add review', rf, onRf: binder('rf'), re, pkTitles: s.pks.map(p => p.title), togRfVer: () => this.setState({ rf: { ...rf, verified: !rf.verified } }),
+      saveRv: (e) => { e.preventDefault(); if (Object.keys(rErr).length) { this.setState({ touched:true }); return; } const rec = { ...rf, rating: Number(rf.rating) };
+        if (s.edit) this.setState({ rvs: s.rvs.map(r => r.id === s.edit ? { ...r, ...rec } : r) }); else this.setState({ rvs: [{ ...rec, id: ++this.seq }, ...s.rvs] }); close(); this.flash(s.edit ? 'Review updated' : 'Review added'); },
+      cus, cuEmpty: cus.length === 0, cq: s.cq, onCq: (e) => this.setState({ cq: e.target.value }),
+      jos, newJo: () => this.setState({ drawer:'jo', touched:false, jf: { title:'', loc:'', date:'', desc:'', moments:'', photos:0 } }),
+      joOpen: s.drawer === 'jo', jf, onJf: binder('jf'), je: { title: s.touched ? jErr : '', titleInv: s.touched && jErr ? 'true' : 'false' },
+      onJoPhotos: (e) => this.setState({ jf: { ...jf, photos: (e.target.files && e.target.files.length) || 0 } }),
+      saveJo: (e) => { e.preventDefault(); if (jErr) { this.setState({ touched:true }); return; } const d = jf.date ? new Date(jf.date + '-01').toLocaleDateString('en-GB', { month:'short', year:'numeric' }) : 'Undated';
+        this.setState({ jos: [{ id: ++this.seq, title: jf.title, loc: jf.loc || '—', date: d, photos: jf.photos, img: I.caspian, pub:false }, ...s.jos] }); close(); this.flash('Journal entry saved as draft'); },
+      closeAll: close, confirmOpen: !!s.confirm, confirmName: s.confirm ? s.confirm.name : '', cancelDel: () => this.setState({ confirm:null }),
+      doDel: () => { const c = s.confirm; this.setState({ [c.k]: s[c.k].filter(x => x.id !== c.id), confirm:null }); this.flash('Deleted ' + c.name); },
+      toast: s.toast
+    };
+  }
+}
+</script>
+</body>
+</html>

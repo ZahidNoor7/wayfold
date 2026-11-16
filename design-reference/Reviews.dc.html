@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Guest Reviews — Aurelia Journeys</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="/_blob/70d0ec09cb9bf09f570d988b94190c96">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>body{margin:0}</style>
+</helmet>
+
+<div data-theme="{{uiTheme}}" data-font="{{uiFont}}" data-radius="{{uiRadius}}" class="{{uiDark}} min-h-screen overflow-x-clip bg-background font-sans text-foreground antialiased">
+<header class="{{hdr.cls}}">
+<div class="container-x flex h-20 items-center justify-between gap-4">
+<a href="Main.dc.html" aria-label="Aurelia Journeys home" class="flex items-baseline gap-2"><span class="font-display text-[24px] font-semibold leading-none sm:text-[26px] {{hdr.logo}}">Aurelia</span><span class="text-[10px] font-semibold uppercase tracking-[0.32em] {{hdr.sub}}">Journeys</span></a>
+<nav aria-label="Main" class="hidden items-center gap-0.5 xl:flex">
+<a href="Main.dc.html" class="nav-link {{hdr.link}}">Home</a>
+<a href="About.dc.html" class="nav-link {{hdr.link}}">About Me</a>
+<a href="Experiences.dc.html" class="nav-link {{hdr.link}}">Experiences</a>
+<a href="Offers.dc.html" class="nav-link {{hdr.link}}">Offers<span class="ml-1.5 rounded-full bg-highlight px-1.5 text-[10px] font-bold text-highlight-foreground">{{offerCount}}</span></a>
+<a href="Journey.dc.html" class="nav-link {{hdr.link}}">My Journey</a>
+<a href="Reviews.dc.html" aria-current="page" class="nav-link {{hdr.link}}">Reviews</a>
+<a href="Contact.dc.html" class="nav-link {{hdr.link}}">Contact</a>
+</nav>
+<div class="flex items-center gap-2">
+<a href="https://wa.me/994501234567" aria-label="Chat on WhatsApp" class="btn btn-icon hidden rounded-full sm:inline-flex {{hdr.icon}}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21l1.6-4.8A8.5 8.5 0 1 1 7.8 19.4L3 21z"></path><path d="M9 9.5c.3 1.8 1.7 3.6 3.6 4.6l1.3-1.1 2 .9-.4 1.8c-3.6.2-7.4-3.4-7.3-7.1l1.8-.4.9 2z"></path></svg></a>
+<a href="Booking.dc.html" class="btn btn-highlight rounded-full px-4 sm:px-5"><span class="sm:hidden">Book</span><span class="hidden sm:inline">Book a Tour</span></a>
+<button type="button" onClick="{{toggleMenu}}" aria-label="Open menu" aria-expanded="{{menuExpanded}}" class="btn btn-icon rounded-full xl:hidden {{hdr.icon}}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h10"></path></svg></button>
+</div>
+</div>
+</header>
+<sc-if value="{{menuOpen}}" hint-placeholder-val="{{ false }}">
+<div class="overlay" onClick="{{toggleMenu}}"></div>
+<div role="dialog" aria-modal="true" aria-label="Menu" class="sheet-right border-hero bg-hero p-6 text-hero-foreground sm:max-w-md">
+<div class="mb-10 flex items-center justify-between"><span class="font-display text-2xl font-semibold">Aurelia <span class="text-highlight">Journeys</span></span><button type="button" onClick="{{toggleMenu}}" aria-label="Close menu" class="btn btn-icon btn-hero-outline rounded-full"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg></button></div>
+<nav aria-label="Mobile" class="flex flex-col">
+<a href="Main.dc.html" class="mnav animate-menu-item border-b border-hero-foreground/15 py-3 font-display text-4xl aria-[current=page]:text-highlight" style="animation-delay: .04s">Home</a>
+<a href="About.dc.html" class="mnav animate-menu-item border-b border-hero-foreground/15 py-3 font-display text-4xl aria-[current=page]:text-highlight" style="animation-delay: .08s">About Me</a>
+<a href="Experiences.dc.html" class="mnav animate-menu-item border-b border-hero-foreground/15 py-3 font-display text-4xl aria-[current=page]:text-highlight" style="animation-delay: .12s">Experiences</a>
+<a href="Offers.dc.html" class="mnav animate-menu-item border-b border-hero-foreground/15 py-3 font-display text-4xl aria-[current=page]:text-highlight" style="animation-delay: .14s">Special offers</a>
+<a href="Journey.dc.html" class="mnav animate-menu-item border-b border-hero-foreground/15 py-3 font-display text-4xl aria-[current=page]:text-highlight" style="animation-delay: .16s">My Journey</a>
+<a href="Reviews.dc.html" aria-current="page" class="mnav animate-menu-item border-b border-hero-foreground/15 py-3 font-display text-4xl aria-[current=page]:text-highlight" style="animation-delay: .2s">Reviews</a>
+<a href="Contact.dc.html" class="mnav animate-menu-item border-b border-hero-foreground/15 py-3 font-display text-4xl aria-[current=page]:text-highlight" style="animation-delay: .24s">Contact</a>
+</nav>
+<div class="mt-auto flex flex-col gap-3 pt-8">
+<a href="Booking.dc.html" class="btn btn-highlight btn-xl rounded-full">Book a Tour</a>
+<a href="https://wa.me/994501234567" class="btn btn-hero-outline btn-xl rounded-full">Chat on WhatsApp</a>
+<p class="text-center text-sm text-hero-foreground/70">hello@aureliajourneys.az · +994 50 123 45 67</p>
+</div>
+</div>
+</sc-if>
+
+<section class="pb-16 pt-16 lg:pt-24">
+<div class="container-x">
+<p class="eyebrow mb-4">Guest reviews</p>
+<h1 class="mb-12 max-w-3xl font-display text-5xl font-medium leading-none text-primary sm:text-6xl lg:text-7xl">In the words of those who travelled with me.</h1>
+<div class="card grid gap-8 p-6 sm:p-10 md:grid-cols-[300px_1fr] md:items-center md:gap-14">
+<div class="text-center md:border-r md:pr-10"><p class="font-display text-[104px] leading-[.9] text-primary">4.9</p><p class="mb-1 mt-3 text-2xl tracking-[3px] text-highlight" aria-label="Average 4.9 out of 5">★★★★★</p><p class="text-[15px] text-muted-foreground"><strong class="text-foreground">386</strong> reviews · <strong class="text-foreground">95%</strong> five-star</p></div>
+<div class="flex flex-col gap-1"><p class="mb-2 text-[13px] text-muted-foreground">Rating distribution · select a row to filter</p>
+<sc-for list="{{dist}}" as="d" hint-placeholder-count="5"><button type="button" onClick="{{d.pick}}" aria-pressed="{{d.on}}" class="flex min-h-11 cursor-pointer items-center gap-4 rounded-md px-3 text-sm font-medium transition-colors hover:bg-accent aria-pressed:bg-accent"><span class="w-14 text-left font-semibold">{{d.n}} star</span><span class="progress flex-1"><span class="block h-full rounded-full bg-highlight" style="width: {{d.w}}"></span></span><span class="w-10 text-right text-muted-foreground">{{d.c}}</span></button></sc-for>
+</div>
+</div>
+</div>
+</section>
+
+<section aria-labelledby="ft" class="pb-16">
+<div class="container-x">
+<h2 id="ft" class="mb-6 font-display text-4xl font-medium text-primary">Featured stories</h2>
+<div class="grid gap-5 md:grid-cols-2">
+<article class="reveal flex flex-col gap-5 rounded-2xl bg-hero p-8 text-hero-foreground sm:p-10"><p class="tracking-[3px] text-highlight" aria-label="5 out of 5 stars">★★★★★</p><blockquote class="font-display text-2xl italic leading-snug sm:text-3xl">“Leyla turned a holiday into the most meaningful two weeks of our lives. Every village felt like being welcomed home.”</blockquote><div class="mt-auto flex items-center gap-3"><span class="avatar h-12 w-12 bg-highlight text-highlight-foreground">EW</span><span><span class="block font-bold">Eleanor Whitfield · United Kingdom</span><span class="text-sm opacity-80">Bespoke Azerbaijan · Oct 2026</span></span></div></article>
+<article class="reveal flex flex-col gap-5 rounded-2xl bg-secondary p-8 sm:p-10"><p class="tracking-[3px] text-highlight" aria-label="5 out of 5 stars">★★★★★</p><blockquote class="font-display text-2xl italic leading-snug sm:text-3xl">“Our children still talk about the mud volcanoes and the burning mountain. Calm, safe and endlessly knowledgeable.”</blockquote><div class="mt-auto flex items-center gap-3"><span class="avatar h-12 w-12">SB</span><span><span class="block font-bold">Sofia &amp; Marco Bellini · Italy</span><span class="text-sm text-muted-foreground">Fire &amp; Stone · Aug 2026</span></span></div></article>
+</div>
+</div>
+</section>
+
+<section aria-labelledby="all" class="pb-28">
+<div class="container-x">
+<div class="mb-6 flex flex-wrap items-end justify-between gap-5">
+<div><h2 id="all" class="font-display text-4xl font-medium text-primary">All reviews</h2><p aria-live="polite" class="mt-1 text-sm text-muted-foreground">Showing {{shown}} of {{matching}} {{ratingNote}}</p></div>
+<div class="flex flex-wrap gap-3">
+<label class="flex flex-col gap-1.5"><span class="label text-[13px]">Tour</span><select class="select w-64" value="{{tour}}" onChange="{{onTour}}"><option value="all">All tours</option><sc-for list="{{tours}}" as="t" hint-placeholder-count="5"><option value="{{t}}">{{t}}</option></sc-for></select></label>
+<label class="flex flex-col gap-1.5"><span class="label text-[13px]">Sort</span><select class="select w-40" value="{{sort}}" onChange="{{onSort}}"><option value="new">Newest</option><option value="high">Highest rated</option><option value="low">Lowest rated</option></select></label>
+</div>
+</div>
+<div class="mb-6 flex flex-wrap gap-x-6 gap-y-2 text-[13px] text-muted-foreground"><span><span class="badge badge-verified mr-1">✓ Verified booking</span> matched to a completed Aurelia booking</span><span><span class="badge badge-manual mr-1">✎ Added by guide</span> shared by email or in person, entered manually</span></div>
+<div class="grid items-start gap-5 sm:grid-cols-2 lg:grid-cols-3">
+<sc-for list="{{list}}" as="r" hint-placeholder-count="6">
+<article class="card flex animate-rise flex-col gap-3 p-6">
+<div class="flex items-center gap-3"><span class="avatar h-11 w-11">{{r.init}}</span><div class="min-w-0"><p class="font-bold">{{r.name}}</p><p class="text-[13px] text-muted-foreground">{{r.country}} · {{r.date}}</p></div></div>
+<p class="tracking-[2px] text-highlight" aria-label="{{r.aria}}">{{r.starStr}}</p>
+<h3 class="font-display text-2xl font-semibold text-primary">{{r.title}}</h3>
+<p class="text-[15px] leading-relaxed text-foreground/85">{{r.text}}</p>
+<sc-if value="{{r.photo}}" hint-placeholder-val="{{ false }}"><img src="{{r.photo}}" alt="Guest photo from {{r.tour}}" class="h-40 w-full rounded-lg object-cover"></sc-if>
+<div class="mt-2 flex flex-wrap items-center justify-between gap-2 border-t pt-4"><a href="TourDetail.dc.html" class="text-[13px] font-semibold text-eyebrow underline-offset-4 hover:underline">{{r.tour}}</a><span class="{{r.badgeCls}}">{{r.badge}}</span></div>
+</article>
+</sc-for>
+</div>
+<sc-if value="{{empty}}" hint-placeholder-val="{{ false }}"><div class="card border-dashed p-14 text-center text-muted-foreground">No reviews match these filters yet. <button type="button" onClick="{{reset}}" class="btn btn-link">Show all reviews</button></div></sc-if>
+<sc-if value="{{more}}" hint-placeholder-val="{{ true }}"><div class="mt-10 text-center"><button type="button" onClick="{{loadMore}}" class="btn btn-outline btn-lg rounded-full">Load more reviews</button></div></sc-if>
+</div>
+</section>
+<footer class="bg-hero pb-10 pt-20 text-hero-foreground/80">
+<div class="container-x">
+<div class="grid gap-12 sm:grid-cols-2 lg:grid-cols-[2fr_1fr_1fr_1.4fr]">
+<div>
+<p class="font-display text-3xl text-hero-foreground">Aurelia <span class="text-highlight">Journeys</span></p>
+<p class="mt-4 max-w-sm text-[15px] leading-relaxed">Private and small-group journeys across Azerbaijan — from Baku’s old walls to the villages of the Greater Caucasus — led by licensed guide Leyla Mammadova.</p>
+<div class="mt-6 flex gap-2">
+<a href="https://instagram.com" aria-label="Instagram" class="btn btn-icon btn-hero-outline rounded-full"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle></svg></a>
+<a href="https://youtube.com" aria-label="YouTube" class="btn btn-icon btn-hero-outline rounded-full"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="2.5" y="5.5" width="19" height="13" rx="4"></rect><path d="M10 9.5v5l4.5-2.5z" fill="currentColor"></path></svg></a>
+<a href="https://facebook.com" aria-label="Facebook" class="btn btn-icon btn-hero-outline rounded-full"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M14 8h3V4h-3a4 4 0 0 0-4 4v3H7v4h3v6h4v-6h3l1-4h-4V8z"></path></svg></a>
+</div>
+</div>
+<div><p class="eyebrow mb-4 !text-highlight">Explore</p><ul class="flex flex-col gap-3 text-[15px]"><li><a href="Experiences.dc.html" class="hover:text-hero-foreground">Experiences</a></li><li><a href="Offers.dc.html" class="hover:text-hero-foreground">Special offers</a></li><li><a href="About.dc.html" class="hover:text-hero-foreground">About Me</a></li><li><a href="Journey.dc.html" class="hover:text-hero-foreground">My Journey</a></li><li><a href="Reviews.dc.html" class="hover:text-hero-foreground">Reviews</a></li><li><a href="Contact.dc.html" class="hover:text-hero-foreground">Contact</a></li></ul></div>
+<div><p class="eyebrow mb-4 !text-highlight">Destinations</p><ul class="flex flex-col gap-3 text-[15px]"><li><a href="Experiences.dc.html" class="hover:text-hero-foreground">Baku &amp; Absheron</a></li><li><a href="Experiences.dc.html" class="hover:text-hero-foreground">Sheki</a></li><li><a href="Experiences.dc.html" class="hover:text-hero-foreground">Gobustan</a></li><li><a href="Experiences.dc.html" class="hover:text-hero-foreground">Khinalug &amp; Quba</a></li><li><a href="Experiences.dc.html" class="hover:text-hero-foreground">Lankaran</a></li></ul></div>
+<div><p class="eyebrow mb-4 !text-highlight">Get in touch</p><ul class="flex flex-col gap-3 text-[15px]"><li><a href="mailto:hello@aureliajourneys.az" class="hover:text-hero-foreground">hello@aureliajourneys.az</a></li><li><a href="https://wa.me/994501234567" class="hover:text-hero-foreground">+994 50 123 45 67 (WhatsApp)</a></li><li>Icherisheher, Baku</li><li>Mon–Sat · 9:00–19:00 (AZT)</li></ul></div>
+</div>
+<div class="mt-16 flex flex-wrap justify-between gap-4 border-t border-hero-foreground/15 pt-7 text-[13px]">
+<span>© 2026 Aurelia Journeys. Licensed tour guide, Azerbaijan Tourism Board.</span>
+<span class="flex gap-6"><a href="Contact.dc.html" class="underline-offset-4 hover:underline">Privacy Policy</a><a href="Contact.dc.html" class="underline-offset-4 hover:underline">Terms &amp; Conditions</a></span>
+</div>
+</div>
+</footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":2600},"theme":{"editor":"enum","options":["admin","emerald","caspian","pomegranate","graphite"],"default":"admin","section":"Theme"},"mode":{"editor":"enum","options":["admin","light","dark","system"],"default":"admin","section":"Theme"}}'>
+class Component extends DCLogic {
+  constructor(p){ super(p); this.state = { star:0, tour:'all', sort:'new', limit:6 }; }
+  img(){ return { baku:'/_blob/53de85c911d3fd172f7f056fc041c3f6', oldcity:'/_blob/71ba1da1636ea18bc8040e2f214c9564', gobustan:'/_blob/1d3b95a6d499c80338e0cfbcce073964', yanardag:'/_blob/caa98c1d37e045432aedeba5937e3fb1', sheki:'/_blob/99cec70a9ac8cc922169a9d4cda6cfd7', khinalug:'/_blob/b1e6bea4cb0d3847910a8759889b2e6b', caspian:'/_blob/feb92edafca2a9ad4057997c2c80419b', lankaran:'/_blob/b1af8e934de14e2a69509a83bda2b0e7' }; }
+  uiDefault(){ return { theme: 'emerald', mode: 'light', radius: 'md', font: 'classic' }; }
+  loadUi(){ try { const v = JSON.parse(window.localStorage.getItem('aj-ui') || 'null'); if (v) this.setState({ ui: { ...this.uiDefault(), ...v } }); } catch (e) {} }
+  uiInit(){
+    this.loadUi();
+    this._onStorage = (e) => { if (!e || !e.key || e.key === 'aj-ui') this.loadUi(); };
+    window.addEventListener('storage', this._onStorage);
+    try { this._bc = new BroadcastChannel('aj-ui'); this._bc.onmessage = (m) => { if (m && m.data) this.setState({ ui: { ...this.uiDefault(), ...m.data } }); }; } catch (e) {}
+    try { this._mq = window.matchMedia('(prefers-color-scheme: dark)'); this._mqh = () => this.forceUpdate(); this._mq.addEventListener('change', this._mqh); } catch (e) {}
+    this._onScroll = () => { const s = (window.scrollY || 0) > 40; if (s !== !!(this.state || {}).scrolled) this.setState({ scrolled: s }); };
+    window.addEventListener('scroll', this._onScroll, { passive: true });
+  }
+  uiDestroy(){
+    window.removeEventListener('storage', this._onStorage); window.removeEventListener('scroll', this._onScroll);
+    try { this._bc && this._bc.close(); } catch (e) {} try { this._mq && this._mq.removeEventListener('change', this._mqh); } catch (e) {}
+  }
+  saveUi(patch){
+    const u = { ...this.uiDefault(), ...((this.state || {}).ui || {}), ...patch };
+    try { window.localStorage.setItem('aj-ui', JSON.stringify(u)); } catch (e) {}
+    try { const bc = new BroadcastChannel('aj-ui'); bc.postMessage(u); bc.close(); } catch (e) {}
+    this.setState({ ui: u });
+  }
+  uiVals(overHero){
+    const st = this.state || {}, p = this.props || {};
+    const u = { ...this.uiDefault(), ...(st.ui || {}) };
+    if (p.theme && p.theme !== 'admin') u.theme = p.theme;
+    if (p.mode && p.mode !== 'admin') u.mode = p.mode;
+    let dark = u.mode === 'dark';
+    if (u.mode === 'system') { try { dark = window.matchMedia('(prefers-color-scheme: dark)').matches; } catch (e) {} }
+    const solid = !overHero || st.scrolled || st.menu;
+    const hdr = solid
+      ? { cls: 'sticky top-0 z-40 border-b bg-background/90 backdrop-blur-md transition-colors duration-300' + (overHero ? ' -mb-20' : ''), link: '', logo: 'text-primary', sub: 'text-eyebrow', icon: 'btn-outline' }
+      : { cls: 'sticky top-0 z-40 -mb-20 border-b border-transparent bg-transparent transition-colors duration-300', link: 'text-hero-foreground hover:bg-hero-foreground/10 hover:text-hero-foreground aria-[current=page]:text-highlight', logo: 'text-hero-foreground', sub: 'text-highlight', icon: 'btn-hero-outline' };
+    return {
+      ui: u, uiTheme: u.theme, uiFont: u.font, uiRadius: u.radius, uiDark: dark ? 'dark' : 'light', isDark: dark, isLight: !dark,
+      offerCount: (() => { try { const D = this.promoData ? this.promoData() : null; return D ? D.campaigns.filter(x => this.campStatus(x) === 'Active' && x.visibility === 'public').length : 4; } catch (e) { return 4; } })(),
+      navOpen: !!st.nav, navExpanded: st.nav ? 'true' : 'false', toggleNav: () => this.setState({ nav: !(this.state || {}).nav }),
+      hdr, menuOpen: !!st.menu, menuExpanded: st.menu ? 'true' : 'false', toggleMenu: () => this.setState({ menu: !(this.state || {}).menu }),
+      cycleMode: () => this.saveUi({ mode: dark ? 'light' : 'dark' }), modeLabel: dark ? 'Switch to light mode' : 'Switch to dark mode',
+      pickTheme: (e) => this.saveUi({ theme: e.target.value })
+    };
+  }
+
+  componentDidMount(){ this.uiInit(); }
+  componentWillUnmount(){ this.uiDestroy(); }
+  renderVals(){
+    const I = this.img(), s = this.state;
+    const R = [
+      { name:'Daniel Okafor', init:'DO', country:'Canada', d:'2026-09-18', stars:5, tour:'Icherisheher & Flame Towers', title:'Baku through a historian’s eyes', text:'She knows every lane of Icherisheher — and every carpet seller’s grandmother. Simply extraordinary.', v:true, photo:I.oldcity },
+      { name:'Aiko Tanaka', init:'AT', country:'Japan', d:'2026-05-22', stars:5, tour:'Silk Road to Sheki', title:'A night in the caravanserai', text:'Sleeping in the caravanserai, then breakfast with a halva master — the best travel experience of my life.', v:true, photo:'' },
+      { name:'Henrik Larsen', init:'HL', country:'Denmark', d:'2026-07-30', stars:5, tour:'Khinalug & Quba Highlands', title:'Worth every hairpin bend', text:'The road is wild, the village is otherworldly and the homestay dinner was the warmest welcome of our trip.', v:true, photo:I.khinalug },
+      { name:'Priya Raman', init:'PR', country:'Singapore', d:'2026-10-02', stars:5, tour:'Baku Food & Wine Evening', title:'Come hungry!', text:'Seven stops, zero regrets. The saffron plov and the pomegranate wine were unforgettable.', v:false, photo:'' },
+      { name:'Liam & Grace Walsh', init:'LW', country:'Ireland', d:'2025-10-14', stars:5, tour:'Silk Road to Sheki', title:'We left with friends', text:'We came for the palace and left with friends. Every detail was handled — we never once worried.', v:true, photo:I.sheki },
+      { name:'Fatima Al-Mansoori', init:'FA', country:'UAE', d:'2026-04-11', stars:4, tour:'Lankaran Tea & Hirkan Forest', title:'Wonderful with our kids', text:'Lovely, gentle pace for our children. One guesthouse was simpler than expected, but Leyla swapped us the next day.', v:true, photo:I.lankaran },
+      { name:'Thomas Becker', init:'TB', country:'Germany', d:'2026-08-21', stars:5, tour:'Private Grand Azerbaijan', title:'The trip of a lifetime', text:'Eight days, five regions and the most professional guiding I have experienced anywhere.', v:true, photo:'' },
+      { name:'Maria Santos', init:'MS', country:'Brazil', d:'2026-03-09', stars:5, tour:'Fire & Stone: Gobustan & Yanar Dag', title:'Prehistory and fire', text:'Petroglyphs in the morning, mud volcanoes at noon and a mountain on fire at dusk. Unreal.', v:false, photo:I.gobustan },
+      { name:'James Chen', init:'JC', country:'Australia', d:'2025-12-03', stars:4, tour:'Shamakhi Wine Route', title:'Great day out', text:'Packed day with brilliant context. Winter traffic slowed us a little but the wines made up for it.', v:true, photo:'' },
+      { name:'Claire Dubois', init:'CD', country:'France', d:'2026-06-15', stars:5, tour:'Icherisheher & Flame Towers', title:'Magique', text:'Leyla’s stories made every courtyard come alive. Watching the Flame Towers light up was pure magic.', v:true, photo:'' }
+    ];
+    const counts = { 5:367, 4:15, 3:3, 2:1, 1:0 };
+    let m = R.filter(r => (!s.star || r.stars === s.star) && (s.tour === 'all' || r.tour === s.tour));
+    m = m.slice().sort(s.sort === 'new' ? (a,b) => b.d.localeCompare(a.d) : s.sort === 'high' ? (a,b) => b.stars - a.stars || b.d.localeCompare(a.d) : (a,b) => a.stars - b.stars || b.d.localeCompare(a.d));
+    const list = m.slice(0, s.limit).map(r => ({ ...r, date: new Date(r.d).toLocaleDateString('en-GB', { month:'short', year:'numeric' }), starStr: '★'.repeat(r.stars) + '☆'.repeat(5 - r.stars), aria: r.stars + ' out of 5 stars', badge: r.v ? '✓ Verified booking' : '✎ Added by guide', badgeCls: r.v ? 'badge badge-verified' : 'badge badge-manual' }));
+    return {
+      ...this.uiVals(false), I,
+      dist: [5,4,3,2,1].map(n => ({ n, c: counts[n], w: (counts[n] / 386 * 100).toFixed(1) + '%', on: s.star === n ? 'true' : 'false', pick: () => this.setState({ star: s.star === n ? 0 : n, limit:6 }) })),
+      list, matching: m.length, shown: list.length, empty: m.length === 0, more: m.length > s.limit, ratingNote: s.star ? '· ' + s.star + '-star only' : '',
+      tours: [...new Set(R.map(r => r.tour))], tour: s.tour, sort: s.sort,
+      onTour: (e) => this.setState({ tour: e.target.value, limit:6 }), onSort: (e) => this.setState({ sort: e.target.value }),
+      loadMore: () => this.setState({ limit: s.limit + 6 }), reset: () => this.setState({ star:0, tour:'all' })
+    };
+  }
+}
+</script>
+</body>
+</html>

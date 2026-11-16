@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Dashboard — Aurelia Admin</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="/_blob/70d0ec09cb9bf09f570d988b94190c96">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>body{margin:0}</style>
+</helmet>
+
+<div data-theme="{{uiTheme}}" data-font="{{uiFont}}" data-radius="{{uiRadius}}" class="{{uiDark}} min-h-screen overflow-x-clip bg-muted/40 font-sans text-foreground antialiased lg:flex">
+<div class="sticky top-0 z-40 flex h-14 items-center justify-between gap-2 border-b bg-background/95 px-3 backdrop-blur lg:hidden">
+<button type="button" onClick="{{toggleNav}}" aria-label="Open navigation" aria-expanded="{{navExpanded}}" class="btn btn-ghost btn-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h10"></path></svg></button>
+<a href="AdminOverview.dc.html" class="flex items-baseline gap-1.5"><span class="font-display text-xl font-semibold text-primary">Aurelia</span><span class="text-[10px] font-semibold uppercase tracking-[0.28em] text-eyebrow">Admin</span></a>
+<div class="flex items-center"><button type="button" onClick="{{cycleMode}}" aria-label="{{modeLabel}}" class="btn btn-ghost btn-icon"><sc-if value="{{isDark}}" hint-placeholder-val="{{ false }}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path></svg></sc-if><sc-if value="{{isLight}}" hint-placeholder-val="{{ true }}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"></path></svg></sc-if></button><span class="avatar h-8 w-8 text-xs">LM</span></div>
+</div>
+<sc-if value="{{navOpen}}" hint-placeholder-val="{{ false }}">
+<div class="overlay lg:hidden" onClick="{{toggleNav}}"></div>
+<aside role="dialog" aria-modal="true" aria-label="Admin navigation" class="sheet-left overflow-y-auto lg:hidden">
+<div class="flex h-14 items-center justify-between border-b px-4"><span class="flex items-baseline gap-1.5"><span class="font-display text-2xl font-semibold text-primary">Aurelia</span><span class="text-[10px] font-semibold uppercase tracking-[0.28em] text-eyebrow">Admin</span></span><button type="button" onClick="{{toggleNav}}" aria-label="Close navigation" class="btn btn-ghost btn-icon">✕</button></div>
+<div class="py-3"><nav aria-label="Admin (mobile)" class="flex flex-col gap-1 px-3">
+<p class="px-3 pb-1 pt-2 text-xs font-semibold text-muted-foreground">Business</p>
+<a href="AdminOverview.dc.html" aria-current="page" class="side-link h-11 lg:h-10"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="3" y="3" width="7" height="9" rx="1.5"></rect><rect x="14" y="3" width="7" height="5" rx="1.5"></rect><rect x="14" y="12" width="7" height="9" rx="1.5"></rect><rect x="3" y="16" width="7" height="5" rx="1.5"></rect></svg>Overview</a>
+<a href="AdminBookings.dc.html" class="side-link h-11 lg:h-10"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"></rect><path d="M3 10h18M8 3v4M16 3v4"></path></svg>Bookings<span class="badge badge-highlight ml-auto">7</span></a>
+<p class="px-3 pb-1 pt-4 text-xs font-semibold text-muted-foreground">Content</p>
+<a href="AdminPackages.dc.html" class="side-link h-11 lg:h-10"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"></path><circle cx="12" cy="9.5" r="2.5"></circle></svg>Packages, reviews &amp; journey</a>
+<a href="AdminPromotions.dc.html" class="side-link h-11 lg:h-10"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><path d="M20.6 13.4l-7.2 7.2a2 2 0 0 1-2.8 0L3 13V3h10l7.6 7.6a2 2 0 0 1 0 2.8z"></path><circle cx="7.5" cy="7.5" r="1.5"></circle></svg>Discounts &amp; offers<span class="badge badge-pending ml-auto">2</span></a>
+<p class="px-3 pb-1 pt-4 text-xs font-semibold text-muted-foreground">Website</p>
+<a href="AdminSettings.dc.html" class="side-link h-11 lg:h-10"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><circle cx="13.5" cy="6.5" r="1.5"></circle><circle cx="17.5" cy="10.5" r="1.5"></circle><circle cx="8.5" cy="7.5" r="1.5"></circle><circle cx="6.5" cy="12.5" r="1.5"></circle><path d="M12 2a10 10 0 1 0 0 20c1 0 1.7-.8 1.7-1.7 0-.5-.2-.9-.5-1.2-.3-.3-.5-.7-.5-1.2 0-.9.8-1.7 1.7-1.7H16a6 6 0 0 0 6-6C22 5.8 17.5 2 12 2z"></path></svg>Settings &amp; appearance</a>
+</nav></div>
+<div class="mt-auto flex flex-col gap-3 border-t p-4">
+<label class="flex flex-col gap-1.5"><span class="text-xs font-semibold text-muted-foreground">Theme</span><select class="select" value="{{ui.theme}}" onChange="{{pickTheme}}"><option value="emerald">Emerald &amp; Gold</option><option value="caspian">Caspian Blue</option><option value="pomegranate">Pomegranate</option><option value="graphite">Graphite</option></select></label>
+<div class="flex items-center gap-3"><span class="avatar">LM</span><span class="min-w-0 flex-1 text-sm"><span class="block font-bold">Leyla Mammadova</span><a href="Main.dc.html" class="text-eyebrow underline-offset-4 hover:underline">View website ↗</a></span></div>
+</div>
+</aside>
+</sc-if>
+<aside class="hidden shrink-0 border-r bg-card lg:sticky lg:top-0 lg:flex lg:h-screen lg:w-64 lg:flex-col lg:overflow-y-auto">
+<div class="flex h-20 items-center px-5"><a href="AdminOverview.dc.html" class="flex items-baseline gap-2"><span class="font-display text-2xl font-semibold text-primary">Aurelia</span><span class="text-[10px] font-semibold uppercase tracking-[0.28em] text-eyebrow">Admin</span></a></div>
+<nav aria-label="Admin" class="flex flex-col gap-1 px-3">
+<p class="px-3 pb-1 pt-2 text-xs font-semibold text-muted-foreground">Business</p>
+<a href="AdminOverview.dc.html" aria-current="page" class="side-link h-11 lg:h-10"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="3" y="3" width="7" height="9" rx="1.5"></rect><rect x="14" y="3" width="7" height="5" rx="1.5"></rect><rect x="14" y="12" width="7" height="9" rx="1.5"></rect><rect x="3" y="16" width="7" height="5" rx="1.5"></rect></svg>Overview</a>
+<a href="AdminBookings.dc.html" class="side-link h-11 lg:h-10"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"></rect><path d="M3 10h18M8 3v4M16 3v4"></path></svg>Bookings<span class="badge badge-highlight ml-auto">7</span></a>
+<p class="px-3 pb-1 pt-4 text-xs font-semibold text-muted-foreground">Content</p>
+<a href="AdminPackages.dc.html" class="side-link h-11 lg:h-10"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"></path><circle cx="12" cy="9.5" r="2.5"></circle></svg>Packages, reviews &amp; journey</a>
+<a href="AdminPromotions.dc.html" class="side-link h-11 lg:h-10"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><path d="M20.6 13.4l-7.2 7.2a2 2 0 0 1-2.8 0L3 13V3h10l7.6 7.6a2 2 0 0 1 0 2.8z"></path><circle cx="7.5" cy="7.5" r="1.5"></circle></svg>Discounts &amp; offers<span class="badge badge-pending ml-auto">2</span></a>
+<p class="px-3 pb-1 pt-4 text-xs font-semibold text-muted-foreground">Website</p>
+<a href="AdminSettings.dc.html" class="side-link h-11 lg:h-10"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><circle cx="13.5" cy="6.5" r="1.5"></circle><circle cx="17.5" cy="10.5" r="1.5"></circle><circle cx="8.5" cy="7.5" r="1.5"></circle><circle cx="6.5" cy="12.5" r="1.5"></circle><path d="M12 2a10 10 0 1 0 0 20c1 0 1.7-.8 1.7-1.7 0-.5-.2-.9-.5-1.2-.3-.3-.5-.7-.5-1.2 0-.9.8-1.7 1.7-1.7H16a6 6 0 0 0 6-6C22 5.8 17.5 2 12 2z"></path></svg>Settings &amp; appearance</a>
+</nav>
+<div class="mt-auto flex items-center gap-3 border-t p-4"><span class="avatar">LM</span><span class="min-w-0 text-sm"><span class="block font-bold">Leyla Mammadova</span><a href="Main.dc.html" class="text-eyebrow underline-offset-4 hover:underline">View website ↗</a></span></div>
+</aside>
+
+<main class="min-w-0 flex-1 p-5 sm:p-8">
+<div class="mb-7 flex flex-wrap items-center justify-between gap-4">
+<div><p class="text-[13px] text-muted-foreground">Saturday, 14 November 2026</p><h1 class="font-display text-3xl font-semibold text-primary sm:text-4xl">Good evening, Leyla</h1></div>
+<div class="flex flex-wrap items-center gap-2"><div class="hidden items-center gap-2 sm:flex">
+<label class="sr-only" for="qtheme">Theme</label>
+<select id="qtheme" class="select h-10 w-40" value="{{ui.theme}}" onChange="{{pickTheme}}"><option value="emerald">Emerald &amp; Gold</option><option value="caspian">Caspian Blue</option><option value="pomegranate">Pomegranate</option><option value="graphite">Graphite</option></select>
+<button type="button" onClick="{{cycleMode}}" aria-label="{{modeLabel}}" class="btn btn-outline btn-icon"><sc-if value="{{isDark}}" hint-placeholder-val="{{ false }}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path></svg></sc-if><sc-if value="{{isLight}}" hint-placeholder-val="{{ true }}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"></path></svg></sc-if></button>
+</div>
+<a href="AdminPackages.dc.html" class="btn btn-default">+ New package</a></div>
+</div>
+<div class="mb-5 grid grid-cols-2 gap-4 xl:grid-cols-4">
+<sc-for list="{{kpis}}" as="k" hint-placeholder-count="8">
+<a href="{{k.href}}" class="card flex flex-col gap-2 p-5 transition-shadow hover:shadow-md"><span class="flex items-center justify-between text-[13px] font-medium text-muted-foreground">{{k.label}}<span class="{{k.dot}}"></span></span><span class="font-display text-[38px] font-semibold leading-none text-primary">{{k.v}}</span><span class="{{k.tc}}">{{k.trend}}</span></a>
+</sc-for>
+</div>
+<div class="mb-5 grid gap-5 xl:grid-cols-[3fr_2fr]">
+<section aria-labelledby="ch" class="card">
+<div class="card-header flex-row flex-wrap items-center justify-between gap-3 space-y-0"><div><h2 id="ch" class="card-title">Booking requests</h2><p class="card-description mt-1.5">Last 6 months</p></div><span class="flex gap-4 text-xs text-muted-foreground"><span class="flex items-center gap-1.5"><span class="h-2.5 w-2.5 rounded-sm bg-primary"></span>Confirmed</span><span class="flex items-center gap-1.5"><span class="h-2.5 w-2.5 rounded-sm bg-highlight"></span>Requests</span></span></div>
+<div class="card-content"><div role="img" aria-label="Requests rose from 21 in June to 44 in November; confirmations from 16 to 31" class="flex h-56 items-end gap-3 border-b pb-7 sm:gap-5">
+<sc-for list="{{bars}}" as="b" hint-placeholder-count="6"><div class="relative flex h-full flex-1 items-end justify-center gap-1"><div class="w-1/3 max-w-6 origin-bottom animate-grow rounded-t-md bg-highlight" style="height: {{b.r}}; animation-delay: {{b.d}}" title="{{b.rt}}"></div><div class="w-1/3 max-w-6 origin-bottom animate-grow rounded-t-md bg-primary" style="height: {{b.c}}; animation-delay: {{b.d}}" title="{{b.ct}}"></div><span class="absolute -bottom-6 text-xs text-muted-foreground">{{b.m}}</span></div></sc-for>
+</div></div>
+</section>
+<section aria-labelledby="up" class="card">
+<div class="card-header"><h2 id="up" class="card-title">Upcoming tours</h2></div>
+<div class="card-content flex flex-col gap-4"><sc-for list="{{upcoming}}" as="u" hint-placeholder-count="4"><div class="flex items-center gap-3"><span class="w-12 shrink-0 rounded-md border py-1 text-center"><span class="block text-[11px] font-bold uppercase text-eyebrow">{{u.mo}}</span><span class="block font-display text-[22px] font-semibold leading-none">{{u.d}}</span></span><span class="min-w-0"><span class="block truncate text-sm font-semibold">{{u.t}}</span><span class="text-[13px] text-muted-foreground">{{u.who}}</span></span></div></sc-for></div>
+</section>
+</div>
+<div class="grid gap-5 xl:grid-cols-[3fr_2fr]">
+<section aria-labelledby="rb" class="card overflow-hidden">
+<div class="flex items-center justify-between p-5 pb-3 sm:p-6 sm:pb-3"><h2 id="rb" class="card-title">Recent booking activity</h2><a href="AdminBookings.dc.html" class="btn btn-ghost btn-sm">View all</a></div>
+<ul class="divide-y md:hidden"><sc-for list="{{recent}}" as="r" hint-placeholder-count="5"><li><a href="AdminBookings.dc.html" class="flex flex-col gap-1 px-5 py-3.5 hover:bg-muted/50"><span class="flex items-center justify-between gap-2"><span class="font-bold">{{r.guest}}</span><span class="{{r.cls}}">{{r.status}}</span></span><span class="text-[13px] text-muted-foreground">{{r.tour}}</span><span class="text-xs text-muted-foreground">{{r.ref}} · {{r.date}}</span></a></li></sc-for></ul>
+<div class="hidden overflow-x-auto md:block"><table class="table min-w-[600px]"><thead><tr><th class="pl-6">Reference</th><th>Guest</th><th>Tour</th><th>Date</th><th class="pr-6">Status</th></tr></thead><tbody><sc-for list="{{recent}}" as="r" hint-placeholder-count="5"><tr><td class="pl-6 font-semibold"><a href="AdminBookings.dc.html" class="text-primary underline-offset-4 hover:underline">{{r.ref}}</a></td><td>{{r.guest}}</td><td class="text-muted-foreground">{{r.tour}}</td><td class="whitespace-nowrap text-muted-foreground">{{r.date}}</td><td class="pr-6"><span class="{{r.cls}}">{{r.status}}</span></td></tr></sc-for></tbody></table></div>
+</section>
+<section aria-labelledby="iq" class="card">
+<div class="card-header flex-row items-center justify-between space-y-0"><h2 id="iq" class="card-title">Recent inquiries</h2><span class="badge badge-pending">3 new</span></div>
+<div class="card-content flex flex-col divide-y"><sc-for list="{{inq}}" as="q" hint-placeholder-count="3"><div class="py-3.5 first:pt-0"><div class="flex justify-between gap-2 text-sm"><strong>{{q.name}}</strong><span class="text-xs text-muted-foreground">{{q.when}}</span></div><p class="mb-2 mt-1 text-[13px] leading-relaxed text-muted-foreground">{{q.msg}}</p><div class="flex gap-2"><a href="{{q.wa}}" class="btn btn-outline btn-sm">WhatsApp</a><a href="{{q.mail}}" class="btn btn-ghost btn-sm">Email</a></div></div></sc-for></div>
+</section>
+</div>
+</main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1300},"theme":{"editor":"enum","options":["admin","emerald","caspian","pomegranate","graphite"],"default":"admin","section":"Theme"},"mode":{"editor":"enum","options":["admin","light","dark","system"],"default":"admin","section":"Theme"}}'>
+class Component extends DCLogic {
+  constructor(p){ super(p); this.state = {}; }
+  img(){ return { baku:'/_blob/53de85c911d3fd172f7f056fc041c3f6', oldcity:'/_blob/71ba1da1636ea18bc8040e2f214c9564', gobustan:'/_blob/1d3b95a6d499c80338e0cfbcce073964', yanardag:'/_blob/caa98c1d37e045432aedeba5937e3fb1', sheki:'/_blob/99cec70a9ac8cc922169a9d4cda6cfd7', khinalug:'/_blob/b1e6bea4cb0d3847910a8759889b2e6b', caspian:'/_blob/feb92edafca2a9ad4057997c2c80419b', lankaran:'/_blob/b1af8e934de14e2a69509a83bda2b0e7' }; }
+  uiDefault(){ return { theme: 'emerald', mode: 'light', radius: 'md', font: 'classic' }; }
+  loadUi(){ try { const v = JSON.parse(window.localStorage.getItem('aj-ui') || 'null'); if (v) this.setState({ ui: { ...this.uiDefault(), ...v } }); } catch (e) {} }
+  uiInit(){
+    this.loadUi();
+    this._onStorage = (e) => { if (!e || !e.key || e.key === 'aj-ui') this.loadUi(); };
+    window.addEventListener('storage', this._onStorage);
+    try { this._bc = new BroadcastChannel('aj-ui'); this._bc.onmessage = (m) => { if (m && m.data) this.setState({ ui: { ...this.uiDefault(), ...m.data } }); }; } catch (e) {}
+    try { this._mq = window.matchMedia('(prefers-color-scheme: dark)'); this._mqh = () => this.forceUpdate(); this._mq.addEventListener('change', this._mqh); } catch (e) {}
+    this._onScroll = () => { const s = (window.scrollY || 0) > 40; if (s !== !!(this.state || {}).scrolled) this.setState({ scrolled: s }); };
+    window.addEventListener('scroll', this._onScroll, { passive: true });
+  }
+  uiDestroy(){
+    window.removeEventListener('storage', this._onStorage); window.removeEventListener('scroll', this._onScroll);
+    try { this._bc && this._bc.close(); } catch (e) {} try { this._mq && this._mq.removeEventListener('change', this._mqh); } catch (e) {}
+  }
+  saveUi(patch){
+    const u = { ...this.uiDefault(), ...((this.state || {}).ui || {}), ...patch };
+    try { window.localStorage.setItem('aj-ui', JSON.stringify(u)); } catch (e) {}
+    try { const bc = new BroadcastChannel('aj-ui'); bc.postMessage(u); bc.close(); } catch (e) {}
+    this.setState({ ui: u });
+  }
+  uiVals(overHero){
+    const st = this.state || {}, p = this.props || {};
+    const u = { ...this.uiDefault(), ...(st.ui || {}) };
+    if (p.theme && p.theme !== 'admin') u.theme = p.theme;
+    if (p.mode && p.mode !== 'admin') u.mode = p.mode;
+    let dark = u.mode === 'dark';
+    if (u.mode === 'system') { try { dark = window.matchMedia('(prefers-color-scheme: dark)').matches; } catch (e) {} }
+    const solid = !overHero || st.scrolled || st.menu;
+    const hdr = solid
+      ? { cls: 'sticky top-0 z-40 border-b bg-background/90 backdrop-blur-md transition-colors duration-300' + (overHero ? ' -mb-20' : ''), link: '', logo: 'text-primary', sub: 'text-eyebrow', icon: 'btn-outline' }
+      : { cls: 'sticky top-0 z-40 -mb-20 border-b border-transparent bg-transparent transition-colors duration-300', link: 'text-hero-foreground hover:bg-hero-foreground/10 hover:text-hero-foreground aria-[current=page]:text-highlight', logo: 'text-hero-foreground', sub: 'text-highlight', icon: 'btn-hero-outline' };
+    return {
+      ui: u, uiTheme: u.theme, uiFont: u.font, uiRadius: u.radius, uiDark: dark ? 'dark' : 'light', isDark: dark, isLight: !dark,
+      offerCount: (() => { try { const D = this.promoData ? this.promoData() : null; return D ? D.campaigns.filter(x => this.campStatus(x) === 'Active' && x.visibility === 'public').length : 4; } catch (e) { return 4; } })(),
+      navOpen: !!st.nav, navExpanded: st.nav ? 'true' : 'false', toggleNav: () => this.setState({ nav: !(this.state || {}).nav }),
+      hdr, menuOpen: !!st.menu, menuExpanded: st.menu ? 'true' : 'false', toggleMenu: () => this.setState({ menu: !(this.state || {}).menu }),
+      cycleMode: () => this.saveUi({ mode: dark ? 'light' : 'dark' }), modeLabel: dark ? 'Switch to light mode' : 'Switch to dark mode',
+      pickTheme: (e) => this.saveUi({ theme: e.target.value })
+    };
+  }
+
+  componentDidMount(){ this.uiInit(); }
+  componentWillUnmount(){ this.uiDestroy(); }
+  renderVals(){
+    const dot = (c) => 'h-2 w-2 rounded-full ' + c, up = 'text-xs font-semibold text-emerald-700 dark:text-emerald-400', neutral = 'text-xs font-semibold text-muted-foreground', warn = 'text-xs font-semibold text-amber-700 dark:text-amber-400';
+    const data = [['Jun',21,16],['Jul',29,22],['Aug',35,27],['Sep',32,24],['Oct',40,29],['Nov',44,31]];
+    const SC = { Pending:'badge badge-pending', Confirmed:'badge badge-confirmed', Completed:'badge badge-completed', Cancelled:'badge badge-cancelled' };
+    return {
+      ...this.uiVals(false),
+      kpis: [
+        { label:'Booking requests', v:'201', trend:'↑ 18% vs last quarter', tc:up, dot:dot('bg-highlight'), href:'AdminBookings.dc.html' },
+        { label:'Pending', v:'7', trend:'2 date clashes to resolve', tc:warn, dot:dot('bg-amber-500'), href:'AdminBookings.dc.html' },
+        { label:'Confirmed', v:'27', trend:'Next: Nov 18 · Food & Wine', tc:neutral, dot:dot('bg-emerald-600'), href:'AdminBookings.dc.html' },
+        { label:'Completed tours', v:'940', trend:'↑ 14 this month', tc:up, dot:dot('bg-sky-600'), href:'AdminBookings.dc.html' },
+        { label:'Customers', v:'1,284', trend:'41 countries', tc:neutral, dot:dot('bg-primary'), href:'AdminPackages.dc.html' },
+        { label:'Experiences', v:'9', trend:'8 published · 1 draft', tc:neutral, dot:dot('bg-primary'), href:'AdminPackages.dc.html' },
+        { label:'Average rating', v:'4.9', trend:'386 reviews', tc:neutral, dot:dot('bg-highlight'), href:'AdminPackages.dc.html' },
+        { label:'Booked value (Nov)', v:'$41.6k', trend:'↑ 9% vs October', tc:up, dot:dot('bg-highlight'), href:'AdminBookings.dc.html' }
+      ],
+      bars: data.map(([m, r, c], i) => ({ m, r: (r / 48 * 100) + '%', c: (c / 48 * 100) + '%', d: (i * 0.06) + 's', rt: r + ' requests', ct: c + ' confirmed' })),
+      upcoming: [ { mo:'Nov', d:'18', t:'Baku Food & Wine Evening', who:'Priya Raman · 2 guests' }, { mo:'Nov', d:'21', t:'Icherisheher & Flame Towers', who:'Claire Dubois · 4 guests' }, { mo:'Dec', d:'03', t:'Fire & Stone: Gobustan', who:'Omar Haddad · 3 guests' }, { mo:'Apr', d:'18', t:'Silk Road to Sheki', who:'Group departure · 6 of 8 booked' } ],
+      recent: [ { ref:'AJ-SHE-4821', guest:'Eleanor Whitfield', tour:'Silk Road to Sheki', date:'Apr 18, 2027', status:'Pending' }, { ref:'AJ-GRA-3307', guest:'Thomas Becker', tour:'Private Grand Azerbaijan', date:'Jun 14, 2027', status:'Pending' }, { ref:'AJ-FOO-1194', guest:'Priya Raman', tour:'Baku Food & Wine Evening', date:'Nov 18, 2026', status:'Confirmed' }, { ref:'AJ-OLD-7720', guest:'Claire Dubois', tour:'Icherisheher & Flame Towers', date:'Nov 21, 2026', status:'Confirmed' }, { ref:'AJ-LAN-5512', guest:'Fatima Al-Mansoori', tour:'Lankaran Tea & Hirkan Forest', date:'Oct 28, 2026', status:'Completed' } ].map(r => ({ ...r, cls: SC[r.status] })),
+      inq: [ { name:'Kenji Watanabe', when:'2 h ago', msg:'Is Khinalug possible in late March for a photography group of five?', wa:'https://wa.me/819012345678', mail:'mailto:kenji@example.com' }, { name:'Rachel Green', when:'Yesterday', msg:'Honeymoon in May — could you design a private 10-day trip with Sheki and the Caspian?', wa:'https://wa.me/447700900123', mail:'mailto:rachel@example.com' }, { name:'Ahmed Siddiqui', when:'Nov 12', msg:'Corporate retreat for 14 people in Gabala, mid-September. Is that feasible?', wa:'https://wa.me/923211234567', mail:'mailto:ahmed@example.com' } ]
+    };
+  }
+}
+</script>
+</body>
+</html>

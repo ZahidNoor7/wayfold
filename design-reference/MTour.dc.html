@@ -1,0 +1,345 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Mobile — Silk Road to Sheki</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="/_blob/70d0ec09cb9bf09f570d988b94190c96">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>body{margin:0}</style>
+</helmet>
+
+<div data-theme="{{uiTheme}}" data-font="{{uiFont}}" data-radius="{{uiRadius}}" class="{{uiDark}} relative overflow-x-clip min-h-[2700px] w-[390px] overflow-x-hidden bg-background font-sans text-foreground antialiased">
+<div class="relative">
+<div class="no-scrollbar flex h-[420px] snap-x snap-mandatory overflow-x-auto" onScroll="{{onGal}}"><sc-for list="{{photos}}" as="p" hint-placeholder-count="4"><img src="{{p.img}}" alt="{{p.alt}}" class="h-full w-[390px] shrink-0 snap-center object-cover"></sc-for></div>
+<div class="pointer-events-none absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-black/40 to-transparent"></div>
+<div class="absolute inset-x-4 top-4 flex justify-between"><a href="MExperiences.dc.html" aria-label="Back" class="btn btn-icon rounded-full bg-background/95 shadow">←</a><div class="flex gap-2"><button type="button" onClick="{{share}}" aria-label="Share" class="btn btn-icon rounded-full bg-background/95 shadow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 12v7a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-7M16 6l-4-4-4 4M12 2v13"></path></svg></button><button type="button" onClick="{{toggleSave}}" aria-pressed="{{saved}}" aria-label="Save to wishlist" class="btn btn-icon rounded-full bg-background/95 shadow"><svg viewBox="0 0 24 24" fill="{{heartFill}}" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 20s-8-4.8-8-11a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 9c0 6.2-8 11-8 11z"></path></svg></button></div></div>
+<span class="badge absolute bottom-8 right-4 border-transparent bg-black/60 text-white">{{galPos}}</span>
+</div>
+<div class="relative -mt-5 rounded-t-2xl bg-background px-5 pt-6">
+<div class="mb-2 flex gap-2"><span class="badge badge-default">Featured</span><span class="badge badge-outline">Cultural</span></div>
+<h1 class="font-display text-[38px] font-medium leading-none text-primary">Silk Road to Sheki</h1>
+<p class="mt-2 text-sm text-muted-foreground"><span class="font-semibold text-foreground">★ 4.9</span> · 71 reviews · Baku → Sheki → Lahij</p>
+<div class="no-scrollbar -mx-5 mt-5 flex gap-2 overflow-x-auto px-5"><span class="badge badge-secondary shrink-0 px-3 py-1.5 text-[13px]">3 days · 2 nights</span><span class="badge badge-secondary shrink-0 px-3 py-1.5 text-[13px]">2–8 guests</span><span class="badge badge-secondary shrink-0 px-3 py-1.5 text-[13px]">Hotel pickup</span><span class="badge badge-secondary shrink-0 px-3 py-1.5 text-[13px]">EN · AZ · RU · TR</span></div>
+<div class="my-6 flex items-center gap-3 rounded-xl border p-3"><span class="avatar h-12 w-12">LM</span><div class="flex-1"><p class="text-sm font-bold">Hosted by Leyla Mammadova</p><p class="text-xs text-muted-foreground">Licensed guide · 12 years · replies in ~2 h</p></div><a href="https://wa.me/994501234567" aria-label="Message Leyla on WhatsApp" class="btn btn-outline btn-icon rounded-full"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21l1.6-4.8A8.5 8.5 0 1 1 7.8 19.4L3 21z"></path></svg></a></div>
+<div role="tablist" aria-label="Tour sections" class="tabs-list sticky top-0 z-20 mb-6 grid w-full grid-cols-3"><sc-for list="{{tabs}}" as="t" hint-placeholder-count="3"><button type="button" role="tab" aria-selected="{{t.on}}" onClick="{{t.pick}}" class="tabs-trigger">{{t.label}}</button></sc-for></div>
+
+<sc-if value="{{tOv}}" hint-placeholder-val="{{ true }}">
+<div class="animate-fade-in">
+<p class="text-[15px] leading-relaxed text-foreground/85">Three unhurried days along the old caravan road into the Greater Caucasus — the Juma Mosque of Shamakhi, a night inside the 18th-century Upper Caravanserai, the Khan’s Palace stained glass and the coppersmiths of Lahij.</p>
+<h2 class="mb-3 mt-7 font-display text-2xl font-medium text-primary">Highlights</h2>
+<ul class="flex flex-col gap-3"><sc-for list="{{highlights}}" as="h" hint-placeholder-count="5"><li class="flex gap-3 text-[15px]"><span class="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-primary text-[10px] text-primary-foreground">✓</span>{{h}}</li></sc-for></ul>
+<h2 class="mb-3 mt-7 font-display text-2xl font-medium text-primary">Included</h2>
+<ul class="flex flex-col gap-2 text-[15px]"><li>✓ Expert guiding by Leyla</li><li>✓ 2 nights in Sheki</li><li>✓ Breakfasts &amp; two dinners</li><li>✓ Private vehicle from Baku</li><li>✓ All entrance fees &amp; workshops</li></ul>
+<h2 class="mb-3 mt-7 font-display text-2xl font-medium text-primary">Not included</h2>
+<ul class="flex flex-col gap-2 text-[15px] text-muted-foreground"><li>✕ Flights &amp; e-visa fee</li><li>✕ Travel insurance (required)</li><li>✕ Lunches &amp; gratuities</li></ul>
+<div class="alert mt-7 bg-secondary/60 text-[13px] leading-relaxed">Most nationalities need an Azerbaijan e-visa (ASAN Visa). Leyla sends the link on confirmation.</div>
+</div>
+</sc-if>
+<sc-if value="{{tIt}}" hint-placeholder-val="{{ false }}">
+<ol class="animate-fade-in">
+<sc-for list="{{days}}" as="d" hint-placeholder-count="3">
+<li class="border-b"><button type="button" class="accordion-trigger" onClick="{{d.toggle}}" aria-expanded="{{d.exp}}"><span><span class="eyebrow block">Day {{d.n}}</span><span class="mt-1 block font-display text-xl font-medium text-primary">{{d.title}}</span></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg></button><sc-if value="{{d.open}}" hint-placeholder-val="{{ false }}"><div class="animate-fade-in pb-4"><p class="text-[15px] leading-relaxed text-foreground/85">{{d.text}}</p><p class="mt-2 text-xs text-muted-foreground">{{d.meta}}</p></div></sc-if></li>
+</sc-for>
+</ol>
+</sc-if>
+<sc-if value="{{tRv}}" hint-placeholder-val="{{ false }}">
+<div class="flex animate-fade-in flex-col gap-4">
+<div class="flex items-center gap-4 rounded-xl bg-secondary/60 p-4"><p class="font-display text-5xl text-primary">4.9</p><div><p class="tracking-[2px] text-highlight">★★★★★</p><p class="text-sm text-muted-foreground">71 verified reviews</p></div></div>
+<sc-for list="{{reviews}}" as="r" hint-placeholder-count="3"><article class="card p-4"><div class="mb-2 flex items-center gap-3"><span class="avatar h-9 w-9 text-xs">{{r.init}}</span><div><p class="text-sm font-bold">{{r.name}}</p><p class="text-xs text-muted-foreground">{{r.country}} · {{r.date}}</p></div></div><p class="text-[15px] leading-relaxed text-foreground/85">{{r.text}}</p></article></sc-for>
+<a href="Reviews.dc.html" class="btn btn-outline btn-lg rounded-full">See all reviews</a>
+</div>
+</sc-if>
+<div class="h-32"></div>
+</div>
+
+<div class="sticky bottom-0 z-30 flex items-center justify-between gap-3 border-t bg-background/95 px-5 pb-7 pt-3 backdrop-blur">
+<div><p class="text-xs text-muted-foreground">From <sc-if value="{{lp.has}}" hint-placeholder-val="{{ true }}"><span class="badge badge-highlight ml-1">{{lp.badge}}</span></sc-if></p><p><sc-if value="{{lp.strike}}" hint-placeholder-val="{{ true }}"><span class="mr-1 text-sm text-muted-foreground line-through">{{lp.orig}}</span></sc-if><span class="font-display text-[26px] font-semibold text-primary">{{lp.now}}</span> <span class="text-xs text-muted-foreground">/ adult</span></p></div>
+<button type="button" onClick="{{openBook}}" class="btn btn-default btn-lg rounded-full px-7">Check dates</button>
+</div>
+
+<sc-if value="{{book}}" hint-placeholder-val="{{ false }}">
+<div class="fixed inset-0 z-50 animate-fade-in bg-black/60" onClick="{{closeBook}}"></div>
+<div role="dialog" aria-modal="true" aria-label="Choose date and guests" class="fixed inset-x-0 bottom-0 z-50 flex animate-sheet-bottom flex-col rounded-t-2xl border-t bg-background pb-7">
+<div class="mx-auto mt-3 h-1.5 w-12 rounded-full bg-muted"></div>
+<div class="flex items-center justify-between px-5 pt-3"><h2 class="text-lg font-bold">Choose your departure</h2><button type="button" onClick="{{closeBook}}" aria-label="Close" class="btn btn-ghost btn-icon">✕</button></div>
+<div role="radiogroup" aria-label="Departure date" class="flex max-h-72 flex-col gap-2 overflow-y-auto px-5 py-4"><sc-for list="{{dates}}" as="d" hint-placeholder-count="4"><button type="button" role="radio" aria-checked="{{d.on}}" aria-disabled="{{d.dis}}" onClick="{{d.pick}}" class="{{d.cls}}"><span><span class="block text-sm font-bold">{{d.label}}</span><span class="{{d.subCls}}">{{d.note}}</span></span><sc-if value="{{d.full}}" hint-placeholder-val="{{ false }}"><span class="badge badge-cancelled">Sold out</span></sc-if><sc-if value="{{d.open}}" hint-placeholder-val="{{ true }}"><span class="text-sm font-semibold">$690</span></sc-if></button></sc-for></div>
+<sc-if value="{{fullMsg}}" hint-placeholder-val="{{ false }}"><p role="status" class="mx-5 -mt-2 mb-3 rounded-md bg-muted p-2.5 text-[13px]">{{fullMsg}} <button type="button" onClick="{{waitlist}}" class="font-semibold text-primary underline underline-offset-4">{{waitLabel}}</button></p></sc-if>
+<sc-if value="{{seatWarn}}" hint-placeholder-val="{{ false }}"><p role="alert" class="field-error mx-5 mb-3">{{seatWarn}}</p></sc-if>
+<div class="flex items-center justify-between border-y px-5 py-3"><span><span class="block text-sm font-semibold">Adults</span><span class="text-xs text-muted-foreground">$690 each</span></span><span class="flex items-center gap-3"><button type="button" onClick="{{decA}}" aria-label="Fewer adults" class="btn btn-outline btn-icon rounded-full">−</button><span class="w-5 text-center font-bold" aria-live="polite">{{adults}}</span><button type="button" onClick="{{incA}}" aria-label="More adults" class="btn btn-outline btn-icon rounded-full">+</button></span></div>
+<sc-if value="{{qd.has}}" hint-placeholder-val="{{ true }}"><div class="flex justify-between px-5 pt-3 text-sm font-semibold text-emerald-700 dark:text-emerald-400"><span>{{qd.label}}</span><span>−{{qd.amt}}</span></div></sc-if><div class="flex items-center justify-between px-5 py-4"><span class="text-sm text-muted-foreground">Estimated total</span><span class="font-display text-2xl font-semibold text-primary">{{total}}</span></div>
+<div class="px-5"><a href="MBooking.dc.html" class="btn btn-default btn-xl w-full rounded-full">Continue to request</a><p class="mt-2 text-center text-xs text-muted-foreground">No payment now · Leyla confirms within 24 h</p></div>
+</div>
+</sc-if>
+<sc-if value="{{toast}}" hint-placeholder-val="{{ false }}"><div role="status" class="toast w-max max-w-[340px]">{{toast}}</div></sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":2700},"bookingSheet":{"editor":"boolean","default":false,"section":"States"},"theme":{"editor":"enum","options":["admin","emerald","caspian","pomegranate","graphite"],"default":"admin","section":"Theme"},"mode":{"editor":"enum","options":["admin","light","dark","system"],"default":"admin","section":"Theme"}}'>
+class Component extends DCLogic {
+  constructor(p){ super(p); this.state = { tab:'ov', open:{ 0:true }, gal:0, book: !!p.bookingSheet, dep:'2027-04-17', fullPick:'', wl:{}, adults:2, saved:false, toast:'' }; }
+  img(){ return { baku:'/_blob/53de85c911d3fd172f7f056fc041c3f6', oldcity:'/_blob/71ba1da1636ea18bc8040e2f214c9564', gobustan:'/_blob/1d3b95a6d499c80338e0cfbcce073964', yanardag:'/_blob/caa98c1d37e045432aedeba5937e3fb1', sheki:'/_blob/99cec70a9ac8cc922169a9d4cda6cfd7', khinalug:'/_blob/b1e6bea4cb0d3847910a8759889b2e6b', caspian:'/_blob/feb92edafca2a9ad4057997c2c80419b', lankaran:'/_blob/b1af8e934de14e2a69509a83bda2b0e7' }; }
+  uiDefault(){ return { theme: 'emerald', mode: 'light', radius: 'md', font: 'classic' }; }
+  loadUi(){ try { const v = JSON.parse(window.localStorage.getItem('aj-ui') || 'null'); if (v) this.setState({ ui: { ...this.uiDefault(), ...v } }); } catch (e) {} }
+  uiInit(){
+    this.loadUi();
+    this._onStorage = (e) => { if (!e || !e.key || e.key === 'aj-ui') this.loadUi(); };
+    window.addEventListener('storage', this._onStorage);
+    try { this._bc = new BroadcastChannel('aj-ui'); this._bc.onmessage = (m) => { if (m && m.data) this.setState({ ui: { ...this.uiDefault(), ...m.data } }); }; } catch (e) {}
+    try { this._mq = window.matchMedia('(prefers-color-scheme: dark)'); this._mqh = () => this.forceUpdate(); this._mq.addEventListener('change', this._mqh); } catch (e) {}
+    this._onScroll = () => { const s = (window.scrollY || 0) > 40; if (s !== !!(this.state || {}).scrolled) this.setState({ scrolled: s }); };
+    window.addEventListener('scroll', this._onScroll, { passive: true });
+  }
+  uiDestroy(){
+    window.removeEventListener('storage', this._onStorage); window.removeEventListener('scroll', this._onScroll);
+    try { this._bc && this._bc.close(); } catch (e) {} try { this._mq && this._mq.removeEventListener('change', this._mqh); } catch (e) {}
+  }
+  saveUi(patch){
+    const u = { ...this.uiDefault(), ...((this.state || {}).ui || {}), ...patch };
+    try { window.localStorage.setItem('aj-ui', JSON.stringify(u)); } catch (e) {}
+    try { const bc = new BroadcastChannel('aj-ui'); bc.postMessage(u); bc.close(); } catch (e) {}
+    this.setState({ ui: u });
+  }
+  uiVals(overHero){
+    const st = this.state || {}, p = this.props || {};
+    const u = { ...this.uiDefault(), ...(st.ui || {}) };
+    if (p.theme && p.theme !== 'admin') u.theme = p.theme;
+    if (p.mode && p.mode !== 'admin') u.mode = p.mode;
+    let dark = u.mode === 'dark';
+    if (u.mode === 'system') { try { dark = window.matchMedia('(prefers-color-scheme: dark)').matches; } catch (e) {} }
+    const solid = !overHero || st.scrolled || st.menu;
+    const hdr = solid
+      ? { cls: 'sticky top-0 z-40 border-b bg-background/90 backdrop-blur-md transition-colors duration-300' + (overHero ? ' -mb-20' : ''), link: '', logo: 'text-primary', sub: 'text-eyebrow', icon: 'btn-outline' }
+      : { cls: 'sticky top-0 z-40 -mb-20 border-b border-transparent bg-transparent transition-colors duration-300', link: 'text-hero-foreground hover:bg-hero-foreground/10 hover:text-hero-foreground aria-[current=page]:text-highlight', logo: 'text-hero-foreground', sub: 'text-highlight', icon: 'btn-hero-outline' };
+    return {
+      ui: u, uiTheme: u.theme, uiFont: u.font, uiRadius: u.radius, uiDark: dark ? 'dark' : 'light', isDark: dark, isLight: !dark,
+      offerCount: (() => { try { const D = this.promoData ? this.promoData() : null; return D ? D.campaigns.filter(x => this.campStatus(x) === 'Active' && x.visibility === 'public').length : 4; } catch (e) { return 4; } })(),
+      navOpen: !!st.nav, navExpanded: st.nav ? 'true' : 'false', toggleNav: () => this.setState({ nav: !(this.state || {}).nav }),
+      hdr, menuOpen: !!st.menu, menuExpanded: st.menu ? 'true' : 'false', toggleMenu: () => this.setState({ menu: !(this.state || {}).menu }),
+      cycleMode: () => this.saveUi({ mode: dark ? 'light' : 'dark' }), modeLabel: dark ? 'Switch to light mode' : 'Switch to dark mode',
+      pickTheme: (e) => this.saveUi({ theme: e.target.value })
+    };
+  }
+
+  promoTours(){ return { sheki:{ n:'Silk Road to Sheki', p:690 }, khin:{ n:'Khinalug & Quba Highlands', p:480 }, grand:{ n:'Private Grand Azerbaijan', p:2450 }, fire:{ n:'Fire & Stone: Gobustan & Yanar Dag', p:165 }, old:{ n:'Icherisheher & Flame Towers', p:120 }, food:{ n:'Baku Food & Wine Evening', p:85 }, wine:{ n:'Shamakhi Wine Route', p:210 }, lank:{ n:'Lankaran Tea & Hirkan Forest', p:560 }, bespoke:{ n:'Bespoke Azerbaijan', p:3200 } }; }
+  promoDefaults(){ return {
+    settings: { requestsEnabled: true, maxRequestPct: 30, notify: 'email+whatsapp', responseDays: 2, stacking: 'best' },
+    campaigns: [
+      { id:'c1', name:'Autumn in the Caucasus', code:'', type:'percent', value:15, tours:['sheki','khin'], start:'2026-11-01', end:'2026-12-15', visibility:'public', assigned:[], minGuests:0, minChildren:0, bookAhead:0, active:true, uses:41, blurb:'Golden forests, harvest suppers and crisp mountain air — our favourite season, now 15% off.' },
+      { id:'c2', name:'Early Bird 2027', code:'', type:'fixed', value:300, tours:['grand','bespoke'], start:'2026-11-01', end:'2027-01-31', visibility:'public', assigned:[], minGuests:0, minChildren:0, bookAhead:90, active:true, uses:9, blurb:'Plan your 2027 private journey early and save $300 on the whole trip.' },
+      { id:'c3', name:'Family Adventures', code:'', type:'percent', value:10, tours:['fire','lank'], start:'2026-10-15', end:'2027-02-28', visibility:'public', assigned:[], minGuests:0, minChildren:1, bookAhead:0, active:true, uses:17, blurb:'Travelling with children? Take 10% off our two most family-friendly journeys.' },
+      { id:'c4', name:'Groups of 6+', code:'', type:'percent', value:8, tours:['old','food','fire'], start:'2026-11-10', end:'2027-06-30', visibility:'public', assigned:[], minGuests:6, minChildren:0, bookAhead:0, active:true, uses:6, blurb:'Bring the whole crew — groups of six or more save 8% on Baku day tours.' },
+      { id:'c5', name:'Returning Guests', code:'WELCOMEBACK', type:'percent', value:12, tours:['all'], start:'2026-01-01', end:'2027-12-31', visibility:'private', assigned:['priya@example.com','thomas@example.com'], minGuests:0, minChildren:0, bookAhead:0, active:true, uses:12, blurb:'A thank-you for guests travelling with us again.' },
+      { id:'c6', name:'Novruz Spring 2026', code:'', type:'percent', value:20, tours:['all'], start:'2026-03-01', end:'2026-03-31', visibility:'public', assigned:[], minGuests:0, minChildren:0, bookAhead:0, active:true, uses:58, blurb:'Celebrate the spring festival with 20% off.' },
+      { id:'c7', name:'Caspian Summer', code:'', type:'percent', value:12, tours:['old','food'], start:'2027-06-01', end:'2027-08-31', visibility:'public', assigned:[], minGuests:0, minChildren:0, bookAhead:0, active:false, uses:0, blurb:'Long Baku evenings by the sea.' }
+    ],
+    manual: [
+      { id:'m1', name:'Eleanor Whitfield', email:'eleanor@example.com', booking:'AJ-SHE-4821', tour:'any', type:'percent', value:10, expiry:'2027-05-31', note:'Anniversary gesture — second trip with us', by:'Leyla Mammadova', at:'2026-11-02', usedBy:'' },
+      { id:'m2', name:'Omar Haddad', email:'omar@example.com', booking:'AJ-LAN-6618', tour:'lank', type:'fixed', value:80, expiry:'2026-12-31', note:'Compensation for the guesthouse downgrade on his October trip', by:'Leyla Mammadova', at:'2026-11-04', usedBy:'' },
+      { id:'m3', name:'Claire Dubois', email:'claire@example.com', booking:'AJ-OLD-7720', tour:'old', type:'fixed', value:20, expiry:'2026-11-30', note:'Waited 40 min for driver on her first walk', by:'Leyla Mammadova', at:'2026-10-31', usedBy:'AJ-OLD-7720' }
+    ],
+    requests: [
+      { id:'DR-1046', name:'Kenji Watanabe', email:'kenji@example.com', phone:'+81 90 1234 5678', tour:'old', booking:'AJ-OLD-9034', guests:5, type:'percent', value:15, reason:'Photography group of five — we may book Khinalug in spring too.', status:'Pending', at:'2026-11-15 10:20', decision:null },
+      { id:'DR-1045', name:'Rachel Green', email:'rachel@example.com', phone:'+44 7700 900123', tour:'grand', booking:'AJ-GRA-3412', guests:2, type:'percent', value:10, reason:'Our honeymoon — we are flexible by a week either way.', status:'Pending', at:'2026-11-15 09:05', decision:null },
+      { id:'DR-1043', name:'Maria Santos', email:'maria@example.com', phone:'+55 11 91234 5678', tour:'fire', booking:'AJ-FIR-2045', guests:1, type:'percent', value:10, reason:'Student travelling solo.', status:'Approved', at:'2026-11-10 14:12', decision:{ type:'percent', value:8, note:'Approved 8% for students with ID.', by:'Leyla Mammadova', at:'2026-11-11 09:30', notified:true } },
+      { id:'DR-1041', name:'Marco Rossi', email:'marco@example.com', phone:'+39 333 123 4567', tour:'old', booking:'AJ-OLD-7731', guests:5, type:'fixed', value:60, reason:'Large family on a budget.', status:'Rejected', at:'2026-11-08 18:40', decision:{ reason:'This date is already over capacity — we have suggested another date, where the Groups of 6+ offer may apply.', by:'Leyla Mammadova', at:'2026-11-09 08:15', notified:true } }
+    ],
+    log: [
+      { at:'2026-11-15 10:20', who:'Kenji Watanabe (customer)', what:'Requested 15% off Icherisheher & Flame Towers', kind:'request' },
+      { at:'2026-11-15 09:05', who:'Rachel Green (customer)', what:'Requested 10% off Private Grand Azerbaijan', kind:'request' },
+      { at:'2026-11-11 09:30', who:'Leyla Mammadova', what:'Approved DR-1043 at 8% for Maria Santos · customer notified', kind:'approve' },
+      { at:'2026-11-10 08:00', who:'Leyla Mammadova', what:'Created campaign “Groups of 6+” (8%)', kind:'campaign' },
+      { at:'2026-11-09 08:15', who:'Leyla Mammadova', what:'Rejected DR-1041 for Marco Rossi · customer notified', kind:'reject' },
+      { at:'2026-11-04 16:22', who:'Leyla Mammadova', what:'Assigned $80 personal discount to Omar Haddad (AJ-LAN-6618)', kind:'manual' },
+      { at:'2026-11-02 11:05', who:'Leyla Mammadova', what:'Assigned 10% personal discount to Eleanor Whitfield (AJ-SHE-4821)', kind:'manual' },
+      { at:'2026-10-31 19:40', who:'System', what:'Personal discount $20 used on AJ-OLD-7720 (Claire Dubois)', kind:'used' }
+    ]
+  }; }
+  reqPct(type, value, base){ const v = Number(value); return type === 'percent' ? v : base > 0 ? v / base * 100 : 999; }
+  reqBase(tour, guests){ const T = this.promoTours()[tour]; return T ? T.p * Math.max(1, Number(guests) || 1) : 0; }
+  /* Mirrors the server: POST /api/discount-requests. Never trusts the client payload. */
+  serverSubmitRequest(p){
+    const d = this.promoData(), T = this.promoTours()[p.tour], v = Number(p.value), email = String(p.email || '').trim().toLowerCase();
+    const GENERIC = 'We can’t consider a discount this large for this trip. Please request a smaller amount.';
+    if (!d.settings.requestsEnabled) return { ok:false, code:403, error:'Discount requests aren’t available at the moment.' };
+    if (!T) return { ok:false, code:400, error:'This tour can’t be found.' };
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) return { ok:false, code:422, error:'Add a valid email so we can reply.' };
+    if (!(p.type === 'percent' || p.type === 'fixed') || !isFinite(v) || v <= 0) return { ok:false, code:422, error:'Please enter a valid discount.' };
+    const base = this.reqBase(p.tour, p.guests);
+    if (p.type === 'fixed' && v >= base) return { ok:false, code:422, error: GENERIC };
+    if (this.reqPct(p.type, v, base) > d.settings.maxRequestPct) return { ok:false, code:422, error: GENERIC };
+    if (d.requests.some(r => r.email === email && r.tour === p.tour && r.status === 'Pending')) return { ok:false, code:409, error:'You already have a discount request waiting for this tour.' };
+    return { ok:true, value: Math.round(v * 100) / 100 };
+  }
+  /* Mirrors the server: POST /api/admin/discount-requests/:id/decision (owners only). Re-validates every rule. */
+  serverDecide(id, dec){
+    const d = this.promoData(), r = d.requests.find(x => x.id === id), max = d.settings.maxRequestPct;
+    if (dec.role !== 'owner') return { ok:false, code:403, error:'Only owners can approve or reject discount requests.' };
+    if (!r) return { ok:false, code:404, error:'Request not found.' };
+    if (r.status !== 'Pending') return { ok:false, code:409, error:'This request has already been decided.' };
+    if (dec.action === 'reject') return String(dec.reason || '').trim() ? { ok:true } : { ok:false, code:422, error:'Add a reason so the customer understands.' };
+    const base = this.reqBase(r.tour, r.guests), asked = this.reqPct(r.type, r.value, base), give = this.reqPct(dec.type, dec.value, base);
+    if (!(Number(dec.value) > 0)) return { ok:false, code:422, error:'Enter the discount you’re approving.' };
+    if (give > asked + 1e-9) return { ok:false, code:422, error:'You can’t approve more than the customer asked for (' + this.discLabel(r.type, r.value) + ').' };
+    if (give > max + 1e-9) return { ok:false, code:422, error:'That’s above your maximum of ' + max + '%. Approve ' + max + '% or less, or reject.' };
+    return { ok:true };
+  }
+  promoData(){ return ((this.state || {}).promo) || this.promoDefaults(); }
+  promoLoad(){ try { const v = JSON.parse(window.localStorage.getItem('aj-promo') || 'null'); if (v && v.campaigns) this.setState({ promo: v }); } catch (e) {} }
+  promoInit(){
+    this.promoLoad();
+    this._ps = (e) => { if (!e || !e.key || e.key === 'aj-promo') this.promoLoad(); };
+    window.addEventListener('storage', this._ps);
+    try { this._pbc = new BroadcastChannel('aj-promo'); this._pbc.onmessage = (m) => { if (m && m.data && m.data.campaigns) this.setState({ promo: m.data }); }; } catch (e) {}
+  }
+  promoDestroy(){ window.removeEventListener('storage', this._ps); try { this._pbc && this._pbc.close(); } catch (e) {} }
+  promoSave(d){ try { window.localStorage.setItem('aj-promo', JSON.stringify(d)); } catch (e) {} try { const b = new BroadcastChannel('aj-promo'); b.postMessage(d); b.close(); } catch (e) {} this.setState({ promo: d }); }
+  promoNow(){ return '2026-11-15'; }
+  campStatus(c){ const t = this.promoNow(); if (!c.active) return 'Inactive'; if (c.end < t) return 'Expired'; if (c.start > t) return 'Scheduled'; return 'Active'; }
+  money(n){ return '$' + Math.round(n).toLocaleString('en-US'); }
+  discAmt(type, value, base){ return type === 'percent' ? Math.round(base * value / 100) : Math.min(value, base); }
+  discLabel(type, value){ return type === 'percent' ? value + '% off' : '$' + value + ' off'; }
+  daysBetween(a, b){ return Math.round((new Date(b + 'T00:00:00') - new Date(a + 'T00:00:00')) / 86400000); }
+  eligText(c){ const r = []; if (c.minGuests) r.push(c.minGuests + '+ guests'); if (c.minChildren) r.push('at least ' + c.minChildren + ' child'); if (c.bookAhead) r.push('booked ' + c.bookAhead + '+ days ahead'); if (c.visibility === 'private') r.push('assigned guests only'); return r.length ? r.join(' · ') : 'Everyone'; }
+  quote(tid, ad, kd, opt){
+    const o = opt || {}, D = this.promoData(), PT = this.promoTours(), T = PT[tid] || { p:0, n:'' }, base = ad * T.p + kd * T.p / 2, email = (o.email || '').trim().toLowerCase();
+    const c = [];
+    D.campaigns.forEach(x => {
+      if (this.campStatus(x) !== 'Active') return;
+      if (!(x.tours.includes('all') || x.tours.includes(tid))) return;
+      if (x.visibility === 'private' && !(email && x.assigned.includes(email))) return;
+      if (x.minGuests && ad + kd < x.minGuests) return;
+      if (x.minChildren && kd < x.minChildren) return;
+      if (x.bookAhead && (!o.date || this.daysBetween(this.promoNow(), o.date) < x.bookAhead)) return;
+      c.push({ source: x.visibility === 'private' ? 'Private offer' : 'Public offer', label: x.name, type: x.type, value: x.value, amount: this.discAmt(x.type, x.value, base), id: x.id });
+    });
+    if (email) {
+      D.manual.forEach(m => { if (m.email === email && !m.usedBy && m.expiry >= this.promoNow() && (m.tour === 'any' || m.tour === tid)) c.push({ source:'Personal discount', label:'Personal discount from Leyla', type:m.type, value:m.value, amount: this.discAmt(m.type, m.value, base), id:m.id }); });
+      D.requests.forEach(r => { if (r.email === email && r.status === 'Approved' && r.tour === tid && r.decision && !r.usedBy) c.push({ source:'Approved request', label:'Your approved request ' + r.id, type:r.decision.type, value:r.decision.value, amount: this.discAmt(r.decision.type, r.decision.value, base), id:r.id }); });
+    }
+    c.sort((a, b) => b.amount - a.amount);
+    const best = c[0] || null;
+    return { base, best, amount: best ? best.amount : 0, total: base - (best ? best.amount : 0), others: Math.max(0, c.length - 1), all: c };
+  }
+  listPrice(tid){
+    const D = this.promoData(), T = this.promoTours()[tid]; if (!T) return { orig:'', now:'', has:false };
+    const cs = D.campaigns.filter(x => this.campStatus(x) === 'Active' && x.visibility === 'public' && (x.tours.includes('all') || x.tours.includes(tid)) && !x.minGuests && !x.minChildren);
+    const best = cs.map(x => ({ x, amt: this.discAmt(x.type, x.value, T.p) })).sort((a, b) => b.amt - a.amt)[0];
+    const any = D.campaigns.find(x => this.campStatus(x) === 'Active' && x.visibility === 'public' && (x.tours.includes('all') || x.tours.includes(tid)));
+    if (!best) return { has:false, now: this.money(T.p), orig:'', badge: any ? this.discLabel(any.type, any.value) + ' · ' + this.eligText(any) : '', hasNote: !!any, name: any ? any.name : '' };
+    const fixedWhole = best.x.type === 'fixed';
+    return { has:true, orig: this.money(T.p), now: fixedWhole ? this.money(T.p) : this.money(T.p - best.amt), badge: fixedWhole ? '$' + best.x.value + ' off per booking' : '−' + best.x.value + '%', name: best.x.name, ends: 'Ends ' + new Date(best.x.end + 'T00:00:00').toLocaleDateString('en-GB', { day:'numeric', month:'short' }), fixedWhole, strike: !fixedWhole, hasNote: false };
+  }
+
+  tours(){ return {
+    sheki: { name:'Silk Road to Sheki', kind:'dep', cap:8, len:3, price:690, meta:'Cultural · 3 days', img:'sheki', deps:{ '2026-11-28':6, '2026-12-12':8, '2027-03-20':5, '2027-04-03':8, '2027-04-17':4, '2027-05-08':5, '2027-05-22':8, '2027-06-12':6, '2027-09-18':7, '2027-10-09':3 } },
+    khin: { name:'Khinalug & Quba Highlands', kind:'dep', cap:6, len:2, price:480, meta:'Adventure · 2 days', img:'khinalug', weekly:6, full:['2026-11-21','2026-12-19','2027-01-02','2027-05-15'] },
+    grand: { name:'Private Grand Azerbaijan', kind:'private', len:8, price:2450, meta:'Private · 8 days', img:'khinalug', booked:[['2027-01-11','2027-01-18','booked'],['2027-04-05','2027-04-12','booked'],['2027-06-14','2027-06-21','hold']] },
+    fire: { name:'Fire & Stone: Gobustan & Yanar Dag', kind:'day', cap:8, price:165, meta:'Adventure · 1 day', img:'gobustan', slots:['08:30','13:00'] },
+    old: { name:'Icherisheher & Flame Towers', kind:'day', cap:8, price:120, meta:'Historical · 6 hours', img:'oldcity', slots:['09:00','14:00','18:00'] },
+    food: { name:'Baku Food & Wine Evening', kind:'day', cap:8, price:85, meta:'Food & Local · 4 hours', img:'baku', slots:['19:00'] }
+  }; }
+  hsh(s){ let h = 7; for (let i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) % 100003; return h; }
+  isoOf(d){ return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0'); }
+  isoAdd(iso, n){ const d = new Date(iso + 'T00:00:00'); d.setDate(d.getDate() + n); return this.isoOf(d); }
+  fmtD(iso, long){ if (!iso) return '—'; return new Date(iso + 'T00:00:00').toLocaleDateString('en-GB', long ? { weekday:'short', day:'numeric', month:'short', year:'numeric' } : { day:'numeric', month:'short', year:'numeric' }); }
+  guideBusy(iso){
+    const T = this.tours(), busy = [];
+    Object.keys(T.sheki.deps).forEach(s => busy.push([s, this.isoAdd(s, T.sheki.len - 1), 'Silk Road to Sheki']));
+    T.grand.booked.forEach(([a, b]) => busy.push([a, b, 'a private tour']));
+    const hit = busy.find(([a, b]) => iso >= a && iso <= b); return hit ? hit[2] : '';
+  }
+  slotInfo(tid, iso, t){
+    const T = this.tours()[tid], x = ((this.state || {}).extraFull) || {};
+    const FULL = { 'old|2026-11-21|14:00':1, 'old|2026-11-22|14:00':1, 'old|2026-11-23|09:00':1, 'old|2026-11-23|14:00':1, 'old|2026-11-23|18:00':1, 'fire|2026-11-23|08:30':1, 'fire|2026-11-23|13:00':1, 'food|2026-11-23|19:00':1, 'food|2026-11-21|19:00':1, 'fire|2026-11-21|08:30':1, 'fire|2026-11-18|08:30':1 };
+    if (x[tid + '|' + iso + '|' + t] || FULL[tid + '|' + iso + '|' + t]) return { t, left:0, cap:T.cap };
+    const h = this.hsh(tid + iso + t) % 100, taken = h < 14 ? T.cap : h < 30 ? T.cap - 2 : h < 50 ? 3 : h % 3;
+    return { t, left: T.cap - taken, cap: T.cap };
+  }
+  dayInfo(tid, iso){
+    const T = this.tours()[tid], x = ((this.state || {}).extraFull) || {};
+    if (iso < '2026-11-16') return { st:'past', why:'This date has passed' };
+    if (iso > '2027-12-31') return { st:'closed', why:'Not scheduled yet' };
+    const dow = new Date(iso + 'T00:00:00').getDay();
+    if (T.kind === 'day') {
+      if (dow === 0) return { st:'closed', why:'Leyla’s day off (Sundays)' };
+      const busy = this.guideBusy(iso); if (busy) return { st:'closed', why:'Leyla is away guiding ' + busy };
+      const slots = T.slots.map(t => this.slotInfo(tid, iso, t)), left = slots.reduce((a, s) => a + s.left, 0);
+      return { st: left === 0 ? 'full' : slots.some(s => s.left > 0 && s.left <= 2) || left <= 4 ? 'limited' : 'open', left, slots, why: left === 0 ? 'Every time slot is fully booked' : '' };
+    }
+    if (T.kind === 'dep') {
+      let taken;
+      if (T.deps) { if (!(iso in T.deps)) return { st:'closed', why:'No scheduled departure — private dates on request' }; taken = T.deps[iso]; }
+      else { if (dow !== T.weekly) return { st:'closed', why:'Departs every Saturday' }; const busy = this.guideBusy(iso); if (busy) return { st:'closed', why:'Leyla is away guiding ' + busy }; taken = (T.full || []).includes(iso) ? T.cap : this.hsh(tid + iso) % T.cap; }
+      if (x[tid + '|' + iso + '|']) taken = T.cap;
+      const left = T.cap - taken;
+      return { st: left === 0 ? 'full' : left <= 3 ? 'limited' : 'open', left, cap: T.cap, why: left === 0 ? 'All ' + T.cap + ' seats are booked' : '' };
+    }
+    const end = this.isoAdd(iso, T.len - 1), hit = T.booked.find(([a, b]) => iso <= b && end >= a);
+    if (hit) return hit[2] === 'hold' ? { st:'hold', why:'On hold for another guest’s pending request (' + this.fmtD(hit[0]) + ' – ' + this.fmtD(hit[1]) + ')' } : { st:'full', why:'Already booked by another guest (' + this.fmtD(hit[0]) + ' – ' + this.fmtD(hit[1]) + ')' };
+    if (x[tid + '|' + iso + '|']) return { st:'full', why:'Just booked by another guest' };
+    for (let i = 0; i < T.len; i++) { if (this.guideBusy(this.isoAdd(iso, i)) === 'Silk Road to Sheki') return { st:'closed', why:'Your 8 days would overlap a scheduled Sheki departure' }; }
+    return { st:'open', left:1, cap:1 };
+  }
+  nextAvail(tid, from, n){ const out = []; let d = from; for (let i = 0; i < 420 && out.length < (n || 1); i++) { d = this.isoAdd(d, 1); const v = this.dayInfo(tid, d); if (v.st === 'open' || v.st === 'limited') out.push(d); } return out; }
+  calCells(tid, y, m, sel, onPick){
+    const B = 'relative flex h-12 sm:h-14 w-full flex-col items-center justify-center gap-0.5 rounded-md text-sm transition-all ';
+    const C = {
+      open: B + 'cursor-pointer border border-emerald-600/40 bg-emerald-50 font-bold text-emerald-900 hover:border-emerald-600 hover:bg-emerald-100 dark:bg-emerald-500/15 dark:text-emerald-200 dark:hover:bg-emerald-500/25',
+      limited: B + 'cursor-pointer border border-amber-500/60 bg-amber-50 font-bold text-amber-900 hover:border-amber-600 hover:bg-amber-100 dark:bg-amber-500/15 dark:text-amber-200 dark:hover:bg-amber-500/25',
+      full: B + 'cursor-not-allowed border border-rose-300 bg-rose-50 text-rose-800/70 dark:border-rose-500/30 dark:bg-rose-500/10 dark:text-rose-300/70',
+      hold: B + 'cursor-not-allowed border border-dashed border-violet-400 bg-violet-50 text-violet-900/80 dark:bg-violet-500/15 dark:text-violet-200/80',
+      closed: B + 'cursor-default text-muted-foreground/40',
+      past: B + 'cursor-default text-muted-foreground/25',
+      sel: B + 'cursor-pointer bg-primary font-bold text-primary-foreground shadow-lg ring-2 ring-primary ring-offset-2 ring-offset-background'
+    };
+    const SUB = { open:'text-[9px] sm:text-[10px] font-semibold leading-none text-emerald-700 dark:text-emerald-300', limited:'text-[9px] sm:text-[10px] font-bold leading-none text-amber-700 dark:text-amber-300', full:'text-[9px] sm:text-[10px] font-bold uppercase leading-none tracking-wide text-rose-700 dark:text-rose-300', hold:'text-[9px] sm:text-[10px] font-bold uppercase leading-none tracking-wide text-violet-700 dark:text-violet-300', none:'hidden', sel:'text-[9px] sm:text-[10px] font-bold leading-none text-primary-foreground' };
+    const first = new Date(y, m, 1), lead = (first.getDay() + 6) % 7, n = new Date(y, m + 1, 0).getDate(), cells = [];
+    for (let i = 0; i < lead; i++) cells.push({ blank:true, key:'b' + i });
+    for (let d = 1; d <= n; d++) {
+      const iso = this.isoOf(new Date(y, m, d)), v = this.dayInfo(tid, iso), isSel = iso === sel;
+      const sub = isSel ? '✓ Selected' : v.st === 'full' ? 'Booked' : v.st === 'hold' ? 'On hold' : v.st === 'limited' ? (v.cap > 1 ? v.left + ' left' : 'Few left') : v.st === 'open' ? (v.cap > 1 ? v.left + ' left' : 'Free') : '';
+      const label = this.fmtD(iso, true) + ', ' + (isSel ? 'selected, ' : '') + (v.st === 'open' ? 'available' : v.st === 'limited' ? 'few spots left' : v.st === 'full' ? 'fully booked' : v.st === 'hold' ? 'on hold' : 'not available');
+      cells.push({ blank:false, key:iso, day:d, iso, st:v.st, sub, hasSub: !!sub, subCls: isSel ? SUB.sel : (SUB[v.st] || SUB.none), cls: isSel ? C.sel : C[v.st], aria: label, dis: (v.st === 'open' || v.st === 'limited') ? 'false' : 'true', pressed: isSel ? 'true' : 'false', pick: () => onPick(iso, v) });
+    }
+    return cells;
+  }
+
+  componentDidMount(){ this.uiInit(); this.promoInit(); }
+  componentDidUpdate(pp){ if (pp.bookingSheet !== this.props.bookingSheet) this.setState({ book: !!this.props.bookingSheet }); }
+  componentWillUnmount(){ this.uiDestroy(); this.promoDestroy(); clearTimeout(this.tt); }
+  flash(m){ clearTimeout(this.tt); this.setState({ toast:m }); this.tt = setTimeout(() => this.setState({ toast:'' }), 2600); }
+  renderVals(){
+    const I = this.img(), s = this.state;
+    const photos = [ { img:I.sheki, alt:'Sheki beneath the Greater Caucasus' }, { img:I.oldcity, alt:'Caravanserai courtyard' }, { img:I.lankaran, alt:'Walnut groves near Kish' }, { img:I.khinalug, alt:'Mountain road above Sheki' } ];
+    const days = [ { title:'Along the caravan road', text:'Juma Mosque of Shamakhi, the cliffside Diri Baba mausoleum and an orchard lunch, then sunset from the Sheki fortress walls.', meta:'Drive 5 h with stops · Caravanserai · Dinner' }, { title:'Palaces, stained glass and halva', text:'Private early visit to the Palace of the Sheki Khans, a shebeke workshop, the church at Kish and a halva-making class.', meta:'Walk 3 h · Breakfast & dinner' }, { title:'The coppersmiths of Lahij', text:'Cross the hills to the cobbled copper-smith village of Lahij, then return to Baku by early evening.', meta:'Drive 6 h with stops · Breakfast' } ]
+      .map((d, i) => { const o = !!s.open[i]; return { ...d, n: i + 1, open:o, exp: o ? 'true' : 'false', toggle: () => this.setState({ open: { ...s.open, [i]: !o } }) }; });
+    return {
+      ...this.uiVals(false), photos, galPos: (s.gal + 1) + ' / ' + photos.length,
+      onGal: (e) => { const i = Math.round(e.target.scrollLeft / 390); if (i !== this.state.gal) this.setState({ gal:i }); },
+      tabs: [['ov','Overview'],['it','Itinerary'],['rv','Reviews']].map(([k, l]) => ({ label:l, on: s.tab === k ? 'true' : 'false', pick: () => this.setState({ tab:k }) })),
+      tOv: s.tab === 'ov', tIt: s.tab === 'it', tRv: s.tab === 'rv',
+      highlights: ['A night in the 18th-century Upper Caravanserai','Private visit to the Palace of the Sheki Khans','Halva-making class with a master','The 10th-century Juma Mosque','Lahij coppersmith workshops'],
+      days, reviews: [ { name:'Aiko Tanaka', init:'AT', country:'Japan', date:'May 2026', text:'Sleeping in the caravanserai, then breakfast with a halva master — the best travel experience of my life.' }, { name:'Liam & Grace Walsh', init:'LW', country:'Ireland', date:'Oct 2025', text:'We came for the palace and left with friends.' }, { name:'Nadia Petrova', init:'NP', country:'Bulgaria', date:'Sep 2025', text:'Leyla’s stories made the stained glass come alive. Perfectly paced.' } ],
+      book: s.book, openBook: () => this.setState({ book:true }), closeBook: () => this.setState({ book:false }),
+      ...(() => { const keys = Object.keys(this.tours().sheki.deps).sort(), cur = this.dayInfo('sheki', s.dep), fp = s.fullPick;
+        return { dates: keys.map(iso => { const v = this.dayInfo('sheki', iso), on = s.dep === iso, full = v.st === 'full' || v.st === 'past';
+          return { label: this.fmtD(iso, true) + ' – ' + this.fmtD(this.isoAdd(iso, 2)), note: full ? 'Fully booked' : v.st === 'limited' ? 'Only ' + v.left + ' seats left' : v.left + ' of 8 seats left', full, open: !full, on: on ? 'true' : 'false', dis: full ? 'true' : 'false',
+            subCls: full ? 'text-xs text-muted-foreground' : v.st === 'limited' ? 'text-xs font-semibold text-amber-700 dark:text-amber-400' : 'text-xs text-emerald-700 dark:text-emerald-400',
+            cls: full ? 'flex items-center justify-between rounded-lg border-2 border-dashed bg-muted/50 p-3 text-left text-muted-foreground line-through decoration-destructive/50' : on ? 'flex items-center justify-between rounded-lg border-2 border-primary bg-accent p-3 text-left' : 'flex items-center justify-between rounded-lg border-2 border-border p-3 text-left',
+            pick: () => full ? this.setState({ fullPick: iso }) : this.setState({ dep: iso, fullPick:'' }) }; }),
+          fullMsg: fp ? this.fmtD(fp) + ' is sold out.' : '', waitLabel: fp && s.wl[fp] ? '✓ On the waitlist' : 'Join waitlist', waitlist: () => { this.setState({ wl: { ...s.wl, [fp]: true } }); this.flash('Added to the waitlist'); },
+          seatWarn: cur.left != null && s.adults > cur.left ? 'Only ' + cur.left + ' seats left on this departure.' : '' }; })(),
+      adults: s.adults, ...(() => { const qq = this.quote('sheki', s.adults, 0, { date: s.dep }); return { total: this.money(qq.total), lp: this.listPrice('sheki'), qd: { has: !!qq.best, label: qq.best ? qq.best.label : '', amt: this.money(qq.amount) } }; })(), incA: () => this.setState({ adults: Math.min(8, s.adults + 1) }), decA: () => this.setState({ adults: Math.max(1, s.adults - 1) }),
+      saved: s.saved ? 'true' : 'false', heartFill: s.saved ? 'currentColor' : 'none', toggleSave: () => { this.setState({ saved: !s.saved }); this.flash(s.saved ? 'Removed from wishlist' : 'Saved to wishlist'); },
+      share: () => this.flash('Link copied'), toast: s.toast
+    };
+  }
+}
+</script>
+</body>
+</html>

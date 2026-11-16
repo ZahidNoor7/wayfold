@@ -1,0 +1,40 @@
+import { redirect } from "next/navigation";
+import { parseBookingsView, toBookingFilters } from "@/components/workspace/bookings/filters";
+import { exportFileName } from "@/lib/booking-display";
+import { todayIn } from "@/lib/dates";
+import { requireWorkspace } from "@/server/auth/guards";
+import { can, inWorkspace } from "@/server/auth/workspace";
+import { exportBookingsCsv } from "@/server/bookings/service";
+import { AppError } from "@/server/errors";
+
+/**
+ * CSV of the bookings matching the list's current filters, every page of
+ * them. It holds guests' contact details, so it needs both the export
+ * permission and the right to see bookings, and no cache may keep a copy.
+ */
+export async function GET(request: Request): Promise<Response> {
+  const workspace = await requireWorkspace("exports.run");
+  if (!can(workspace, "bookings.view")) redirect("/workspace/forbidden");
+
+  // The same parser as the page: a filter the list ignores is ignored here too.
+  const view = parseBookingsView(Object.fromEntries(new URL(request.url).searchParams));
+
+  let csv: string;
+  try {
+    csv = await inWorkspace(workspace, (scope) => exportBookingsCsv(scope, toBookingFilters(view)));
+  } catch (error) {
+    if (!(error instanceof AppError)) throw error;
+    return new Response(error.message, {
+      status: error.status,
+      headers: { "Content-Type": "text/plain; charset=utf-8", "Cache-Control": "no-store" },
+    });
+  }
+
+  return new Response(csv, {
+    headers: {
+      "Content-Type": "text/csv; charset=utf-8",
+      "Content-Disposition": `attachment; filename="${exportFileName("bookings", todayIn(workspace.tenant.timezone))}"`,
+      "Cache-Control": "no-store",
+    },
+  });
+}

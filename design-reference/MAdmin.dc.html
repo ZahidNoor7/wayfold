@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Mobile — Admin</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="/_blob/70d0ec09cb9bf09f570d988b94190c96">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>body{margin:0}</style>
+</helmet>
+
+<div data-theme="{{uiTheme}}" data-font="{{uiFont}}" data-radius="{{uiRadius}}" class="{{uiDark}} relative overflow-x-clip flex min-h-[1500px] w-[390px] flex-col overflow-x-hidden bg-muted/40 font-sans text-foreground antialiased">
+<header class="sticky top-0 z-30 flex h-16 items-center justify-between border-b bg-background/95 px-4 backdrop-blur">
+<div class="flex items-center gap-3"><span class="avatar h-9 w-9 text-xs">LM</span><div class="leading-tight"><p class="font-display text-lg font-semibold text-primary">Aurelia Admin</p><p class="text-[11px] text-muted-foreground">{{tabTitle}}</p></div></div>
+<div class="flex gap-1"><button type="button" onClick="{{cycleMode}}" aria-label="{{modeLabel}}" class="btn btn-ghost btn-icon rounded-full"><sc-if value="{{isDark}}" hint-placeholder-val="{{ false }}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path></svg></sc-if><sc-if value="{{isLight}}" hint-placeholder-val="{{ true }}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"></path></svg></sc-if></button><button type="button" onClick="{{openTheme}}" aria-label="Appearance" class="btn btn-ghost btn-icon rounded-full"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><circle cx="13.5" cy="6.5" r="1.5"></circle><circle cx="17.5" cy="10.5" r="1.5"></circle><circle cx="8.5" cy="7.5" r="1.5"></circle><circle cx="6.5" cy="12.5" r="1.5"></circle><path d="M12 2a10 10 0 1 0 0 20c1 0 1.7-.8 1.7-1.7 0-.5-.2-.9-.5-1.2-.3-.3-.5-.7-.5-1.2 0-.9.8-1.7 1.7-1.7H16a6 6 0 0 0 6-6C22 5.8 17.5 2 12 2z"></path></svg></button></div>
+</header>
+<main class="flex-1 p-4">
+<sc-if value="{{tHome}}" hint-placeholder-val="{{ true }}">
+<div class="animate-fade-in">
+<p class="text-sm text-muted-foreground">Saturday, 14 November</p><h1 class="mb-4 font-display text-3xl font-semibold text-primary">Good evening, Leyla</h1>
+<div class="mb-5 grid grid-cols-2 gap-3"><sc-for list="{{kpis}}" as="k" hint-placeholder-count="4"><div class="card p-4"><p class="text-xs font-medium text-muted-foreground">{{k.label}}</p><p class="mt-1 font-display text-3xl font-semibold text-primary">{{k.v}}</p><p class="{{k.tc}}">{{k.trend}}</p></div></sc-for></div>
+<div class="mb-3 flex items-center justify-between"><h2 class="font-bold">Needs your reply</h2><span class="badge badge-pending">{{pendingCount}} pending</span></div>
+<div class="flex flex-col gap-3"><sc-for list="{{pending}}" as="b" hint-placeholder-count="3"><div class="card animate-rise p-4"><div class="flex items-start justify-between gap-2"><div><p class="font-bold">{{b.name}}</p><p class="text-xs text-muted-foreground">{{b.tour}} · {{b.dateL}} · {{b.pax}}</p></div><span class="text-xs text-muted-foreground">{{b.req}}</span></div><sc-if value="{{b.notes}}" hint-placeholder-val="{{ false }}"><p class="mt-2 rounded-md bg-muted/60 p-2 text-xs leading-relaxed">“{{b.notes}}”</p></sc-if><div class="mt-3 grid grid-cols-3 gap-2"><button type="button" onClick="{{b.confirm}}" class="btn btn-default btn-sm">Confirm</button><a href="{{b.wa}}" class="btn btn-outline btn-sm">WhatsApp</a><button type="button" onClick="{{b.decline}}" class="btn btn-ghost btn-sm text-destructive hover:text-destructive">Decline</button></div></div></sc-for>
+<sc-if value="{{noPending}}" hint-placeholder-val="{{ false }}"><div class="card p-8 text-center"><p class="text-3xl" aria-hidden="true">✓</p><p class="font-bold">All caught up</p><p class="text-sm text-muted-foreground">No pending requests right now.</p></div></sc-if></div>
+</div>
+</sc-if>
+<sc-if value="{{tBook}}" hint-placeholder-val="{{ false }}">
+<div class="animate-fade-in">
+<h1 class="mb-3 font-display text-3xl font-semibold text-primary">Bookings</h1>
+<div role="tablist" aria-label="Status" class="no-scrollbar -mx-4 mb-4 flex gap-2 overflow-x-auto px-4"><sc-for list="{{chips}}" as="c" hint-placeholder-count="5"><button type="button" role="tab" aria-selected="{{c.on}}" onClick="{{c.pick}}" class="chip h-9 shrink-0 px-3.5 text-[13px] aria-selected:border-primary aria-selected:bg-primary aria-selected:text-primary-foreground">{{c.label}} · {{c.n}}</button></sc-for></div>
+<div class="card divide-y overflow-hidden"><sc-for list="{{rows}}" as="b" hint-placeholder-count="6"><div class="flex items-center gap-3 p-4"><div class="min-w-0 flex-1"><p class="truncate font-bold">{{b.name}}</p><p class="truncate text-xs text-muted-foreground">{{b.tour}}</p><p class="text-xs text-muted-foreground">{{b.dateL}} · {{b.pax}}</p></div><span class="{{b.cls}}">{{b.status}}</span></div></sc-for></div>
+<a href="AdminBookings.dc.html" class="btn btn-ghost mt-3 w-full">Open full bookings manager</a>
+</div>
+</sc-if>
+<sc-if value="{{tContent}}" hint-placeholder-val="{{ false }}">
+<div class="animate-fade-in">
+<div class="mb-3 flex items-center justify-between"><h1 class="font-display text-3xl font-semibold text-primary">Packages</h1><a href="AdminPackages.dc.html" class="btn btn-default btn-sm">+ New</a></div>
+<div class="card divide-y overflow-hidden"><sc-for list="{{pks}}" as="p" hint-placeholder-count="6"><div class="flex items-center gap-3 p-3"><img src="{{p.img}}" alt="" class="h-12 w-14 shrink-0 rounded-md object-cover"><div class="min-w-0 flex-1"><p class="truncate text-sm font-bold">{{p.title}}</p><p class="text-xs text-muted-foreground">{{p.meta}}</p></div><button type="button" role="switch" class="switch" aria-checked="{{p.on}}" aria-label="Published: {{p.title}}" onClick="{{p.tog}}"><span class="switch-thumb"></span></button></div></sc-for></div>
+<a href="AdminPackages.dc.html" class="btn btn-ghost mt-3 w-full">Manage reviews, customers &amp; journey</a>
+</div>
+</sc-if>
+</main>
+<nav aria-label="Admin" class="sticky bottom-0 z-30 grid grid-cols-4 border-t bg-background/95 pb-5 pt-2 backdrop-blur">
+<sc-for list="{{nav}}" as="n" hint-placeholder-count="4"><button type="button" onClick="{{n.pick}}" aria-current="{{n.cur}}" class="relative flex flex-col items-center gap-1 py-1 text-[11px] font-semibold text-muted-foreground aria-[current=page]:text-primary"><svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="{{n.icon}}"></path></svg>{{n.label}}<sc-if value="{{n.badge}}" hint-placeholder-val="{{ false }}"><span class="absolute right-6 top-0 flex h-4 min-w-4 items-center justify-center rounded-full bg-highlight px-1 text-[10px] text-highlight-foreground">{{n.badge}}</span></sc-if></button></sc-for>
+</nav>
+<sc-if value="{{themeOpen}}" hint-placeholder-val="{{ false }}">
+<div class="fixed inset-0 z-50 animate-fade-in bg-black/60" onClick="{{closeTheme}}"></div>
+<div role="dialog" aria-modal="true" aria-label="Appearance" class="fixed inset-x-0 bottom-0 z-50 flex animate-sheet-bottom flex-col rounded-t-2xl border-t bg-background pb-7">
+<div class="mx-auto mt-3 h-1.5 w-12 rounded-full bg-muted"></div>
+<div class="flex items-center justify-between px-5 pt-3"><div><h2 class="text-lg font-bold">Appearance</h2><p class="text-xs text-muted-foreground">Applies to your website and dashboard</p></div><button type="button" onClick="{{closeTheme}}" aria-label="Close" class="btn btn-ghost btn-icon">✕</button></div>
+<div role="radiogroup" aria-label="Theme" class="grid grid-cols-2 gap-3 px-5 pt-4"><sc-for list="{{themes}}" as="t" hint-placeholder-count="4"><button type="button" role="radio" aria-checked="{{t.on}}" onClick="{{t.pick}}" class="flex flex-col gap-2 rounded-xl border-2 border-border p-2.5 text-left aria-checked:border-primary"><span data-theme="{{t.id}}" class="{{t.darkCls}} flex h-12 overflow-hidden rounded-md border"><span class="flex-1 bg-hero"></span><span class="w-5 bg-primary"></span><span class="w-5 bg-highlight"></span><span class="w-5 bg-background"></span></span><span class="text-sm font-bold">{{t.name}}</span></button></sc-for></div>
+<div class="px-5 pt-5"><p class="label mb-2">Colour scheme</p><div role="radiogroup" aria-label="Colour scheme" class="tabs-list grid w-full grid-cols-3"><sc-for list="{{modes}}" as="m" hint-placeholder-count="3"><button type="button" role="radio" aria-selected="{{m.on}}" aria-checked="{{m.on}}" onClick="{{m.pick}}" class="tabs-trigger">{{m.label}}</button></sc-for></div></div>
+<div class="px-5 pt-5"><a href="AdminSettings.dc.html" class="btn btn-outline btn-lg w-full">More appearance options</a></div>
+</div>
+</sc-if>
+<sc-if value="{{toast}}" hint-placeholder-val="{{ false }}"><div role="status" class="toast w-max max-w-[340px]"><span class="h-2 w-2 rounded-full bg-emerald-500"></span>{{toast}}</div></sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":1500},"startTab":{"editor":"enum","options":["home","bookings","content"],"default":"home","section":"States"},"appearanceSheet":{"editor":"boolean","default":false,"section":"States"},"theme":{"editor":"enum","options":["admin","emerald","caspian","pomegranate","graphite"],"default":"admin","section":"Theme"},"mode":{"editor":"enum","options":["admin","light","dark","system"],"default":"admin","section":"Theme"}}'>
+class Component extends DCLogic {
+  constructor(p){ super(p);
+    const B = (id, name, tour, date, pax, status, req, notes) => ({ id, name, tour, date, pax, status, req, notes });
+    this.state = { tab: p.startTab || 'home', theme: !!p.appearanceSheet, filter:'All', toast:'', items: [ B(1,'Eleanor Whitfield','Silk Road to Sheki','Apr 18, 2027','2 adults','Pending','26 h ago','Celebrating our 40th anniversary.'), B(2,'Thomas Becker','Private Grand Azerbaijan','Jun 14, 2027','2 adults','Pending','20 h ago','Dark-sky stops please.'), B(3,'Omar Haddad','Lankaran Tea & Hirkan','May 10, 2027','2 + 3 kids','Pending','1 h ago',''), B(4,'Priya Raman','Baku Food & Wine','Nov 18, 2026','2 adults','Confirmed','Nov 2',''), B(5,'Claire Dubois','Icherisheher & Flame Towers','Nov 21, 2026','4 adults','Confirmed','Oct 30',''), B(6,'Fatima Al-Mansoori','Lankaran Tea & Hirkan','Oct 28, 2026','2 + 2 kids','Completed','Sep 14',''), B(7,'David Kim','Silk Road to Sheki','Oct 10, 2026','2 adults','Cancelled','Aug 22','') ],
+      pub: { 1:true, 2:true, 3:true, 4:true, 5:true, 6:false } };
+  }
+  img(){ return { baku:'/_blob/53de85c911d3fd172f7f056fc041c3f6', oldcity:'/_blob/71ba1da1636ea18bc8040e2f214c9564', gobustan:'/_blob/1d3b95a6d499c80338e0cfbcce073964', yanardag:'/_blob/caa98c1d37e045432aedeba5937e3fb1', sheki:'/_blob/99cec70a9ac8cc922169a9d4cda6cfd7', khinalug:'/_blob/b1e6bea4cb0d3847910a8759889b2e6b', caspian:'/_blob/feb92edafca2a9ad4057997c2c80419b', lankaran:'/_blob/b1af8e934de14e2a69509a83bda2b0e7' }; }
+  uiDefault(){ return { theme: 'emerald', mode: 'light', radius: 'md', font: 'classic' }; }
+  loadUi(){ try { const v = JSON.parse(window.localStorage.getItem('aj-ui') || 'null'); if (v) this.setState({ ui: { ...this.uiDefault(), ...v } }); } catch (e) {} }
+  uiInit(){
+    this.loadUi();
+    this._onStorage = (e) => { if (!e || !e.key || e.key === 'aj-ui') this.loadUi(); };
+    window.addEventListener('storage', this._onStorage);
+    try { this._bc = new BroadcastChannel('aj-ui'); this._bc.onmessage = (m) => { if (m && m.data) this.setState({ ui: { ...this.uiDefault(), ...m.data } }); }; } catch (e) {}
+    try { this._mq = window.matchMedia('(prefers-color-scheme: dark)'); this._mqh = () => this.forceUpdate(); this._mq.addEventListener('change', this._mqh); } catch (e) {}
+    this._onScroll = () => { const s = (window.scrollY || 0) > 40; if (s !== !!(this.state || {}).scrolled) this.setState({ scrolled: s }); };
+    window.addEventListener('scroll', this._onScroll, { passive: true });
+  }
+  uiDestroy(){
+    window.removeEventListener('storage', this._onStorage); window.removeEventListener('scroll', this._onScroll);
+    try { this._bc && this._bc.close(); } catch (e) {} try { this._mq && this._mq.removeEventListener('change', this._mqh); } catch (e) {}
+  }
+  saveUi(patch){
+    const u = { ...this.uiDefault(), ...((this.state || {}).ui || {}), ...patch };
+    try { window.localStorage.setItem('aj-ui', JSON.stringify(u)); } catch (e) {}
+    try { const bc = new BroadcastChannel('aj-ui'); bc.postMessage(u); bc.close(); } catch (e) {}
+    this.setState({ ui: u });
+  }
+  uiVals(overHero){
+    const st = this.state || {}, p = this.props || {};
+    const u = { ...this.uiDefault(), ...(st.ui || {}) };
+    if (p.theme && p.theme !== 'admin') u.theme = p.theme;
+    if (p.mode && p.mode !== 'admin') u.mode = p.mode;
+    let dark = u.mode === 'dark';
+    if (u.mode === 'system') { try { dark = window.matchMedia('(prefers-color-scheme: dark)').matches; } catch (e) {} }
+    const solid = !overHero || st.scrolled || st.menu;
+    const hdr = solid
+      ? { cls: 'sticky top-0 z-40 border-b bg-background/90 backdrop-blur-md transition-colors duration-300' + (overHero ? ' -mb-20' : ''), link: '', logo: 'text-primary', sub: 'text-eyebrow', icon: 'btn-outline' }
+      : { cls: 'sticky top-0 z-40 -mb-20 border-b border-transparent bg-transparent transition-colors duration-300', link: 'text-hero-foreground hover:bg-hero-foreground/10 hover:text-hero-foreground aria-[current=page]:text-highlight', logo: 'text-hero-foreground', sub: 'text-highlight', icon: 'btn-hero-outline' };
+    return {
+      ui: u, uiTheme: u.theme, uiFont: u.font, uiRadius: u.radius, uiDark: dark ? 'dark' : 'light', isDark: dark, isLight: !dark,
+      offerCount: (() => { try { const D = this.promoData ? this.promoData() : null; return D ? D.campaigns.filter(x => this.campStatus(x) === 'Active' && x.visibility === 'public').length : 4; } catch (e) { return 4; } })(),
+      navOpen: !!st.nav, navExpanded: st.nav ? 'true' : 'false', toggleNav: () => this.setState({ nav: !(this.state || {}).nav }),
+      hdr, menuOpen: !!st.menu, menuExpanded: st.menu ? 'true' : 'false', toggleMenu: () => this.setState({ menu: !(this.state || {}).menu }),
+      cycleMode: () => this.saveUi({ mode: dark ? 'light' : 'dark' }), modeLabel: dark ? 'Switch to light mode' : 'Switch to dark mode',
+      pickTheme: (e) => this.saveUi({ theme: e.target.value })
+    };
+  }
+
+  componentDidMount(){ this.uiInit(); }
+  componentDidUpdate(pp){ if (pp.appearanceSheet !== this.props.appearanceSheet) this.setState({ theme: !!this.props.appearanceSheet }); if (pp.startTab !== this.props.startTab) this.setState({ tab: this.props.startTab }); }
+  componentWillUnmount(){ this.uiDestroy(); clearTimeout(this.tt); }
+  flash(m){ clearTimeout(this.tt); this.setState({ toast:m }); this.tt = setTimeout(() => this.setState({ toast:'' }), 2600); }
+  renderVals(){
+    const I = this.img(), s = this.state, v = this.uiVals(false), u = v.ui;
+    const SC = { Pending:'badge badge-pending', Confirmed:'badge badge-confirmed', Completed:'badge badge-completed', Cancelled:'badge badge-cancelled' };
+    const setStatus = (id, st, msg) => { this.setState({ items: this.state.items.map(b => b.id === id ? { ...b, status: st } : b) }); this.flash(msg); };
+    const items = s.items.map(b => ({ ...b, dateL: b.date, cls: SC[b.status], wa: 'https://wa.me/447700900123', confirm: () => setStatus(b.id, 'Confirmed', b.name.split(' ')[0] + '’s booking confirmed'), decline: () => setStatus(b.id, 'Cancelled', 'Request declined') }));
+    const pending = items.filter(b => b.status === 'Pending');
+    const PK = [ [1,'Silk Road to Sheki','Cultural · 3 days · $690',I.sheki], [2,'Fire & Stone: Gobustan','Adventure · 1 day · $165',I.gobustan], [3,'Icherisheher & Flame Towers','Historical · 6 h · $120',I.oldcity], [4,'Khinalug & Quba Highlands','Adventure · 2 days · $480',I.khinalug], [5,'Baku Food & Wine Evening','Food · 4 h · $85',I.baku], [6,'Gabala Mountain Escape','Draft · 2 days · $390',I.lankaran] ];
+    const TABS = { home:'Overview', bookings:'Bookings', content:'Content' };
+    const TH = [ ['emerald','Emerald & Gold'], ['caspian','Caspian Blue'], ['pomegranate','Pomegranate'], ['graphite','Graphite'] ];
+    return {
+      ...v, tabTitle: TABS[s.tab], tHome: s.tab === 'home', tBook: s.tab === 'bookings', tContent: s.tab === 'content',
+      kpis: [ { label:'Pending', v: String(pending.length), trend:'Oldest 26 h', tc:'text-xs font-semibold text-amber-700 dark:text-amber-400' }, { label:'Confirmed', v: String(items.filter(b => b.status === 'Confirmed').length + 25), trend:'Next: Nov 18', tc:'text-xs font-semibold text-muted-foreground' }, { label:'Booked (Nov)', v:'$41.6k', trend:'↑ 9% vs Oct', tc:'text-xs font-semibold text-emerald-700 dark:text-emerald-400' }, { label:'Rating', v:'4.9', trend:'386 reviews', tc:'text-xs font-semibold text-muted-foreground' } ],
+      pending, pendingCount: pending.length, noPending: pending.length === 0,
+      chips: ['All','Pending','Confirmed','Completed','Cancelled'].map(c => ({ label:c, n: c === 'All' ? items.length : items.filter(b => b.status === c).length, on: s.filter === c ? 'true' : 'false', pick: () => this.setState({ filter:c }) })),
+      rows: items.filter(b => s.filter === 'All' || b.status === s.filter),
+      pks: PK.map(([id, title, meta, img]) => ({ title, meta, img, on: s.pub[id] ? 'true' : 'false', tog: () => { this.setState({ pub: { ...s.pub, [id]: !s.pub[id] } }); this.flash(s.pub[id] ? title + ' unpublished' : title + ' is live'); } })),
+      nav: [ ['home','Overview','M3 3h7v9H3zM14 3h7v5h-7zM14 12h7v9h-7zM3 16h7v5H3z', ''], ['bookings','Bookings','M3 5h18v16H3zM3 10h18M8 3v4M16 3v4', pending.length || ''], ['content','Content','M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z', ''], ['theme','Appearance','M12 2a10 10 0 1 0 0 20c1 0 1.7-.8 1.7-1.7 0-1-1-1.4-1-2.4 0-.9.8-1.7 1.7-1.7H16a6 6 0 0 0 6-6C22 5.8 17.5 2 12 2z', ''] ]
+        .map(([k, label, icon, badge]) => ({ label, icon, badge, cur: (k === 'theme' ? s.theme : s.tab === k && !s.theme) ? 'page' : 'false', pick: () => k === 'theme' ? this.setState({ theme:true }) : this.setState({ tab:k, theme:false }) })),
+      themeOpen: s.theme, openTheme: () => this.setState({ theme:true }), closeTheme: () => this.setState({ theme:false }),
+      themes: TH.map(([id, name]) => ({ id, name, on: u.theme === id ? 'true' : 'false', darkCls: v.isDark ? 'dark' : 'light', pick: () => { this.saveUi({ theme:id }); this.flash(name + ' applied'); } })),
+      modes: [['light','Light'],['dark','Dark'],['system','System']].map(([id, label]) => ({ label, on: u.mode === id ? 'true' : 'false', pick: () => this.saveUi({ mode:id }) })),
+      toast: s.toast
+    };
+  }
+}
+</script>
+</body>
+</html>

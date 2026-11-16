@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>You are offline</title>
+    <style>
+      :root { color-scheme: light dark; }
+      body {
+        margin: 0; min-height: 100dvh; display: grid; place-items: center; padding: 24px;
+        font: 16px/1.6 ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+        background: light-dark(#f8f8fb, #101220); color: light-dark(#161a33, #eef0fa);
+      }
+      main { max-width: 26rem; text-align: center; }
+      h1 { margin: 0 0 12px; font: 600 2rem/1.15 Georgia, "Times New Roman", serif; letter-spacing: -0.01em; }
+      p { margin: 0 0 24px; color: light-dark(#565b78, #a9aecb); }
+      button {
+        height: 44px; padding: 0 24px; border: 0; border-radius: 999px; cursor: pointer;
+        font: 600 15px/1 inherit; background: light-dark(#1d2353, #eef0fa); color: light-dark(#f4f5fc, #161a33);
+      }
+      button:active { transform: scale(0.97); }
+      button:focus-visible { outline: 2px solid currentColor; outline-offset: 3px; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>You are offline</h1>
+      <p>This page needs a connection. Nothing you entered was sent. Reconnect and try again.</p>
+      <button type="button" onclick="location.reload()">Try again</button>
+    </main>
+    <script>
+      window.addEventListener("online", () => location.reload());
+    </script>
+  </body>
+</html>
