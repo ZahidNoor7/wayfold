@@ -69,7 +69,7 @@ it, stored tenant credentials cannot be decrypted.
 
 ## 4. Scheduled jobs
 
-`vercel.json` runs `GET /api/cron` every 10 minutes. Vercel sends
+`vercel.json` runs `GET /api/cron` once a day (04:00 UTC), the most often Vercel's Hobby plan allows; on Pro, `*/10 * * * *` is better. E-mails are sent straight after the action that queues them; the daily run retries anything that failed. Vercel sends
 `Authorization: Bearer $CRON_SECRET`; without a matching secret the endpoint
 answers 404 and does nothing. The run expires stale booking holds, delivers
 queued customer and staff e-mails through each business's own e-mail

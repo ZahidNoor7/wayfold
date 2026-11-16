@@ -379,7 +379,9 @@ describe("platform views never carry tenant credentials", () => {
     const owner = await admin("owner");
     const tenant = await createTenant();
     const API_KEY = "tenant-key-1234567";
-    const API_SECRET = "tenant-secret-ABCDEFG-7654";
+    // Ends in letters no UUID or number can contain, so the masked-hint check
+    // below cannot collide with ids in platform-wide statistics.
+    const API_SECRET = "tenant-secret-ABCDEFG-ZQXW";
     const view = await inTenant(tenant, (scope) =>
       saveIntegration(scope, { provider: "cloudinary", config: { cloudName: "tenant-cloud" }, secrets: { apiKey: API_KEY, apiSecret: API_SECRET } }),
     );
@@ -400,7 +402,7 @@ describe("platform views never carry tenant credentials", () => {
     };
     for (const [name, output] of Object.entries(outputs)) {
       const text = JSON.stringify(output);
-      for (const forbidden of [API_KEY, API_SECRET, row!.secretCiphertext, ...hints, "7654", "secretCiphertext", "secretHints", "keyVersion", "wf1.", "passwordHash", "verificationToken"]) {
+      for (const forbidden of [API_KEY, API_SECRET, row!.secretCiphertext, ...hints, "ZQXW", "secretCiphertext", "secretHints", "keyVersion", "wf1.", "passwordHash", "verificationToken"]) {
         expect(text.includes(forbidden), `${name} contains ${forbidden}`).toBe(false);
       }
     }

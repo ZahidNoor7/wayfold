@@ -4,7 +4,7 @@ import { revalidatePath } from "next/cache";
 import { z } from "zod";
 import { todayIn } from "@/lib/dates";
 import { ACTIVITY_AREA_PREFIX, ACTIVITY_AREAS, ACTIVITY_PAGE_SIZE } from "@/lib/promotion-display";
-import { workspaceAction } from "@/server/actions";
+import { workspaceAction, deliverNotificationsNow } from "@/server/actions";
 import { listAuditEntries } from "@/server/audit/read";
 import { createCampaign, deleteCampaign, setCampaignActive, updateCampaign, type CampaignInput } from "@/server/promotions/campaigns";
 import { assignPersonalDiscount, revokePersonalDiscount, type PersonalDiscountInput } from "@/server/promotions/personal-discounts";
@@ -73,9 +73,11 @@ export const revokePersonalDiscountAction = workspaceAction("promotions.manage",
 export const approveDiscountRequestAction = workspaceAction(
   "promotions.decide",
   z.object({ id, type: z.enum(["percent", "fixed"]), value: z.number(), note: z.string().max(1000).optional() }),
-  async ({ scope, input }) => {
+  async ({ scope, input, afterCommit }) => {
     const { id: requestId, ...decision } = input;
     const request = await approveDiscountRequest(scope, requestId, decision);
+    // The customer's decision e-mail goes out now, not at the next scheduled run.
+    afterCommit(() => deliverNotificationsNow(scope.tenantId));
     refresh();
     return { id: request.id, reference: request.reference, name: request.name };
   },
@@ -84,8 +86,9 @@ export const approveDiscountRequestAction = workspaceAction(
 export const rejectDiscountRequestAction = workspaceAction(
   "promotions.decide",
   z.object({ id, reason: z.string().max(1000) }),
-  async ({ scope, input }) => {
+  async ({ scope, input, afterCommit }) => {
     const request = await rejectDiscountRequest(scope, input.id, { reason: input.reason });
+    afterCommit(() => deliverNotificationsNow(scope.tenantId));
     refresh();
     return { id: request.id, reference: request.reference, name: request.name };
   },

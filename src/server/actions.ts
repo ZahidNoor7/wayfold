@@ -9,10 +9,29 @@ import { assertCan, inWorkspace, resolveWorkspace, type Workspace } from "./auth
 import { withTenant, type TenantScope } from "./db/context";
 import { env } from "./env";
 import { ForbiddenError, NotFoundError, toActionError, UnauthenticatedError, ValidationError, type ActionResult } from "./errors";
+import { deliverPending } from "./notifications";
 import { enforceRateLimit, type RateLimitRule } from "./rate-limit";
 import type { Permission } from "./rbac/permissions";
 import { classifyHost } from "./tenancy/hosts";
 import { resolveSite, type SiteTenant } from "./tenancy/resolve";
+
+/**
+ * Sends a tenant's queued e-mails once the current response is out, through
+ * that tenant's own e-mail connection. Best effort: anything not sent stays
+ * queued for the scheduled job, so a failure here is never the visitor's.
+ */
+export function deliverNotificationsSoon(tenantId: string): void {
+  after(() => deliverNotificationsNow(tenantId));
+}
+
+/** The delivery itself, for code already running after the response (afterCommit). */
+export async function deliverNotificationsNow(tenantId: string): Promise<void> {
+  try {
+    await withTenant(tenantId, (scope) => deliverPending(scope, { limit: 10 }));
+  } catch {
+    // Left for the scheduled delivery job.
+  }
+}
 
 export function parseInput<S extends z.ZodType>(schema: S, raw: unknown): z.output<S> {
   const result = schema.safeParse(raw);
@@ -117,7 +136,11 @@ export function siteAction<S extends z.ZodType, T>(
       const { ip } = await requestMeta();
       await enforceRateLimit(rule, `${tenant.id}:${ip}`);
       const input = parseInput(schema, raw);
-      return withTenant(tenant.id, (scope) => handler({ tenant, scope, input, ip }));
+      const result = await withTenant(tenant.id, (scope) => handler({ tenant, scope, input, ip }));
+      // Booking requests, enquiries and discount requests queue e-mails to the
+      // guest and the business; send them now rather than at the next job run.
+      deliverNotificationsSoon(tenant.id);
+      return result;
     });
 }
 

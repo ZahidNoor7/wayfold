@@ -14,7 +14,7 @@ import {
 import { sessionCookieName } from "@/server/auth/guards";
 import { createSession } from "@/server/auth/sessions";
 import { withTenant } from "@/server/db/context";
-import { roles, tenantDomains, tenants } from "@/server/db/schema";
+import { notificationOutbox, roles, tenantDomains, tenants } from "@/server/db/schema";
 import { GENERIC_ERROR, NotFoundError, ValidationError } from "@/server/errors";
 import { withPlatform } from "@/server/platform/db";
 import type { RateLimitRule } from "@/server/rate-limit";
@@ -328,6 +328,31 @@ describe("siteAction", () => {
     expect(context.scope.userId).toBeNull();
     expect(context.ip).toBe("203.0.113.77");
     expect(context.input).toEqual({ name: "Ada" });
+  });
+
+  it("sends the tenant's queued e-mails after a successful submission, and only then", async () => {
+    const a = await createTenant();
+    const { action } = enquiryAction();
+    await withTenant(a.tenantId, ({ tx }) =>
+      tx.insert(notificationOutbox).values({ kind: "inquiry.staff_alert", toEmail: "owner@example.test", subject: "New enquiry", bodyText: "Hello" }),
+    );
+
+    visit(a);
+    expect(await action({ name: "x" })).toMatchObject({ ok: false, code: "validation" });
+    expect(scheduled).toEqual([]);
+
+    expect(await action({ name: "Ada" })).toMatchObject({ ok: true });
+    expect(scheduled).toHaveLength(1);
+    // No e-mail connection: delivery runs and marks the message skipped,
+    // without ever borrowing another account.
+    await scheduled[0]!();
+    const [row] = await withTenant(a.tenantId, ({ tx }) => tx.select({ status: notificationOutbox.status }).from(notificationOutbox));
+    expect(row).toEqual({ status: "skipped" });
+  });
+
+  it("never lets a delivery failure reach the visitor", async () => {
+    const { deliverNotificationsNow } = await import("@/server/actions");
+    await expect(deliverNotificationsNow("not-a-uuid")).resolves.toBeUndefined();
   });
 
   it("ignores a tenant id or slug in the payload", async () => {
