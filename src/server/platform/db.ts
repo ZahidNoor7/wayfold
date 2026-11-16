@@ -1,4 +1,5 @@
 import "server-only";
+import type { PgTransactionConfig } from "drizzle-orm/pg-core";
 import { platformDatabase, type Transaction } from "../db/client";
 
 /**
@@ -8,6 +9,6 @@ import { platformDatabase, type Transaction } from "../db/client";
  * `src/server/platform` alone, and ESLint forbids importing it elsewhere, so
  * every cross-tenant code path is a short, reviewable list of files.
  */
-export function withPlatform<T>(fn: (tx: Transaction) => Promise<T>): Promise<T> {
-  return platformDatabase().transaction(fn);
+export function withPlatform<T>(fn: (tx: Transaction) => Promise<T>, config?: PgTransactionConfig): Promise<T> {
+  return platformDatabase().transaction(fn, config);
 }

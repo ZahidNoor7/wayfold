@@ -329,8 +329,17 @@ export async function listMedia(scope: TenantScope, input: ListMediaInput = {}):
 
 /* ----------------------------------------------------------------- change */
 
+const creditSchema = z.string().trim().max(300, "Keep the credit under 300 characters.");
+const creditUrlSchema = z
+  .string()
+  .trim()
+  .max(500)
+  .refine((value) => value === "" || /^https?:\/\/\S+$/i.test(value), "Enter a link starting with http:// or https://.");
+
 export const updateMediaSchema = z.object({
   alt: altSchema.optional(),
+  credit: creditSchema.optional(),
+  creditUrl: creditUrlSchema.optional(),
   /** A folder id to move the file, or `null` to take it out of its folder. */
   folderId: idSchema.nullish(),
 });
@@ -341,8 +350,10 @@ export async function updateMedia(scope: TenantScope, id: string, input: UpdateM
   const asset = await getMedia(scope, id);
   if (changes.folderId) await getFolder(scope, changes.folderId);
 
-  const set: Partial<Pick<MediaAsset, "alt" | "folderId">> = {};
+  const set: Partial<Pick<MediaAsset, "alt" | "folderId" | "credit" | "creditUrl">> = {};
   if (changes.alt !== undefined) set.alt = changes.alt;
+  if (changes.credit !== undefined) set.credit = changes.credit;
+  if (changes.creditUrl !== undefined) set.creditUrl = changes.creditUrl;
   if (changes.folderId !== undefined) set.folderId = changes.folderId;
   if (Object.keys(set).length === 0) return asset;
 
@@ -454,4 +465,25 @@ export async function replaceMedia(scope: TenantScope, id: string, input: Replac
     },
   });
   return row;
+}
+
+export interface MediaCredit {
+  id: string;
+  url: string;
+  alt: string;
+  credit: string;
+  creditUrl: string;
+}
+
+/**
+ * Credits the business must show for the images it publishes (for example
+ * Creative Commons photos). Public: only the image, its description and its
+ * credit, and only for this tenant.
+ */
+export async function listMediaCredits(scope: TenantScope): Promise<MediaCredit[]> {
+  return scope.tx
+    .select({ id: mediaAssets.id, url: mediaAssets.url, alt: mediaAssets.alt, credit: mediaAssets.credit, creditUrl: mediaAssets.creditUrl })
+    .from(mediaAssets)
+    .where(and(eq(mediaAssets.tenantId, scope.tenantId), ne(mediaAssets.credit, "")))
+    .orderBy(mediaAssets.createdAt);
 }

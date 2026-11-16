@@ -47,6 +47,8 @@ export interface StorefrontShell {
   whatsapp: ShellWhatsApp | null;
   /** False when the plan removes the "Powered by Wayfold" line. */
   showPoweredBy: boolean;
+  /** Whether any published image needs a credit: links the credits page. */
+  hasPhotoCredits: boolean;
 }
 
 export interface ShellOptions {
@@ -115,7 +117,17 @@ export async function loadStorefrontShell(scope: TenantScope, options: ShellOpti
     destinations: await listPublishedDestinations(scope),
     whatsapp: connected ?? chatTarget(options.social.whatsapp),
     showPoweredBy: !features.removeBranding,
+    hasPhotoCredits: await hasMediaCredits(scope),
   };
+}
+
+async function hasMediaCredits(scope: TenantScope): Promise<boolean> {
+  const [row] = await scope.tx
+    .select({ id: mediaAssets.id })
+    .from(mediaAssets)
+    .where(and(eq(mediaAssets.tenantId, scope.tenantId), ne(mediaAssets.credit, "")))
+    .limit(1);
+  return Boolean(row);
 }
 
 /**

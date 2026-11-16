@@ -23,6 +23,8 @@ export interface SiteFooterProps {
   year: string;
   /** Link for the "Powered by Wayfold" line; null when the plan removes it. */
   poweredByUrl: string | null;
+  /** Shows the "Photo credits" link when published images carry credits. */
+  hasPhotoCredits?: boolean;
 }
 
 const NETWORKS: { key: SocialNetwork; label: string; Icon: (props: { className?: string }) => ReactNode }[] = [
@@ -79,6 +81,7 @@ export function SiteFooter({
   licenceLine,
   year,
   poweredByUrl,
+  hasPhotoCredits = false,
 }: SiteFooterProps) {
   const profiles = NETWORKS.flatMap((network) => {
     const href = socialUrl(network.key, social[network.key]);
@@ -170,6 +173,11 @@ export function SiteFooter({
             <Link href="/terms" className="underline-offset-4 hover:underline">
               Terms &amp; conditions
             </Link>
+            {hasPhotoCredits ? (
+              <Link href="/credits" className="underline-offset-4 hover:underline">
+                Photo credits
+              </Link>
+            ) : null}
             {poweredByUrl ? (
               <a href={poweredByUrl} target="_blank" rel="noopener" className="text-hero-foreground/60 underline-offset-4 hover:text-hero-foreground hover:underline">
                 Powered by Wayfold

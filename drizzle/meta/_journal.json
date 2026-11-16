@@ -43,6 +43,13 @@
       "when": 1794833624697,
       "tag": "0005_integration_fixes",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1794843590823,
+      "tag": "0006_media_credits",
+      "breakpoints": true
     }
   ]
 }

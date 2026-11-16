@@ -1,4 +1,5 @@
 import "server-only";
+import type { PgTransactionConfig } from "drizzle-orm/pg-core";
 import { eq } from "drizzle-orm";
 import { z } from "zod";
 import { platformAdmins } from "../db/schema";
@@ -66,13 +67,18 @@ export async function authorize(tx: PlatformTx, admin: PlatformActor, minimum: P
 }
 
 /** Runs `fn` in a cross-tenant transaction after authorising `admin`. */
-export function asPlatform<T>(admin: PlatformActor, minimum: PlatformRole, fn: (tx: PlatformTx) => Promise<T>): Promise<T> {
+export function asPlatform<T>(
+  admin: PlatformActor,
+  minimum: PlatformRole,
+  fn: (tx: PlatformTx) => Promise<T>,
+  config?: PgTransactionConfig,
+): Promise<T> {
   // Fail before opening a connection when the claimed role is already too low.
   assertPlatformRole(admin, minimum);
   return withPlatform(async (tx) => {
     await authorize(tx, admin, minimum);
     return fn(tx);
-  });
+  }, config);
 }
 
 /** Escapes `%`, `_` and `\` so user text matches literally inside ILIKE. */

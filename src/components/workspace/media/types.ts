@@ -16,6 +16,9 @@ export interface MediaItem {
   durationSeconds: number | null;
   originalFilename: string;
   folderId: string | null;
+  /** Attribution required by the photo's licence; empty when none. */
+  credit: string;
+  creditUrl: string;
   /** ISO timestamp. */
   createdAt: string;
 }
@@ -43,6 +46,8 @@ interface AssetRow {
   id: string;
   url: string;
   alt: string;
+  credit: string;
+  creditUrl: string;
   resourceType: MediaKind;
   format: string;
   bytes: number;
@@ -68,6 +73,8 @@ export function toMediaItem(row: AssetRow): MediaItem {
     durationSeconds: row.durationSeconds,
     originalFilename: row.originalFilename,
     folderId: row.folderId,
+    credit: row.credit,
+    creditUrl: row.creditUrl,
     createdAt: row.createdAt.toISOString(),
   };
 }

@@ -18,6 +18,12 @@ import { mediaLabel, type MediaFolderItem, type MediaItem } from "./types";
 const detailsSchema = z.object({
   alt: z.string().trim().max(300, "Keep the description under 300 characters."),
   folderId: z.string(),
+  credit: z.string().trim().max(300, "Keep the credit under 300 characters."),
+  creditUrl: z
+    .string()
+    .trim()
+    .max(500)
+    .refine((value) => value === "" || /^https?:\/\/\S+$/i.test(value), "Enter a link starting with http:// or https://."),
 });
 type DetailsValues = z.infer<typeof detailsSchema>;
 
@@ -49,7 +55,7 @@ function AssetDetails({ item, folders, canManage, timezone, onClose, onChanged, 
 
   const form = useForm<DetailsValues>({
     resolver: zodResolver(detailsSchema),
-    defaultValues: { alt: item.alt, folderId: item.folderId ?? "" },
+    defaultValues: { alt: item.alt, folderId: item.folderId ?? "", credit: item.credit, creditUrl: item.creditUrl },
   });
   const { errors, isDirty } = form.formState;
 
@@ -57,7 +63,7 @@ function AssetDetails({ item, folders, canManage, timezone, onClose, onChanged, 
     success: "File details saved",
     toastError: false,
     onSuccess: (saved) => {
-      form.reset({ alt: saved.alt, folderId: saved.folderId ?? "" });
+      form.reset({ alt: saved.alt, folderId: saved.folderId ?? "", credit: saved.credit, creditUrl: saved.creditUrl });
       onChanged(saved);
     },
   });
@@ -159,7 +165,7 @@ function AssetDetails({ item, folders, canManage, timezone, onClose, onChanged, 
           <form
             noValidate
             className="flex flex-col gap-4 border-t pt-6"
-            onSubmit={form.handleSubmit((values) => void save.run({ id: item.id, alt: values.alt, folderId: values.folderId || null }))}
+            onSubmit={form.handleSubmit((values) => void save.run({ id: item.id, alt: values.alt, folderId: values.folderId || null, credit: values.credit, creditUrl: values.creditUrl }))}
           >
             <FormError message={save.error && !save.fieldErrors ? save.error : null} />
             <Field
@@ -169,6 +175,17 @@ function AssetDetails({ item, folders, canManage, timezone, onClose, onChanged, 
               error={message("alt")}
             >
               {(control) => <textarea {...control} {...form.register("alt")} className="textarea" rows={3} />}
+            </Field>
+            <Field
+              label="Credit"
+              note="optional"
+              hint="For photos by someone else, e.g. “Photo: A. Author, CC BY-SA 4.0”. Credited photos are listed on your website's Photo credits page."
+              error={message("credit")}
+            >
+              {(control) => <input {...control} {...form.register("credit")} className="input" />}
+            </Field>
+            <Field label="Credit link" note="optional" hint="Where the original photo and its licence can be found." error={message("creditUrl")}>
+              {(control) => <input {...control} {...form.register("creditUrl")} className="input" inputMode="url" placeholder="https://" />}
             </Field>
             <Field label="Folder" error={message("folderId")}>
               {(control) => (

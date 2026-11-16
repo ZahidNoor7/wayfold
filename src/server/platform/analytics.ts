@@ -274,6 +274,8 @@ export async function getPlatformStats(admin: PlatformActor, input: z.input<type
       recentActivity,
       outbox: await readOutbox(tx),
     };
-  });
+    // One snapshot for every figure: counts read moments apart would
+    // otherwise disagree while sign-ups and changes are happening.
+  }, { isolationLevel: "repeatable read", accessMode: "read only" });
   return { ...stats, health: await completeHealth(outbox) };
 }

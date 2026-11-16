@@ -45,6 +45,10 @@ export const mediaAssets = pgTable(
     url: text("url").notNull(),
     originalFilename: text("original_filename").notNull().default(""),
     alt: text("alt").notNull().default(""),
+    /** Attribution the licence requires, e.g. "Photo: A. Author, CC BY-SA 4.0". Empty when none is needed. */
+    credit: text("credit").notNull().default(""),
+    /** Where the original and its licence can be found. */
+    creditUrl: text("credit_url").notNull().default(""),
     createdBy: uuid("created_by").references(() => users.id, { onDelete: "set null" }),
     createdAt: createdAt(),
     updatedAt: updatedAt(),

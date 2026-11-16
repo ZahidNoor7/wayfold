@@ -94,6 +94,7 @@ async function Shell({ params, children }: SiteParams & { children: ReactNode })
         licenceLine={content.about.licenceLine}
         year={siteToday(tenant).slice(0, 4)}
         poweredByUrl={shell.showPoweredBy ? `${appProtocol()}://${env().ROOT_DOMAIN}` : null}
+        hasPhotoCredits={shell.hasPhotoCredits}
       />
     </ThemedRoot>
   );

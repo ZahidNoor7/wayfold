@@ -42,6 +42,7 @@ describe("storefront shell: a brand-new workspace", () => {
       destinations: [],
       whatsapp: null,
       showPoweredBy: true,
+      hasPhotoCredits: false,
     });
   });
 

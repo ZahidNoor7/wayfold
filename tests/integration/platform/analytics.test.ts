@@ -1,3 +1,4 @@
+import { randomBytes } from "node:crypto";
 import { eq } from "drizzle-orm";
 import { afterEach, describe, expect, it } from "vitest";
 import { closeDatabases } from "@/server/db/client";
@@ -93,7 +94,7 @@ describe("platform analytics", () => {
   it("estimates MRR from active subscriptions and totals paid invoices by month", async () => {
     const owner = await createAdmin();
     // A currency of its own keeps these sums independent of every other test.
-    const currency = `X${unique("c").slice(-2).toUpperCase().replace(/[^A-Z]/g, "Q")}`;
+    const currency = `X${Array.from(randomBytes(6), (byte) => String.fromCharCode(65 + (byte % 26))).join("")}`;
     const [monthly, yearly, cancelled, trialing] = await Promise.all([createTenant(), createTenant(), createTenant(), createTenant()]);
 
     await withPlatform(async (tx) => {
