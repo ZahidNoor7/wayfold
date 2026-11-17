@@ -203,7 +203,9 @@ export function CancelBookingButton({ booking, className = "btn btn-outline text
 }
 
 export function CompleteBookingButton({ booking, className = "btn btn-secondary" }: ButtonProps) {
-  const { run, pending } = useAction(completeBookingAction, { success: (data) => `${data.reference} marked as completed` });
+  const { run, pending } = useAction(completeBookingAction, {
+    success: (data) => (data.reviewRequested ? `${data.reference} completed. Review link e-mailed to the customer.` : `${data.reference} marked as completed`),
+  });
   return (
     <button type="button" className={className} disabled={pending} aria-busy={pending || undefined} onClick={() => run({ id: booking.id })}>
       {pending ? <Spinner /> : null}

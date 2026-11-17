@@ -1,6 +1,7 @@
 import { boolean, date, foreignKey, index, integer, jsonb, pgEnum, pgTable, smallint, text, unique, uniqueIndex, uuid } from "drizzle-orm/pg-core";
 import { sql } from "drizzle-orm";
 import { check } from "drizzle-orm/pg-core";
+import { bookings } from "./bookings";
 import { destinations, tours } from "./catalog";
 import { createdAt, id, tenantId, timestamptz, updatedAt } from "./columns";
 import { users } from "./identity";
@@ -163,4 +164,34 @@ export const notificationOutbox = pgTable(
     sentAt: timestamptz("sent_at"),
   },
   (t) => [index("notification_outbox_tenant_status_idx").on(t.tenantId, t.status, t.createdAt)],
+);
+
+/**
+ * A private link that lets the customer of a completed booking write a
+ * review. Only a SHA-256 of the token is stored, so the link cannot be
+ * rebuilt from the database; asking for a new link rotates the token. One row
+ * per booking: once a review is submitted through it (`used_at`), it is spent.
+ */
+export const reviewRequests = pgTable(
+  "review_requests",
+  {
+    id: id(),
+    tenantId: tenantId().references(() => tenants.id, { onDelete: "cascade" }),
+    bookingId: uuid("booking_id").notNull(),
+    tokenHash: text("token_hash").notNull(),
+    expiresAt: timestamptz("expires_at").notNull(),
+    usedAt: timestamptz("used_at"),
+    /** The review written through this link. No foreign key: deleting the review leaves the link spent. */
+    reviewId: uuid("review_id"),
+    /** Files the customer uploaded through this link; only these can be attached to the review. */
+    uploadedMediaIds: uuid("uploaded_media_ids").array().notNull().default(sql`'{}'::uuid[]`),
+    /** Upload signatures handed out, capped so one link cannot fill the business's storage. */
+    uploadCount: integer("upload_count").notNull().default(0),
+    createdAt: createdAt(),
+  },
+  (t) => [
+    uniqueIndex("review_requests_booking_key").on(t.tenantId, t.bookingId),
+    uniqueIndex("review_requests_token_key").on(t.tokenHash),
+    foreignKey({ name: "review_requests_booking_fk", columns: [t.tenantId, t.bookingId], foreignColumns: [bookings.tenantId, bookings.id] }).onDelete("cascade"),
+  ],
 );

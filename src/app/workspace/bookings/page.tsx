@@ -6,11 +6,13 @@ import { BookingsScreen } from "@/components/workspace/bookings/bookings-screen"
 import { BOOKINGS_PAGE_SIZE, bookingsHref, exportHref, isFiltered, parseBookingsView, toListInput } from "@/components/workspace/bookings/filters";
 import { toDetailView, toRowView, type BookingDetailView } from "@/components/workspace/bookings/view-models";
 import { EmptyState, PageHeader, PageSkeleton } from "@/components/workspace/page-header";
-import { pageCount, type SearchParams } from "@/lib/booking-display";
+import { formatDate, pageCount, type SearchParams } from "@/lib/booking-display";
+import { todayIn } from "@/lib/dates";
 import { requireWorkspace } from "@/server/auth/guards";
 import { can, inWorkspace } from "@/server/auth/workspace";
 import { findClashes, getBooking, listBookings } from "@/server/bookings/service";
 import { listTours } from "@/server/catalog/tours";
+import { getReviewRequestStatus } from "@/server/content/review-requests";
 import { NotFoundError } from "@/server/errors";
 import { listIntegrations } from "@/server/integrations";
 import { whatsappChatLink } from "@/server/integrations/adapters/whatsapp";
@@ -56,6 +58,10 @@ async function Content({ searchParams }: { searchParams: Promise<SearchParams> }
           whatsapp,
           canViewCustomer: can(workspace, "customers.view"),
         });
+        if (detail.status === "completed") {
+          const status = await getReviewRequestStatus(scope, detail.id, now);
+          detail.review = { state: status.state, expiresOn: status.expiresAt ? formatDate(todayIn(timezone, status.expiresAt)) : null };
+        }
       } catch (error) {
         // An unknown id, or one from another workspace: the panel says so.
         if (!(error instanceof NotFoundError)) throw error;

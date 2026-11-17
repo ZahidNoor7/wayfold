@@ -86,10 +86,12 @@ describe("booking status machine", () => {
       const updated = await asOwner(t, (scope) => ACTIONS[action](scope, id));
       expect(updated.status).toBe(RESULT[action]);
       expect((await bookingRow(t.tenantId, id)).status).toBe(RESULT[action]);
-      // Exactly one new timeline entry, written by the acting user.
+      // One new status entry, written by the acting user. Completing also
+      // records that the customer was e-mailed a review link.
       const after = await eventsOf(t.tenantId, id);
-      expect(after).toHaveLength(before.length + 1);
-      expect(after.at(-1)).toMatchObject({ kind: "status", actorId: t.ownerId });
+      expect(after).toHaveLength(before.length + (action === "complete" ? 2 : 1));
+      expect(after[before.length]).toMatchObject({ kind: "status", actorId: t.ownerId });
+      if (action === "complete") expect(after.at(-1)).toMatchObject({ kind: "notification", message: "Review link e-mailed to the customer." });
     } else {
       const error = await errorOf(asOwner(t, (scope) => ACTIONS[action](scope, id)));
       expect(error).toBeInstanceOf(ConflictError);
@@ -181,8 +183,10 @@ describe("booking status machine", () => {
     notify.mockClear();
     const completed = await asOwner(t, (scope) => completeBooking(scope, id, { now: hoursAfter(5) }));
     expect(completed).toMatchObject({ status: "completed", completedAt: hoursAfter(5) });
-    expect((await auditActions(t.tenantId, id)).at(-1)).toMatchObject({ action: "booking.completed" });
-    expect(notificationsFor(t.tenantId)).toEqual([]);
+    const actions = (await auditActions(t.tenantId, id)).map((entry) => entry.action);
+    expect(actions.slice(-3)).toEqual(["booking.completed", "review_request.issued", "booking.review_requested"]);
+    // The only message is the review request to the customer.
+    expect(notificationsFor(t.tenantId).map((message) => message.kind)).toEqual(["review.requested"]);
     const error = await errorOf(asOwner(t, (scope) => rescheduleBooking(scope, id, { date: "2027-03-12" })));
     expect(error.code).toBe("invalid_transition");
   });

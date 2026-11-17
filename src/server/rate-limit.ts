@@ -26,6 +26,8 @@ export const RATE_LIMITS = {
   emailVerification: { name: "email-verification", limit: 6, windowSeconds: 3600 },
   bookingRequest: { name: "booking-request", limit: 10, windowSeconds: 3600 },
   inquiry: { name: "inquiry", limit: 6, windowSeconds: 3600 },
+  reviewSubmission: { name: "review-submission", limit: 10, windowSeconds: 3600 },
+  reviewUpload: { name: "review-upload", limit: 40, windowSeconds: 3600 },
   discountRequest: { name: "discount-request", limit: 5, windowSeconds: 3600 },
   discountStatus: { name: "discount-status", limit: 20, windowSeconds: 600 },
   integrationTest: { name: "integration-test", limit: 20, windowSeconds: 600 },

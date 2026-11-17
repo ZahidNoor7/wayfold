@@ -112,6 +112,55 @@ test("the business sees the request and confirms it", async () => {
   expect(bookingId).toMatch(/^[0-9a-f-]{36}$/);
 });
 
+test("after the tour, the guest reviews it through a private link and it waits for the business", async ({ browser }) => {
+  await page.goto(`${APP}/workspace/bookings?booking=${bookingId}`);
+  const panel = page.getByRole("dialog");
+  await panel.getByRole("button", { name: "Mark completed" }).click();
+  await expect(panel.getByText(/A review link has been sent/)).toBeVisible();
+
+  // A link to share another way: a new one, shown in the panel.
+  await panel.getByRole("button", { name: "Copy a new link" }).click();
+  const linkField = panel.getByLabel(/Share this link with the customer/);
+  await expect(linkField).toHaveValue(/\/review\/[A-Za-z0-9_-]{43}$/);
+  const reviewUrl = await linkField.inputValue();
+  expect(reviewUrl.startsWith(storefront(slug))).toBe(true);
+
+  const guestContext = await browser.newContext();
+  const guest = await guestContext.newPage();
+  await guest.goto(reviewUrl);
+  await expect(guest.getByRole("heading", { level: 1, name: `How was ${tourTitle}?` })).toBeVisible();
+  await expect(guest.getByLabel("Name shown with your review")).toHaveValue("Eleanor Whitfield");
+
+  // Sending without stars or words points at both.
+  await guest.getByRole("button", { name: "Send review" }).click();
+  await expect(guest.getByText("Choose a rating from 1 to 5.")).toBeVisible();
+  await expect(guest.getByText(/Tell us a little more/)).toBeVisible();
+
+  await guest.locator("label", { hasText: "4 stars" }).click();
+  await guest.getByLabel("Your review", { exact: true }).fill("A beautiful walk through the old city at dusk, with stories at every corner.");
+  await guest.getByRole("textbox", { name: /^Title/ }).fill("Magical evening");
+  await guest.getByLabel("Name shown with your review").fill("Eleanor W.");
+  // Fixed fields drop their errors straight away.
+  await expect(guest.getByText("Choose a rating from 1 to 5.")).toHaveCount(0);
+  await expect(guest.getByText(/Tell us a little more/)).toHaveCount(0);
+  await guest.getByRole("button", { name: "Send review" }).click();
+  await expect(guest.getByRole("heading", { name: "Thank you for your review" })).toBeFocused();
+
+  // The link is spent.
+  await guest.reload();
+  await expect(guest.getByRole("heading", { level: 1, name: "Your review has been sent" })).toBeVisible();
+  await guestContext.close();
+
+  // The business sees it as a verified, unpublished review, and the booking says so.
+  await page.goto(`${APP}/workspace/reviews`);
+  const card = page.getByRole("article").filter({ hasText: "Eleanor W." });
+  await expect(card.getByText("Magical evening")).toBeVisible();
+  await expect(card.getByText("Verified booking")).toBeVisible();
+  await expect(card.getByText("Unpublished")).toBeVisible();
+  await page.goto(`${APP}/workspace/bookings?booking=${bookingId}`);
+  await expect(page.getByRole("dialog").getByText(/The customer has written their review/)).toBeVisible();
+});
+
 test("another business cannot reach the first one's records, even with their ids", async ({ browser }) => {
   const rivalContext = await browser.newContext();
   const rival = await rivalContext.newPage();

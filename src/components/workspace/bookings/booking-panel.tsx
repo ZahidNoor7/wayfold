@@ -26,6 +26,7 @@ import {
   ReopenBookingButton,
 } from "./booking-actions";
 import { RescheduleForm } from "./reschedule-form";
+import { ReviewLinkSection } from "./review-link-section";
 import type { BookingDetailView, BookingRowView } from "./view-models";
 
 export interface PanelPermissions {
@@ -318,6 +319,16 @@ export function BookingPanelContent({ booking, permissions, onClose }: BookingPa
             ) : null}
           </div>
         </section>
+
+        {booking.review ? (
+          <ReviewLinkSection
+            bookingId={booking.id}
+            customerEmail={booking.contact.email}
+            review={booking.review}
+            canManage={permissions.manage}
+            headingClassName={SECTION_HEADING}
+          />
+        ) : null}
 
         <section aria-labelledby="booking-trip">
           <h3 id="booking-trip" className={SECTION_HEADING}>

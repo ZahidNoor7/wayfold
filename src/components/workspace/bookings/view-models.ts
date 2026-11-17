@@ -149,6 +149,14 @@ export interface BookingDetailView {
   };
   paymentStatus: PaymentStatus;
   events: BookingEventView[];
+  /** Completed bookings only: where the customer's review link stands. Filled in by the page. */
+  review: BookingReviewView | null;
+}
+
+export interface BookingReviewView {
+  state: "none" | "open" | "expired" | "used";
+  /** Last day the current link works, formatted; null without a link. */
+  expiresOn: string | null;
 }
 
 const EVENT_LABELS: Record<BookingEventView["kind"], string> = {
@@ -235,6 +243,7 @@ export function toDetailView(detail: BookingDetail, context: DetailContext): Boo
       amountPaid: booking.amountPaid,
     },
     paymentStatus: booking.paymentStatus,
+    review: null,
     events: detail.events.map((event) => ({
       id: event.id,
       kind: event.kind,

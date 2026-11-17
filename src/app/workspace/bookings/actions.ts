@@ -19,6 +19,7 @@ import {
   rescheduleBooking,
   updatePaymentStatus,
 } from "@/server/bookings/service";
+import { issueReviewLink, sendReviewRequest } from "@/server/content/review-requests";
 import { deliverPending } from "@/server/notifications";
 
 /**
@@ -102,10 +103,30 @@ export const cancelBookingAction = workspaceAction(
   },
 );
 
-export const completeBookingAction = workspaceAction("bookings.manage", z.object({ id }), async ({ scope, input }) => {
-  const booking = await completeBooking(scope, input.id);
+export const completeBookingAction = workspaceAction(
+  "bookings.manage",
+  z.object({ id, requestReview: z.boolean().optional() }),
+  async ({ workspace, scope, input }) => {
+    const booking = await completeBooking(scope, input.id, { requestReview: input.requestReview });
+    refresh();
+    deliverSoon(workspace);
+    return { reference: booking.reference, reviewRequested: input.requestReview !== false && Boolean(booking.contactEmail) };
+  },
+);
+
+/** E-mails the customer a review link; a new link replaces any earlier one. */
+export const sendReviewRequestAction = workspaceAction("bookings.manage", z.object({ id }), async ({ workspace, scope, input }) => {
+  const link = await sendReviewRequest(scope, input.id);
   refresh();
-  return { reference: booking.reference };
+  deliverSoon(workspace);
+  return { expiresAt: link.expiresAt.toISOString() };
+});
+
+/** A fresh review link to share another way (WhatsApp, a message). Replaces any earlier link. */
+export const createReviewLinkAction = workspaceAction("bookings.manage", z.object({ id }), async ({ scope, input }) => {
+  const link = await issueReviewLink(scope, input.id);
+  refresh();
+  return { url: link.url, expiresAt: link.expiresAt.toISOString() };
 });
 
 /** Reopening has no override: the seats must still be free. */

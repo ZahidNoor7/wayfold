@@ -60,6 +60,26 @@ const samples: { [K in NotificationKind]: NotificationTemplateData[K] } = {
     customerEmail: "leyla@example.test",
     message: "Do you run this tour in winter?",
   },
+  "review.requested": {
+    businessName: "Caspian Trails",
+    contactEmail: "hello@caspian-trails.example",
+    customerName: "Leyla Mammadova",
+    tourTitle: "Sheki Silk Road Weekend",
+    startDate: "2026-03-14",
+    reviewUrl: "https://caspian.wayfold.test/review/abc123",
+    expiresOn: "2026-05-13",
+  },
+  "review.staff_alert": {
+    businessName: "Caspian Trails",
+    customerName: "Leyla Mammadova",
+    bookingReference: "CT-SHE-4821",
+    tourTitle: "Sheki Silk Road Weekend",
+    rating: 4,
+    title: "Lovely weekend",
+    body: "The caravanserai was the highlight.",
+    attachments: 2,
+    dashboardUrl: "https://app.wayfold.test/workspace/reviews",
+  },
 };
 
 describe("notification templates", () => {
@@ -221,5 +241,30 @@ describe("notification templates", () => {
     const bare = inquiryStaffAlert({ businessName: "Caspian Trails", customerName: "Leyla", customerEmail: "leyla@example.test", tourTitle: null, message: "Hello" });
     expect(bare.bodyText).not.toMatch(/Phone:|About:/);
     expect(bare.bodyText).toContain("Reply from your Wayfold dashboard, or write to them directly.");
+  });
+
+  it("asks a traveller for a review with their private link and its expiry", () => {
+    const { subject, bodyText } = renderNotification("review.requested", samples["review.requested"]);
+    expect(subject).toBe("How was Sheki Silk Road Weekend?");
+    expect(bodyText).toContain("Hi Leyla,");
+    expect(bodyText).toContain("on Sheki Silk Road Weekend (Sat, 14 Mar 2026)");
+    expect(bodyText).toContain("https://caspian.wayfold.test/review/abc123");
+    expect(bodyText).toContain("works until Wed, 13 May 2026");
+    expect(bodyText).toContain("Questions? Reach us at hello@caspian-trails.example.");
+  });
+
+  it("tells the business a review is waiting, with stars, attachments and a link", () => {
+    const { subject, bodyText } = renderNotification("review.staff_alert", samples["review.staff_alert"]);
+    expect(subject).toBe("New 4-star review from Leyla Mammadova");
+    expect(bodyText).toContain("reviewed Sheki Silk Road Weekend (booking CT-SHE-4821)");
+    expect(bodyText).toContain("Rating: ★★★★☆ (4 of 5)");
+    expect(bodyText).toContain("Title: Lovely weekend");
+    expect(bodyText).toContain("Photos and videos: 2");
+    expect(bodyText).toContain("Read and publish it from your dashboard: https://app.wayfold.test/workspace/reviews");
+
+    const bare = renderNotification("review.staff_alert", { ...samples["review.staff_alert"], title: "", attachments: 0, dashboardUrl: undefined, rating: 9 });
+    expect(bare.subject).toBe("New 5-star review from Leyla Mammadova");
+    expect(bare.bodyText).not.toMatch(/Title:|Photos and videos:/);
+    expect(bare.bodyText).toContain("Read and publish it from your Wayfold dashboard.");
   });
 });

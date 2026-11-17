@@ -10,6 +10,8 @@ export const NOTIFICATION_KINDS = [
   "discount_request.approved",
   "discount_request.rejected",
   "inquiry.staff_alert",
+  "review.requested",
+  "review.staff_alert",
 ] as const;
 
 export type NotificationKind = (typeof NOTIFICATION_KINDS)[number];

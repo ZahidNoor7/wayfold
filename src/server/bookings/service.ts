@@ -6,6 +6,7 @@ import { recordAudit } from "../audit";
 import type { TenantScope } from "../db/context";
 import { availabilityBlocks, bookingEvents, bookings, customers, tourDepartures, tours, users, type TourSchedule } from "../db/schema";
 import { ConflictError, NotFoundError, ValidationError } from "../errors";
+import { sendReviewRequest } from "../content/review-requests";
 import { enqueueNotification } from "../notifications";
 import { getBookingSettings } from "../settings/tenant-settings";
 import { holdingSeats, isHoldingSeats, spanEnd } from "./availability";
@@ -452,12 +453,20 @@ export async function cancelBooking(
   return cancel(scope, row, input.kind, input.reason, options.now ?? new Date(), message);
 }
 
-/** confirmed → completed. Terminal. */
-export async function completeBooking(scope: TenantScope, id: string, options: { now?: Date } = {}): Promise<BookingRow> {
+/**
+ * confirmed → completed. Terminal. Unless told not to, the customer is
+ * e-mailed a private link to review the tour.
+ */
+export async function completeBooking(scope: TenantScope, id: string, options: { now?: Date; requestReview?: boolean } = {}): Promise<BookingRow> {
+  const now = options.now ?? new Date();
   const row = await findBooking(scope, id, true);
   if (row.status !== "confirmed") throw invalidTransition(row, "completed");
-  const updated = await save(scope, id, { status: "completed", completedAt: options.now ?? new Date() });
+  const updated = await save(scope, id, { status: "completed", completedAt: now });
   await record(scope, updated, "status", "Tour completed.", "booking.completed");
+  if (options.requestReview !== false && updated.contactEmail) {
+    await sendReviewRequest(scope, updated.id, now);
+    await record(scope, updated, "notification", "Review link e-mailed to the customer.", "booking.review_requested");
+  }
   return view(updated);
 }
 

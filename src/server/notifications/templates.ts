@@ -102,6 +102,31 @@ export interface InquiryStaffAlertData {
   dashboardUrl?: string;
 }
 
+export interface ReviewRequestedData extends BusinessDetails {
+  customerName: string;
+  tourTitle: string;
+  /** `YYYY-MM-DD`: the day the tour began. */
+  startDate: string;
+  /** The private review page. */
+  reviewUrl: string;
+  /** Last day the link works, `YYYY-MM-DD`. */
+  expiresOn: string;
+}
+
+export interface ReviewStaffAlertData {
+  businessName: string;
+  customerName: string;
+  bookingReference: string;
+  tourTitle: string;
+  rating: number;
+  title?: string;
+  body: string;
+  /** How many photos and videos came with it. */
+  attachments: number;
+  /** Dashboard page where the review can be published. */
+  dashboardUrl?: string;
+}
+
 export interface NotificationTemplateData {
   "booking.received": BookingReceivedData;
   "booking.confirmed": BookingConfirmedData;
@@ -112,6 +137,8 @@ export interface NotificationTemplateData {
   "discount_request.approved": DiscountRequestApprovedData;
   "discount_request.rejected": DiscountRequestRejectedData;
   "inquiry.staff_alert": InquiryStaffAlertData;
+  "review.requested": ReviewRequestedData;
+  "review.staff_alert": ReviewStaffAlertData;
 }
 
 const DATE_FORMAT = new Intl.DateTimeFormat("en-GB", { timeZone: "UTC", weekday: "short", day: "numeric", month: "short", year: "numeric" });
@@ -313,6 +340,32 @@ export function inquiryStaffAlert(data: InquiryStaffAlertData): RenderedNotifica
   };
 }
 
+export function reviewRequested(data: ReviewRequestedData): RenderedNotification {
+  return {
+    subject: `How was ${data.tourTitle}?`,
+    bodyText: compose(
+      `Hi ${firstName(data.customerName)},`,
+      `Thank you for travelling with ${data.businessName} on ${data.tourTitle} (${formatDate(data.startDate)}). We would love to hear how it went.`,
+      `Write a short review here, and add photos or videos if you like. It takes a couple of minutes: ${data.reviewUrl}`,
+      `The link is just for you and works until ${formatDate(data.expiresOn)}. Your review appears on our website once we have read it.`,
+      signOff(data),
+    ),
+  };
+}
+
+export function reviewStaffAlert(data: ReviewStaffAlertData): RenderedNotification {
+  const stars = Math.min(5, Math.max(1, Math.round(data.rating)));
+  return {
+    subject: `New ${stars}-star review from ${data.customerName}`,
+    bodyText: compose(
+      `${data.customerName} reviewed ${data.tourTitle} (booking ${data.bookingReference}). It is waiting for you to publish it.`,
+      [`Rating: ${"★".repeat(stars)}${"☆".repeat(5 - stars)} (${stars} of 5)`, ...(data.title?.trim() ? [`Title: ${data.title.trim()}`] : []), ...(data.attachments > 0 ? [`Photos and videos: ${data.attachments}`] : [])],
+      data.body.trim(),
+      data.dashboardUrl ? `Read and publish it from your dashboard: ${data.dashboardUrl}` : "Read and publish it from your Wayfold dashboard.",
+    ),
+  };
+}
+
 export const notificationTemplates: { [K in NotificationKind]: (data: NotificationTemplateData[K]) => RenderedNotification } = {
   "booking.received": bookingReceived,
   "booking.confirmed": bookingConfirmed,
@@ -323,6 +376,8 @@ export const notificationTemplates: { [K in NotificationKind]: (data: Notificati
   "discount_request.approved": discountRequestApproved,
   "discount_request.rejected": discountRequestRejected,
   "inquiry.staff_alert": inquiryStaffAlert,
+  "review.requested": reviewRequested,
+  "review.staff_alert": reviewStaffAlert,
 };
 
 /** Renders the template for `kind`. The data type follows from the kind. */
