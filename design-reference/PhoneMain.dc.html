@@ -1,0 +1,463 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Phone — Aurelia Journeys — Private Tours in Azerbaijan</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="/_blob/70d0ec09cb9bf09f570d988b94190c96">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>body{margin:0}</style>
+</helmet>
+
+<div data-theme="{{uiTheme}}" data-font="{{uiFont}}" data-radius="{{uiRadius}}" class="{{uiDark}} min-h-screen overflow-x-clip bg-background font-sans text-foreground antialiased">
+<header class="{{hdr.cls}}">
+<div class="container-x flex h-20 items-center justify-between gap-4">
+<a href="PhoneMain.dc.html" aria-label="Aurelia Journeys home" class="flex items-baseline gap-2"><span class="font-display text-[24px] font-semibold leading-none sm:text-[26px] {{hdr.logo}}">Aurelia</span><span class="text-[10px] font-semibold uppercase tracking-[0.32em] {{hdr.sub}}">Journeys</span></a>
+<nav aria-label="Main" class="hidden items-center gap-0.5 xl:flex">
+<a href="PhoneMain.dc.html" aria-current="page" class="nav-link {{hdr.link}}">Home</a>
+<a href="PhoneAbout.dc.html" class="nav-link {{hdr.link}}">About Me</a>
+<a href="PhoneExperiences.dc.html" class="nav-link {{hdr.link}}">Experiences</a>
+<a href="PhoneOffers.dc.html" class="nav-link {{hdr.link}}">Offers<span class="ml-1.5 rounded-full bg-highlight px-1.5 text-[10px] font-bold text-highlight-foreground">{{offerCount}}</span></a>
+<a href="PhoneJourney.dc.html" class="nav-link {{hdr.link}}">My Journey</a>
+<a href="PhoneReviews.dc.html" class="nav-link {{hdr.link}}">Reviews</a>
+<a href="PhoneContact.dc.html" class="nav-link {{hdr.link}}">Contact</a>
+</nav>
+<div class="flex items-center gap-2">
+<a href="https://wa.me/994501234567" aria-label="Chat on WhatsApp" class="btn btn-icon hidden rounded-full sm:inline-flex {{hdr.icon}}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21l1.6-4.8A8.5 8.5 0 1 1 7.8 19.4L3 21z"></path><path d="M9 9.5c.3 1.8 1.7 3.6 3.6 4.6l1.3-1.1 2 .9-.4 1.8c-3.6.2-7.4-3.4-7.3-7.1l1.8-.4.9 2z"></path></svg></a>
+<a href="PhoneBooking.dc.html" class="btn btn-highlight rounded-full px-4 sm:px-5"><span class="sm:hidden">Book</span><span class="hidden sm:inline">Book a Tour</span></a>
+<button type="button" onClick="{{toggleMenu}}" aria-label="Open menu" aria-expanded="{{menuExpanded}}" class="btn btn-icon rounded-full xl:hidden {{hdr.icon}}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h10"></path></svg></button>
+</div>
+</div>
+</header>
+<sc-if value="{{menuOpen}}" hint-placeholder-val="{{ false }}">
+<div class="overlay" onClick="{{toggleMenu}}"></div>
+<div role="dialog" aria-modal="true" aria-label="Menu" class="sheet-right border-hero bg-hero p-6 text-hero-foreground sm:max-w-md">
+<div class="mb-10 flex items-center justify-between"><span class="font-display text-2xl font-semibold">Aurelia <span class="text-highlight">Journeys</span></span><button type="button" onClick="{{toggleMenu}}" aria-label="Close menu" class="btn btn-icon btn-hero-outline rounded-full"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg></button></div>
+<nav aria-label="Mobile" class="flex flex-col">
+<a href="PhoneMain.dc.html" aria-current="page" class="mnav animate-menu-item border-b border-hero-foreground/15 py-3 font-display text-4xl aria-[current=page]:text-highlight" style="animation-delay: .04s">Home</a>
+<a href="PhoneAbout.dc.html" class="mnav animate-menu-item border-b border-hero-foreground/15 py-3 font-display text-4xl aria-[current=page]:text-highlight" style="animation-delay: .08s">About Me</a>
+<a href="PhoneExperiences.dc.html" class="mnav animate-menu-item border-b border-hero-foreground/15 py-3 font-display text-4xl aria-[current=page]:text-highlight" style="animation-delay: .12s">Experiences</a>
+<a href="PhoneOffers.dc.html" class="mnav animate-menu-item border-b border-hero-foreground/15 py-3 font-display text-4xl aria-[current=page]:text-highlight" style="animation-delay: .14s">Special offers</a>
+<a href="PhoneJourney.dc.html" class="mnav animate-menu-item border-b border-hero-foreground/15 py-3 font-display text-4xl aria-[current=page]:text-highlight" style="animation-delay: .16s">My Journey</a>
+<a href="PhoneReviews.dc.html" class="mnav animate-menu-item border-b border-hero-foreground/15 py-3 font-display text-4xl aria-[current=page]:text-highlight" style="animation-delay: .2s">Reviews</a>
+<a href="PhoneContact.dc.html" class="mnav animate-menu-item border-b border-hero-foreground/15 py-3 font-display text-4xl aria-[current=page]:text-highlight" style="animation-delay: .24s">Contact</a>
+</nav>
+<div class="mt-auto flex flex-col gap-3 pt-8">
+<a href="PhoneBooking.dc.html" class="btn btn-highlight btn-xl rounded-full">Book a Tour</a>
+<a href="https://wa.me/994501234567" class="btn btn-hero-outline btn-xl rounded-full">Chat on WhatsApp</a>
+<p class="text-center text-sm text-hero-foreground/70">hello@aureliajourneys.az · +994 50 123 45 67</p>
+</div>
+</div>
+</sc-if>
+
+
+<section aria-label="Introduction" class="relative flex min-h-[640px] items-end overflow-hidden bg-hero lg:h-[92vh] lg:max-h-[960px]">
+<img src="{{I.oldcity}}" alt="The Maiden Tower and walls of Icherisheher, Baku's old city, at golden hour" class="parallax absolute inset-0 h-full w-full animate-hero-zoom object-cover">
+<div aria-hidden="true" class="absolute inset-0 bg-gradient-to-b from-hero/60 via-hero/10 to-hero/90"></div>
+<div class="container-x relative w-full pb-16 pt-32 lg:pb-24">
+<div class="max-w-3xl">
+<p class="mb-6 flex animate-rise items-center gap-3 text-xs font-semibold uppercase tracking-[0.3em] text-highlight delay-1"><span class="h-px w-10 bg-highlight"></span>Private &amp; small-group journeys · Azerbaijan</p>
+<h1 class="animate-rise font-display text-[52px] font-medium leading-[0.98] text-hero-foreground delay-2 sm:text-7xl lg:text-[92px]">Discover the world <em class="text-highlight">through local eyes.</em></h1>
+<p class="mt-7 max-w-xl animate-rise text-base leading-relaxed text-hero-foreground/85 delay-3 sm:text-lg">From the fire-lit hills of Absheron to Silk Road caravanserais and 2,300-metre mountain villages — slow, personal journeys through the Land of Fire with Baku-born guide Leyla Mammadova.</p>
+<div class="mt-10 flex animate-rise flex-col gap-3 delay-4 sm:flex-row">
+<a href="PhoneExperiences.dc.html" class="btn btn-highlight btn-xl rounded-full">Explore Experiences <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
+<a href="PhoneBooking.dc.html" class="btn btn-hero-outline btn-xl rounded-full">Book Your Private Tour</a>
+</div>
+</div>
+<div class="absolute bottom-24 right-10 hidden text-right text-hero-foreground/85 lg:block">
+<p class="text-[11px] font-semibold uppercase tracking-[0.28em] text-highlight">Now guiding</p>
+<p class="mt-1 font-display text-2xl">Sheki, Greater Caucasus</p>
+<p class="text-[13px]">41.19° N · 47.17° E · Autumn harvest season</p>
+</div>
+</div>
+</section>
+
+<section aria-label="Highlights" class="bg-primary text-primary-foreground">
+<div class="container-x grid grid-cols-2 gap-6 py-8 lg:grid-cols-4">
+<div><p class="font-display text-4xl text-highlight">{{c1}}+</p><p class="text-[13px] opacity-80">Guests guided since 2014</p></div>
+<div><p class="font-display text-4xl text-highlight">{{c2}}</p><p class="text-[13px] opacity-80">Tours completed</p></div>
+<div><p class="font-display text-4xl text-highlight">{{c3}}</p><p class="text-[13px] opacity-80">Places explored</p></div>
+<div><p class="font-display text-4xl text-highlight">4.9 / 5</p><p class="text-[13px] opacity-80">From 386 guest reviews</p></div>
+</div>
+</section>
+
+<sc-if value="{{promo}}" hint-placeholder-val="{{ true }}"><section aria-label="Current offer" class="border-b bg-highlight/15"><div class="container-x flex flex-col items-start gap-3 py-4 sm:flex-row sm:items-center sm:justify-between"><p class="flex flex-wrap items-center gap-3 text-sm"><span class="badge badge-highlight px-3 py-1 text-sm">{{promo.big}}</span><span><strong>{{promo.name}}</strong> — {{promo.line}}</span><span class="text-muted-foreground">{{promo.ends}}</span></p><a href="PhoneOffers.dc.html" class="btn btn-outline btn-sm rounded-full">See all {{promoCount}} offers →</a></div></section></sc-if>
+<section aria-labelledby="feat" class="py-20 lg:py-32">
+<div class="container-x">
+<div class="reveal mb-10 flex flex-wrap items-end justify-between gap-6">
+<div class="max-w-2xl"><p class="eyebrow mb-4">Featured experiences</p><h2 id="feat" class="font-display text-4xl font-medium leading-tight text-primary sm:text-5xl lg:text-[56px]">Journeys our guests return for, again and again.</h2></div>
+<a href="PhoneExperiences.dc.html" class="btn btn-link px-0 text-[15px]">View all 9 experiences →</a>
+</div>
+<div role="group" aria-label="Filter by category" class="no-scrollbar -mx-5 mb-8 flex gap-2 overflow-x-auto px-5 sm:mx-0 sm:flex-wrap sm:px-0">
+<sc-for list="{{cats}}" as="c" hint-placeholder-count="8"><button type="button" class="chip shrink-0" aria-pressed="{{c.on}}" onClick="{{c.pick}}">{{c.label}}</button></sc-for>
+</div>
+<div class="no-scrollbar -mx-5 flex snap-x snap-mandatory gap-5 overflow-x-auto px-5 pb-2 md:mx-0 md:grid md:grid-cols-2 md:overflow-visible md:px-0 lg:grid-cols-3 lg:gap-7">
+<sc-for list="{{featured}}" as="t" hint-placeholder-count="3">
+<a href="PhoneTourDetail.dc.html" class="card lift group flex w-[82%] shrink-0 snap-start flex-col overflow-hidden md:w-auto">
+<div class="relative aspect-[4/3] overflow-hidden"><img src="{{t.img}}" alt="{{t.title}}" class="img-zoom h-full w-full object-cover">
+<span class="badge badge-overlay absolute left-4 top-4">{{t.cat}}</span>
+<sc-if value="{{t.lp.has}}" hint-placeholder-val="{{ false }}"><span class="badge badge-highlight absolute right-4 top-4 text-sm">{{t.lp.badge}}</span></sc-if></div>
+<div class="flex flex-1 flex-col gap-3 p-6">
+<div class="flex justify-between text-[13px] text-muted-foreground"><span>{{t.place}}</span><span class="font-semibold text-foreground">★ {{t.rating}} <span class="font-normal text-muted-foreground">({{t.count}})</span></span></div>
+<h3 class="font-display text-[28px] font-semibold leading-tight text-primary">{{t.title}}</h3>
+<p class="text-[15px] leading-relaxed text-muted-foreground">{{t.desc}}</p>
+<div class="mt-auto flex items-center justify-between border-t pt-4"><span class="text-[13px] text-muted-foreground">{{t.dur}}</span><span class="text-[13px] text-muted-foreground">from <sc-if value="{{t.lp.strike}}" hint-placeholder-val="{{ false }}"><span class="mr-1 line-through">{{t.lp.orig}}</span></sc-if><strong class="font-display text-2xl text-primary">{{t.lp.now}}</strong></span></div>
+<span class="text-sm font-semibold text-eyebrow">View details →</span>
+</div>
+</a>
+</sc-for>
+</div>
+<sc-if value="{{noneFeatured}}" hint-placeholder-val="{{ false }}"><div class="rounded-xl border border-dashed p-12 text-center"><p class="font-display text-3xl text-primary">Nothing in this category yet</p><p class="mt-2 text-muted-foreground">Every journey can be tailored — <a href="PhoneContact.dc.html" class="font-semibold text-eyebrow underline underline-offset-4">request a custom itinerary</a>.</p></div></sc-if>
+</div>
+</section>
+
+<section aria-labelledby="about" class="bg-secondary/60 py-20 lg:py-32">
+<div class="container-x grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
+<div class="reveal relative">
+<div class="relative aspect-[4/5] overflow-hidden rounded-2xl bg-hero"><img src="{{I.sheki}}" alt="" class="h-full w-full object-cover opacity-50">
+<div class="absolute inset-0 flex flex-col items-center justify-center gap-3 text-hero-foreground"><span class="flex h-32 w-32 items-center justify-center rounded-full border border-highlight font-display text-5xl text-highlight">LM</span><span class="text-xs uppercase tracking-[0.24em]">Portrait of Leyla Mammadova</span></div></div>
+<div class="absolute -bottom-6 right-4 rounded-xl bg-primary p-6 text-primary-foreground shadow-xl sm:right-[-20px]"><p class="font-display text-5xl leading-none text-highlight">12</p><p class="mt-1 text-[13px]">years guiding<br>across Azerbaijan</p></div>
+</div>
+<div class="reveal">
+<p class="eyebrow mb-4">Your guide</p>
+<h2 id="about" class="font-display text-5xl font-medium text-primary lg:text-[56px]">Leyla Mammadova</h2>
+<p class="mb-7 mt-2 font-display text-2xl italic text-eyebrow">Licensed guide · Art historian · Mountain leader</p>
+<p class="mb-4 text-[17px] leading-relaxed text-foreground/85">Born inside the walls of Icherisheher and trained as an art historian at Baku State University, I have spent twelve years sharing my country — from the carpet workshops of Quba to the stained-glass halls of the Sheki Khans.</p>
+<p class="mb-8 text-[17px] leading-relaxed text-foreground/85">Every journey is small, unhurried and built around the people we meet along the way.</p>
+<div class="mb-9 grid grid-cols-2 gap-x-8 gap-y-6 border-y py-7">
+<div><p class="mb-1 text-xs uppercase tracking-widest text-muted-foreground">Languages</p><p class="font-semibold">Azerbaijani · English · Russian · Turkish</p></div>
+<div><p class="mb-1 text-xs uppercase tracking-widest text-muted-foreground">Specialisms</p><p class="font-semibold">Silk Road history · Caucasus treks</p></div>
+<div><p class="mb-1 text-xs uppercase tracking-widest text-muted-foreground">Guests served</p><p class="font-display text-3xl text-primary">2,900+</p></div>
+<div><p class="mb-1 text-xs uppercase tracking-widest text-muted-foreground">Places explored</p><p class="font-display text-3xl text-primary">48</p></div>
+</div>
+<a href="PhoneAbout.dc.html" class="btn btn-default btn-xl rounded-full">Discover My Story →</a>
+</div>
+</div>
+</section>
+
+<section id="destinations" aria-labelledby="dest" class="py-20 lg:py-32">
+<div class="container-x">
+<div class="reveal mx-auto mb-12 max-w-2xl text-center"><p class="eyebrow mb-4">Popular destinations</p><h2 id="dest" class="font-display text-4xl font-medium leading-tight text-primary sm:text-5xl lg:text-[56px]">From the Caspian shore to the roof of the Caucasus.</h2></div>
+<div class="no-scrollbar -mx-5 flex snap-x snap-mandatory gap-4 overflow-x-auto px-5 md:mx-0 md:grid md:grid-cols-4 md:grid-rows-[280px_280px] md:gap-5 md:overflow-visible md:px-0">
+<sc-for list="{{dests}}" as="d" hint-placeholder-count="5">
+<a href="PhoneExperiences.dc.html" class="group relative block h-[420px] w-[78%] shrink-0 snap-start overflow-hidden rounded-xl text-hero-foreground md:h-auto md:w-auto {{d.cls}}">
+<img src="{{d.img}}" alt="{{d.name}}" class="img-zoom absolute inset-0 h-full w-full object-cover">
+<div aria-hidden="true" class="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-hero/90"></div>
+<div class="absolute inset-x-6 bottom-6"><p class="text-[11px] font-semibold uppercase tracking-[0.24em] text-highlight">{{d.region}} · {{d.tours}}</p><p class="font-display text-[32px] leading-tight">{{d.name}}</p><p class="mt-1 text-sm opacity-90">{{d.line}}</p></div>
+</a>
+</sc-for>
+</div>
+</div>
+</section>
+
+<section aria-labelledby="why" class="bg-hero py-20 text-hero-foreground lg:py-32">
+<div class="container-x">
+<div class="reveal mb-14 grid items-end gap-8 lg:grid-cols-2 lg:gap-16">
+<div><p class="eyebrow mb-4 !text-highlight">Why travel with me</p><h2 id="why" class="font-display text-4xl font-medium leading-tight sm:text-5xl lg:text-[56px]">A guide, a host and a friend on the road.</h2></div>
+<p class="text-[17px] leading-relaxed text-hero-foreground/80">Small groups, flexible routes and every detail personal — so you can stop for tea with a shepherd, stay for the sunset over the Caspian, and leave with friendships rather than photos alone.</p>
+</div>
+<div class="grid sm:grid-cols-2 lg:grid-cols-3">
+<sc-for list="{{why}}" as="w" hint-placeholder-count="6">
+<div class="reveal border-t border-highlight/30 px-1 py-9 sm:pr-8">
+<span class="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-full border border-highlight/50 text-highlight"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{w.icon}}"></path></svg></span>
+<h3 class="mb-2 font-display text-[28px]">{{w.t}}</h3><p class="text-[15px] leading-relaxed text-hero-foreground/75">{{w.d}}</p>
+</div>
+</sc-for>
+</div>
+</div>
+</section>
+
+<section aria-labelledby="recent" class="py-20 lg:py-32">
+<div class="container-x">
+<div class="reveal mb-12 flex flex-wrap items-end justify-between gap-6"><div class="max-w-2xl"><p class="eyebrow mb-4">Recent adventures</p><h2 id="recent" class="font-display text-4xl font-medium text-primary sm:text-5xl lg:text-[56px]">Pages from the travel journal.</h2></div><a href="PhoneJourney.dc.html" class="btn btn-link px-0 text-[15px]">Open My Journey →</a></div>
+<div class="grid gap-10 md:grid-cols-12 md:gap-6">
+<sc-for list="{{recent}}" as="r" hint-placeholder-count="4">
+<a href="PhoneJourney.dc.html" class="reveal group flex flex-col gap-4 {{r.cls}}">
+<div class="relative overflow-hidden rounded-xl {{r.ratio}}"><img src="{{r.img}}" alt="{{r.title}}" class="img-zoom h-full w-full object-cover"><span class="badge absolute bottom-4 right-4 border-transparent bg-hero/85 text-hero-foreground">{{r.photos}} photos</span></div>
+<div class="flex items-baseline justify-between gap-4"><h3 class="font-display text-[28px] font-semibold text-primary">{{r.title}}</h3><span class="whitespace-nowrap text-[13px] text-muted-foreground">{{r.date}}</span></div>
+<p class="-mt-2 text-[15px] leading-relaxed text-muted-foreground">{{r.desc}}</p>
+<span class="text-[13px] font-semibold text-eyebrow">Related: {{r.rel}}</span>
+</a>
+</sc-for>
+</div>
+</div>
+</section>
+
+<section aria-labelledby="test" class="bg-secondary/60 py-20 lg:py-32">
+<div class="container-x max-w-4xl text-center">
+<p class="eyebrow mb-4">Guest stories</p>
+<h2 id="test" class="mb-12 font-display text-4xl font-medium text-primary">4.9 average from 386 reviews</h2>
+<div aria-live="polite" class="min-h-[300px]">
+<p class="mb-7 text-xl tracking-[4px] text-highlight" aria-label="5 out of 5 stars">★★★★★</p>
+<blockquote class="font-display text-2xl italic leading-snug sm:text-[34px]">“{{rev.text}}”</blockquote>
+<div class="mt-10 flex items-center justify-center gap-4"><span class="avatar h-14 w-14">{{rev.init}}</span><div class="text-left"><p class="font-bold">{{rev.name}} <span class="font-normal text-muted-foreground">· {{rev.country}}</span></p><p class="text-sm text-muted-foreground">{{rev.tour}} · {{rev.date}}</p></div></div>
+</div>
+<div class="mt-10 flex items-center justify-center gap-4">
+<button type="button" onClick="{{prev}}" aria-label="Previous review" class="btn btn-outline btn-icon-lg rounded-full">←</button>
+<div class="flex gap-1"><sc-for list="{{dots}}" as="d" hint-placeholder-count="4"><button type="button" aria-label="{{d.label}}" aria-current="{{d.cur}}" onClick="{{d.go}}" class="flex h-11 w-7 cursor-pointer items-center justify-center"><span class="{{d.cls}}"></span></button></sc-for></div>
+<button type="button" onClick="{{next}}" aria-label="Next review" class="btn btn-outline btn-icon-lg rounded-full">→</button>
+</div>
+<a href="PhoneReviews.dc.html" class="btn btn-link mt-6 text-[15px]">Read all 386 reviews</a>
+</div>
+</section>
+
+<section aria-labelledby="cta" class="relative overflow-hidden bg-hero py-28 lg:py-40">
+<img src="{{I.baku}}" alt="" class="parallax absolute inset-0 h-full w-full object-cover opacity-60">
+<div aria-hidden="true" class="absolute inset-0 bg-hero/50"></div>
+<div class="container-x reveal relative max-w-4xl text-center text-hero-foreground">
+<h2 id="cta" class="font-display text-5xl font-medium leading-[1.02] sm:text-6xl lg:text-[76px]">Your next unforgettable journey <em class="text-highlight">starts here.</em></h2>
+<p class="mx-auto mt-7 max-w-xl text-lg leading-relaxed text-hero-foreground/85">Send a request in two minutes. I reply personally within 24 hours to confirm dates and shape the trip around you.</p>
+<div class="mt-10 flex flex-col justify-center gap-3 sm:flex-row"><a href="PhoneBooking.dc.html" class="btn btn-highlight btn-xl rounded-full">Book Your Tour</a><a href="PhoneContact.dc.html" class="btn btn-hero-outline btn-xl rounded-full">Contact Me</a></div>
+</div>
+</section>
+<footer class="bg-hero pb-10 pt-20 text-hero-foreground/80">
+<div class="container-x">
+<div class="grid gap-12 sm:grid-cols-2 lg:grid-cols-[2fr_1fr_1fr_1.4fr]">
+<div>
+<p class="font-display text-3xl text-hero-foreground">Aurelia <span class="text-highlight">Journeys</span></p>
+<p class="mt-4 max-w-sm text-[15px] leading-relaxed">Private and small-group journeys across Azerbaijan — from Baku’s old walls to the villages of the Greater Caucasus — led by licensed guide Leyla Mammadova.</p>
+<div class="mt-6 flex gap-2">
+<a href="https://instagram.com" aria-label="Instagram" class="btn btn-icon btn-hero-outline rounded-full"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle></svg></a>
+<a href="https://youtube.com" aria-label="YouTube" class="btn btn-icon btn-hero-outline rounded-full"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="2.5" y="5.5" width="19" height="13" rx="4"></rect><path d="M10 9.5v5l4.5-2.5z" fill="currentColor"></path></svg></a>
+<a href="https://facebook.com" aria-label="Facebook" class="btn btn-icon btn-hero-outline rounded-full"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M14 8h3V4h-3a4 4 0 0 0-4 4v3H7v4h3v6h4v-6h3l1-4h-4V8z"></path></svg></a>
+</div>
+</div>
+<div><p class="eyebrow mb-4 !text-highlight">Explore</p><ul class="flex flex-col gap-3 text-[15px]"><li><a href="PhoneExperiences.dc.html" class="hover:text-hero-foreground">Experiences</a></li><li><a href="PhoneOffers.dc.html" class="hover:text-hero-foreground">Special offers</a></li><li><a href="PhoneAbout.dc.html" class="hover:text-hero-foreground">About Me</a></li><li><a href="PhoneJourney.dc.html" class="hover:text-hero-foreground">My Journey</a></li><li><a href="PhoneReviews.dc.html" class="hover:text-hero-foreground">Reviews</a></li><li><a href="PhoneContact.dc.html" class="hover:text-hero-foreground">Contact</a></li></ul></div>
+<div><p class="eyebrow mb-4 !text-highlight">Destinations</p><ul class="flex flex-col gap-3 text-[15px]"><li><a href="PhoneExperiences.dc.html" class="hover:text-hero-foreground">Baku &amp; Absheron</a></li><li><a href="PhoneExperiences.dc.html" class="hover:text-hero-foreground">Sheki</a></li><li><a href="PhoneExperiences.dc.html" class="hover:text-hero-foreground">Gobustan</a></li><li><a href="PhoneExperiences.dc.html" class="hover:text-hero-foreground">Khinalug &amp; Quba</a></li><li><a href="PhoneExperiences.dc.html" class="hover:text-hero-foreground">Lankaran</a></li></ul></div>
+<div><p class="eyebrow mb-4 !text-highlight">Get in touch</p><ul class="flex flex-col gap-3 text-[15px]"><li><a href="mailto:hello@aureliajourneys.az" class="hover:text-hero-foreground">hello@aureliajourneys.az</a></li><li><a href="https://wa.me/994501234567" class="hover:text-hero-foreground">+994 50 123 45 67 (WhatsApp)</a></li><li>Icherisheher, Baku</li><li>Mon–Sat · 9:00–19:00 (AZT)</li></ul></div>
+</div>
+<div class="mt-16 flex flex-wrap justify-between gap-4 border-t border-hero-foreground/15 pt-7 text-[13px]">
+<span>© 2026 Aurelia Journeys. Licensed tour guide, Azerbaijan Tourism Board.</span>
+<span class="flex gap-6"><a href="PhoneContact.dc.html" class="underline-offset-4 hover:underline">Privacy Policy</a><a href="PhoneContact.dc.html" class="underline-offset-4 hover:underline">Terms &amp; Conditions</a></span>
+</div>
+</div>
+</footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":9800},"theme":{"editor":"enum","options":["admin","emerald","caspian","pomegranate","graphite"],"default":"admin","section":"Theme"},"mode":{"editor":"enum","options":["admin","light","dark","system"],"default":"admin","section":"Theme"}}'>
+class Component extends DCLogic {
+  constructor(p){ super(p); this.state = { cat: 'All', idx: 0, k: 0 }; }
+  img(){ return { baku:'/_blob/53de85c911d3fd172f7f056fc041c3f6', oldcity:'/_blob/71ba1da1636ea18bc8040e2f214c9564', gobustan:'/_blob/1d3b95a6d499c80338e0cfbcce073964', yanardag:'/_blob/caa98c1d37e045432aedeba5937e3fb1', sheki:'/_blob/99cec70a9ac8cc922169a9d4cda6cfd7', khinalug:'/_blob/b1e6bea4cb0d3847910a8759889b2e6b', caspian:'/_blob/feb92edafca2a9ad4057997c2c80419b', lankaran:'/_blob/b1af8e934de14e2a69509a83bda2b0e7' }; }
+  uiDefault(){ return { theme: 'emerald', mode: 'light', radius: 'md', font: 'classic' }; }
+  loadUi(){ try { const v = JSON.parse(window.localStorage.getItem('aj-ui') || 'null'); if (v) this.setState({ ui: { ...this.uiDefault(), ...v } }); } catch (e) {} }
+  uiInit(){
+    this.loadUi();
+    this._onStorage = (e) => { if (!e || !e.key || e.key === 'aj-ui') this.loadUi(); };
+    window.addEventListener('storage', this._onStorage);
+    try { this._bc = new BroadcastChannel('aj-ui'); this._bc.onmessage = (m) => { if (m && m.data) this.setState({ ui: { ...this.uiDefault(), ...m.data } }); }; } catch (e) {}
+    try { this._mq = window.matchMedia('(prefers-color-scheme: dark)'); this._mqh = () => this.forceUpdate(); this._mq.addEventListener('change', this._mqh); } catch (e) {}
+    this._onScroll = () => { const s = (window.scrollY || 0) > 40; if (s !== !!(this.state || {}).scrolled) this.setState({ scrolled: s }); };
+    window.addEventListener('scroll', this._onScroll, { passive: true });
+  }
+  uiDestroy(){
+    window.removeEventListener('storage', this._onStorage); window.removeEventListener('scroll', this._onScroll);
+    try { this._bc && this._bc.close(); } catch (e) {} try { this._mq && this._mq.removeEventListener('change', this._mqh); } catch (e) {}
+  }
+  saveUi(patch){
+    const u = { ...this.uiDefault(), ...((this.state || {}).ui || {}), ...patch };
+    try { window.localStorage.setItem('aj-ui', JSON.stringify(u)); } catch (e) {}
+    try { const bc = new BroadcastChannel('aj-ui'); bc.postMessage(u); bc.close(); } catch (e) {}
+    this.setState({ ui: u });
+  }
+  uiVals(overHero){
+    const st = this.state || {}, p = this.props || {};
+    const u = { ...this.uiDefault(), ...(st.ui || {}) };
+    if (p.theme && p.theme !== 'admin') u.theme = p.theme;
+    if (p.mode && p.mode !== 'admin') u.mode = p.mode;
+    let dark = u.mode === 'dark';
+    if (u.mode === 'system') { try { dark = window.matchMedia('(prefers-color-scheme: dark)').matches; } catch (e) {} }
+    const solid = !overHero || st.scrolled || st.menu;
+    const hdr = solid
+      ? { cls: 'sticky top-0 z-40 border-b bg-background/90 backdrop-blur-md transition-colors duration-300' + (overHero ? ' -mb-20' : ''), link: '', logo: 'text-primary', sub: 'text-eyebrow', icon: 'btn-outline' }
+      : { cls: 'sticky top-0 z-40 -mb-20 border-b border-transparent bg-transparent transition-colors duration-300', link: 'text-hero-foreground hover:bg-hero-foreground/10 hover:text-hero-foreground aria-[current=page]:text-highlight', logo: 'text-hero-foreground', sub: 'text-highlight', icon: 'btn-hero-outline' };
+    return {
+      ui: u, uiTheme: u.theme, uiFont: u.font, uiRadius: u.radius, uiDark: dark ? 'dark' : 'light', isDark: dark, isLight: !dark,
+      offerCount: (() => { try { const D = this.promoData ? this.promoData() : null; return D ? D.campaigns.filter(x => this.campStatus(x) === 'Active' && x.visibility === 'public').length : 4; } catch (e) { return 4; } })(),
+      navOpen: !!st.nav, navExpanded: st.nav ? 'true' : 'false', toggleNav: () => this.setState({ nav: !(this.state || {}).nav }),
+      hdr, menuOpen: !!st.menu, menuExpanded: st.menu ? 'true' : 'false', toggleMenu: () => this.setState({ menu: !(this.state || {}).menu }),
+      cycleMode: () => this.saveUi({ mode: dark ? 'light' : 'dark' }), modeLabel: dark ? 'Switch to light mode' : 'Switch to dark mode',
+      pickTheme: (e) => this.saveUi({ theme: e.target.value })
+    };
+  }
+
+  promoTours(){ return { sheki:{ n:'Silk Road to Sheki', p:690 }, khin:{ n:'Khinalug & Quba Highlands', p:480 }, grand:{ n:'Private Grand Azerbaijan', p:2450 }, fire:{ n:'Fire & Stone: Gobustan & Yanar Dag', p:165 }, old:{ n:'Icherisheher & Flame Towers', p:120 }, food:{ n:'Baku Food & Wine Evening', p:85 }, wine:{ n:'Shamakhi Wine Route', p:210 }, lank:{ n:'Lankaran Tea & Hirkan Forest', p:560 }, bespoke:{ n:'Bespoke Azerbaijan', p:3200 } }; }
+  promoDefaults(){ return {
+    settings: { requestsEnabled: true, maxRequestPct: 30, notify: 'email+whatsapp', responseDays: 2, stacking: 'best' },
+    campaigns: [
+      { id:'c1', name:'Autumn in the Caucasus', code:'', type:'percent', value:15, tours:['sheki','khin'], start:'2026-11-01', end:'2026-12-15', visibility:'public', assigned:[], minGuests:0, minChildren:0, bookAhead:0, active:true, uses:41, blurb:'Golden forests, harvest suppers and crisp mountain air — our favourite season, now 15% off.' },
+      { id:'c2', name:'Early Bird 2027', code:'', type:'fixed', value:300, tours:['grand','bespoke'], start:'2026-11-01', end:'2027-01-31', visibility:'public', assigned:[], minGuests:0, minChildren:0, bookAhead:90, active:true, uses:9, blurb:'Plan your 2027 private journey early and save $300 on the whole trip.' },
+      { id:'c3', name:'Family Adventures', code:'', type:'percent', value:10, tours:['fire','lank'], start:'2026-10-15', end:'2027-02-28', visibility:'public', assigned:[], minGuests:0, minChildren:1, bookAhead:0, active:true, uses:17, blurb:'Travelling with children? Take 10% off our two most family-friendly journeys.' },
+      { id:'c4', name:'Groups of 6+', code:'', type:'percent', value:8, tours:['old','food','fire'], start:'2026-11-10', end:'2027-06-30', visibility:'public', assigned:[], minGuests:6, minChildren:0, bookAhead:0, active:true, uses:6, blurb:'Bring the whole crew — groups of six or more save 8% on Baku day tours.' },
+      { id:'c5', name:'Returning Guests', code:'WELCOMEBACK', type:'percent', value:12, tours:['all'], start:'2026-01-01', end:'2027-12-31', visibility:'private', assigned:['priya@example.com','thomas@example.com'], minGuests:0, minChildren:0, bookAhead:0, active:true, uses:12, blurb:'A thank-you for guests travelling with us again.' },
+      { id:'c6', name:'Novruz Spring 2026', code:'', type:'percent', value:20, tours:['all'], start:'2026-03-01', end:'2026-03-31', visibility:'public', assigned:[], minGuests:0, minChildren:0, bookAhead:0, active:true, uses:58, blurb:'Celebrate the spring festival with 20% off.' },
+      { id:'c7', name:'Caspian Summer', code:'', type:'percent', value:12, tours:['old','food'], start:'2027-06-01', end:'2027-08-31', visibility:'public', assigned:[], minGuests:0, minChildren:0, bookAhead:0, active:false, uses:0, blurb:'Long Baku evenings by the sea.' }
+    ],
+    manual: [
+      { id:'m1', name:'Eleanor Whitfield', email:'eleanor@example.com', booking:'AJ-SHE-4821', tour:'any', type:'percent', value:10, expiry:'2027-05-31', note:'Anniversary gesture — second trip with us', by:'Leyla Mammadova', at:'2026-11-02', usedBy:'' },
+      { id:'m2', name:'Omar Haddad', email:'omar@example.com', booking:'AJ-LAN-6618', tour:'lank', type:'fixed', value:80, expiry:'2026-12-31', note:'Compensation for the guesthouse downgrade on his October trip', by:'Leyla Mammadova', at:'2026-11-04', usedBy:'' },
+      { id:'m3', name:'Claire Dubois', email:'claire@example.com', booking:'AJ-OLD-7720', tour:'old', type:'fixed', value:20, expiry:'2026-11-30', note:'Waited 40 min for driver on her first walk', by:'Leyla Mammadova', at:'2026-10-31', usedBy:'AJ-OLD-7720' }
+    ],
+    requests: [
+      { id:'DR-1046', name:'Kenji Watanabe', email:'kenji@example.com', phone:'+81 90 1234 5678', tour:'old', booking:'AJ-OLD-9034', guests:5, type:'percent', value:15, reason:'Photography group of five — we may book Khinalug in spring too.', status:'Pending', at:'2026-11-15 10:20', decision:null },
+      { id:'DR-1045', name:'Rachel Green', email:'rachel@example.com', phone:'+44 7700 900123', tour:'grand', booking:'AJ-GRA-3412', guests:2, type:'percent', value:10, reason:'Our honeymoon — we are flexible by a week either way.', status:'Pending', at:'2026-11-15 09:05', decision:null },
+      { id:'DR-1043', name:'Maria Santos', email:'maria@example.com', phone:'+55 11 91234 5678', tour:'fire', booking:'AJ-FIR-2045', guests:1, type:'percent', value:10, reason:'Student travelling solo.', status:'Approved', at:'2026-11-10 14:12', decision:{ type:'percent', value:8, note:'Approved 8% for students with ID.', by:'Leyla Mammadova', at:'2026-11-11 09:30', notified:true } },
+      { id:'DR-1041', name:'Marco Rossi', email:'marco@example.com', phone:'+39 333 123 4567', tour:'old', booking:'AJ-OLD-7731', guests:5, type:'fixed', value:60, reason:'Large family on a budget.', status:'Rejected', at:'2026-11-08 18:40', decision:{ reason:'This date is already over capacity — we have suggested another date, where the Groups of 6+ offer may apply.', by:'Leyla Mammadova', at:'2026-11-09 08:15', notified:true } }
+    ],
+    log: [
+      { at:'2026-11-15 10:20', who:'Kenji Watanabe (customer)', what:'Requested 15% off Icherisheher & Flame Towers', kind:'request' },
+      { at:'2026-11-15 09:05', who:'Rachel Green (customer)', what:'Requested 10% off Private Grand Azerbaijan', kind:'request' },
+      { at:'2026-11-11 09:30', who:'Leyla Mammadova', what:'Approved DR-1043 at 8% for Maria Santos · customer notified', kind:'approve' },
+      { at:'2026-11-10 08:00', who:'Leyla Mammadova', what:'Created campaign “Groups of 6+” (8%)', kind:'campaign' },
+      { at:'2026-11-09 08:15', who:'Leyla Mammadova', what:'Rejected DR-1041 for Marco Rossi · customer notified', kind:'reject' },
+      { at:'2026-11-04 16:22', who:'Leyla Mammadova', what:'Assigned $80 personal discount to Omar Haddad (AJ-LAN-6618)', kind:'manual' },
+      { at:'2026-11-02 11:05', who:'Leyla Mammadova', what:'Assigned 10% personal discount to Eleanor Whitfield (AJ-SHE-4821)', kind:'manual' },
+      { at:'2026-10-31 19:40', who:'System', what:'Personal discount $20 used on AJ-OLD-7720 (Claire Dubois)', kind:'used' }
+    ]
+  }; }
+  reqPct(type, value, base){ const v = Number(value); return type === 'percent' ? v : base > 0 ? v / base * 100 : 999; }
+  reqBase(tour, guests){ const T = this.promoTours()[tour]; return T ? T.p * Math.max(1, Number(guests) || 1) : 0; }
+  /* Mirrors the server: POST /api/discount-requests. Never trusts the client payload. */
+  serverSubmitRequest(p){
+    const d = this.promoData(), T = this.promoTours()[p.tour], v = Number(p.value), email = String(p.email || '').trim().toLowerCase();
+    const GENERIC = 'We can’t consider a discount this large for this trip. Please request a smaller amount.';
+    if (!d.settings.requestsEnabled) return { ok:false, code:403, error:'Discount requests aren’t available at the moment.' };
+    if (!T) return { ok:false, code:400, error:'This tour can’t be found.' };
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) return { ok:false, code:422, error:'Add a valid email so we can reply.' };
+    if (!(p.type === 'percent' || p.type === 'fixed') || !isFinite(v) || v <= 0) return { ok:false, code:422, error:'Please enter a valid discount.' };
+    const base = this.reqBase(p.tour, p.guests);
+    if (p.type === 'fixed' && v >= base) return { ok:false, code:422, error: GENERIC };
+    if (this.reqPct(p.type, v, base) > d.settings.maxRequestPct) return { ok:false, code:422, error: GENERIC };
+    if (d.requests.some(r => r.email === email && r.tour === p.tour && r.status === 'Pending')) return { ok:false, code:409, error:'You already have a discount request waiting for this tour.' };
+    return { ok:true, value: Math.round(v * 100) / 100 };
+  }
+  /* Mirrors the server: POST /api/admin/discount-requests/:id/decision (owners only). Re-validates every rule. */
+  serverDecide(id, dec){
+    const d = this.promoData(), r = d.requests.find(x => x.id === id), max = d.settings.maxRequestPct;
+    if (dec.role !== 'owner') return { ok:false, code:403, error:'Only owners can approve or reject discount requests.' };
+    if (!r) return { ok:false, code:404, error:'Request not found.' };
+    if (r.status !== 'Pending') return { ok:false, code:409, error:'This request has already been decided.' };
+    if (dec.action === 'reject') return String(dec.reason || '').trim() ? { ok:true } : { ok:false, code:422, error:'Add a reason so the customer understands.' };
+    const base = this.reqBase(r.tour, r.guests), asked = this.reqPct(r.type, r.value, base), give = this.reqPct(dec.type, dec.value, base);
+    if (!(Number(dec.value) > 0)) return { ok:false, code:422, error:'Enter the discount you’re approving.' };
+    if (give > asked + 1e-9) return { ok:false, code:422, error:'You can’t approve more than the customer asked for (' + this.discLabel(r.type, r.value) + ').' };
+    if (give > max + 1e-9) return { ok:false, code:422, error:'That’s above your maximum of ' + max + '%. Approve ' + max + '% or less, or reject.' };
+    return { ok:true };
+  }
+  promoData(){ return ((this.state || {}).promo) || this.promoDefaults(); }
+  promoLoad(){ try { const v = JSON.parse(window.localStorage.getItem('aj-promo') || 'null'); if (v && v.campaigns) this.setState({ promo: v }); } catch (e) {} }
+  promoInit(){
+    this.promoLoad();
+    this._ps = (e) => { if (!e || !e.key || e.key === 'aj-promo') this.promoLoad(); };
+    window.addEventListener('storage', this._ps);
+    try { this._pbc = new BroadcastChannel('aj-promo'); this._pbc.onmessage = (m) => { if (m && m.data && m.data.campaigns) this.setState({ promo: m.data }); }; } catch (e) {}
+  }
+  promoDestroy(){ window.removeEventListener('storage', this._ps); try { this._pbc && this._pbc.close(); } catch (e) {} }
+  promoSave(d){ try { window.localStorage.setItem('aj-promo', JSON.stringify(d)); } catch (e) {} try { const b = new BroadcastChannel('aj-promo'); b.postMessage(d); b.close(); } catch (e) {} this.setState({ promo: d }); }
+  promoNow(){ return '2026-11-15'; }
+  campStatus(c){ const t = this.promoNow(); if (!c.active) return 'Inactive'; if (c.end < t) return 'Expired'; if (c.start > t) return 'Scheduled'; return 'Active'; }
+  money(n){ return '$' + Math.round(n).toLocaleString('en-US'); }
+  discAmt(type, value, base){ return type === 'percent' ? Math.round(base * value / 100) : Math.min(value, base); }
+  discLabel(type, value){ return type === 'percent' ? value + '% off' : '$' + value + ' off'; }
+  daysBetween(a, b){ return Math.round((new Date(b + 'T00:00:00') - new Date(a + 'T00:00:00')) / 86400000); }
+  eligText(c){ const r = []; if (c.minGuests) r.push(c.minGuests + '+ guests'); if (c.minChildren) r.push('at least ' + c.minChildren + ' child'); if (c.bookAhead) r.push('booked ' + c.bookAhead + '+ days ahead'); if (c.visibility === 'private') r.push('assigned guests only'); return r.length ? r.join(' · ') : 'Everyone'; }
+  quote(tid, ad, kd, opt){
+    const o = opt || {}, D = this.promoData(), PT = this.promoTours(), T = PT[tid] || { p:0, n:'' }, base = ad * T.p + kd * T.p / 2, email = (o.email || '').trim().toLowerCase();
+    const c = [];
+    D.campaigns.forEach(x => {
+      if (this.campStatus(x) !== 'Active') return;
+      if (!(x.tours.includes('all') || x.tours.includes(tid))) return;
+      if (x.visibility === 'private' && !(email && x.assigned.includes(email))) return;
+      if (x.minGuests && ad + kd < x.minGuests) return;
+      if (x.minChildren && kd < x.minChildren) return;
+      if (x.bookAhead && (!o.date || this.daysBetween(this.promoNow(), o.date) < x.bookAhead)) return;
+      c.push({ source: x.visibility === 'private' ? 'Private offer' : 'Public offer', label: x.name, type: x.type, value: x.value, amount: this.discAmt(x.type, x.value, base), id: x.id });
+    });
+    if (email) {
+      D.manual.forEach(m => { if (m.email === email && !m.usedBy && m.expiry >= this.promoNow() && (m.tour === 'any' || m.tour === tid)) c.push({ source:'Personal discount', label:'Personal discount from Leyla', type:m.type, value:m.value, amount: this.discAmt(m.type, m.value, base), id:m.id }); });
+      D.requests.forEach(r => { if (r.email === email && r.status === 'Approved' && r.tour === tid && r.decision && !r.usedBy) c.push({ source:'Approved request', label:'Your approved request ' + r.id, type:r.decision.type, value:r.decision.value, amount: this.discAmt(r.decision.type, r.decision.value, base), id:r.id }); });
+    }
+    c.sort((a, b) => b.amount - a.amount);
+    const best = c[0] || null;
+    return { base, best, amount: best ? best.amount : 0, total: base - (best ? best.amount : 0), others: Math.max(0, c.length - 1), all: c };
+  }
+  listPrice(tid){
+    const D = this.promoData(), T = this.promoTours()[tid]; if (!T) return { orig:'', now:'', has:false };
+    const cs = D.campaigns.filter(x => this.campStatus(x) === 'Active' && x.visibility === 'public' && (x.tours.includes('all') || x.tours.includes(tid)) && !x.minGuests && !x.minChildren);
+    const best = cs.map(x => ({ x, amt: this.discAmt(x.type, x.value, T.p) })).sort((a, b) => b.amt - a.amt)[0];
+    const any = D.campaigns.find(x => this.campStatus(x) === 'Active' && x.visibility === 'public' && (x.tours.includes('all') || x.tours.includes(tid)));
+    if (!best) return { has:false, now: this.money(T.p), orig:'', badge: any ? this.discLabel(any.type, any.value) + ' · ' + this.eligText(any) : '', hasNote: !!any, name: any ? any.name : '' };
+    const fixedWhole = best.x.type === 'fixed';
+    return { has:true, orig: this.money(T.p), now: fixedWhole ? this.money(T.p) : this.money(T.p - best.amt), badge: fixedWhole ? '$' + best.x.value + ' off per booking' : '−' + best.x.value + '%', name: best.x.name, ends: 'Ends ' + new Date(best.x.end + 'T00:00:00').toLocaleDateString('en-GB', { day:'numeric', month:'short' }), fixedWhole, strike: !fixedWhole, hasNote: false };
+  }
+
+  componentDidMount(){
+    this.uiInit(); this.promoInit();
+    let reduce = false; try { reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) {}
+    if (reduce) { this.setState({ k: 1 }); return; }
+    const t0 = performance.now();
+    const step = (t) => { const k = Math.min(1, (t - t0) / 1600); this.setState({ k: 1 - Math.pow(1 - k, 3) }); if (k < 1) this.raf = requestAnimationFrame(step); };
+    this.raf = requestAnimationFrame(step);
+    this.timer = setInterval(() => this.setState({ idx: (this.state.idx + 1) % 4 }), 8000);
+  }
+  componentWillUnmount(){ this.uiDestroy(); this.promoDestroy(); cancelAnimationFrame(this.raf); clearInterval(this.timer); }
+  renderVals(){
+    const I = this.img(), s = this.state;
+    const tours = [
+      { tid:'fire', title:'Fire & Stone: Gobustan & Yanar Dag', place:'Absheron', cat:'Adventure', dur:'1 day', price:'$165', rating:'5.0', count:128, badge:'Most loved', img:I.gobustan, desc:'40,000-year-old petroglyphs, bubbling mud volcanoes and the hillside that has burned for millennia.' },
+      { tid:'old', title:'Icherisheher & Flame Towers', place:'Baku', cat:'Historical', dur:'6 hours', price:'$120', rating:'4.9', count:164, badge:'Popular', img:I.oldcity, desc:'Maiden Tower, the Shirvanshahs’ Palace and caravanserai courtyards, ending as the Flame Towers light up.' },
+      { tid:'sheki', title:'Silk Road to Sheki', place:'Sheki', cat:'Cultural', dur:'3 days', price:'$690', rating:'4.9', count:71, badge:'Featured', img:I.sheki, desc:'Sleep in an 18th-century caravanserai, see the Khan’s Palace stained glass and taste Sheki halva.' },
+      { tid:'food', title:'Baku Food & Wine Evening', place:'Baku', cat:'Food & Local', dur:'4 hours', price:'$85', rating:'4.9', count:212, badge:'', img:I.baku, desc:'Plov, dushbara and qutab with families who cook them best — paired with Shamakhi wines.' },
+      { tid:'grand', title:'Private Grand Azerbaijan', place:'Nationwide', cat:'Private', dur:'8 days', price:'$2,450', rating:'5.0', count:22, badge:'', img:I.khinalug, desc:'Baku, Gobustan, Sheki, Khinalug and the Caspian — your own vehicle, guide and pace.' },
+      { tid:'lank', title:'Lankaran Tea & Hirkan Forest', place:'Lankaran', cat:'Family', dur:'3 days', price:'$560', rating:'4.8', count:33, badge:'', img:I.lankaran, desc:'Tea plantations, subtropical forest walks and Caspian beaches, paced for every generation.' },
+      { tid:'bespoke', title:'Bespoke Azerbaijan', place:'You choose', cat:'Customized', dur:'7–14 days', price:'$3,200', rating:'5.0', count:19, badge:'Tailor-made', img:I.caspian, desc:'A journey designed from scratch around your interests, pace and dates.' }
+    ];
+    const list = (s.cat === 'All' ? tours : tours.filter(t => t.cat === s.cat)).slice(0, 3).map(t => ({ ...t, lp: this.listPrice(t.tid) }));
+    const D = this.promoData(), live = D.campaigns.filter(c => this.campStatus(c) === 'Active' && c.visibility === 'public'), top = live[0];
+    const reviews = [
+      { text:'Leyla turned a holiday into the most meaningful two weeks of our lives. Every village felt like being welcomed home.', name:'Eleanor Whitfield', country:'United Kingdom', tour:'Bespoke Azerbaijan', date:'October 2026', init:'EW' },
+      { text:'She knows every lane of Icherisheher — and every carpet seller’s grandmother. Simply extraordinary.', name:'Daniel Okafor', country:'Canada', tour:'Icherisheher & Flame Towers', date:'September 2026', init:'DO' },
+      { text:'Our children still talk about the mud volcanoes and the burning mountain. Calm, safe and endlessly knowledgeable.', name:'Sofia & Marco Bellini', country:'Italy', tour:'Fire & Stone: Gobustan & Yanar Dag', date:'August 2026', init:'SB' },
+      { text:'Sleeping in the caravanserai, then breakfast with a Sheki halva master — the best travel experience of my life.', name:'Aiko Tanaka', country:'Japan', tour:'Silk Road to Sheki', date:'May 2026', init:'AT' }
+    ];
+    const idx = s.idx, k = s.k, fmt = (n) => Math.round(n).toLocaleString('en-US');
+    return {
+      ...this.uiVals(true), I,
+      c1: fmt(2900 * k), c2: fmt(940 * k), c3: fmt(48 * k),
+      cats: ['All','Cultural','Historical','Adventure','Food & Local','Private','Family','Customized'].map(c => ({ label:c, on: c === s.cat ? 'true' : 'false', pick: () => this.setState({ cat:c }) })),
+      featured: list, noneFeatured: list.length === 0, promoCount: live.length,
+      promo: top ? { name: top.name, big: top.type === 'percent' ? top.value + '% off' : '$' + top.value + ' off', line: top.tours.map(x => (this.promoTours()[x] || { n:'all tours' }).n).join(' & '), ends: 'Ends ' + new Date(top.end + 'T00:00:00').toLocaleDateString('en-GB', { day:'numeric', month:'long' }) } : '',
+      dests: [
+        { cls:'md:col-span-2 md:row-span-2', name:'Baku & Icherisheher', region:'Absheron', tours:'3 tours', line:'A UNESCO old city wrapped by Flame Towers and the Caspian.', img:I.oldcity },
+        { cls:'', name:'Sheki', region:'Shaki-Zagatala', tours:'2 tours', line:'Silk Road palaces, caravanserais and halva.', img:I.sheki },
+        { cls:'', name:'Gobustan', region:'Absheron', tours:'1 tour', line:'Rock art and mud volcanoes.', img:I.gobustan },
+        { cls:'', name:'Khinalug', region:'Quba', tours:'2 tours', line:'A 5,000-year-old village at 2,300 m.', img:I.khinalug },
+        { cls:'', name:'Lankaran', region:'South coast', tours:'1 tour', line:'Tea gardens and Hirkan forest.', img:I.lankaran }
+      ],
+      why: [
+        { t:'Local expertise', d:'Born in Baku’s old city, trained as an art historian — context you won’t find in a guidebook.', icon:'M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21zM12 12a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z' },
+        { t:'Personalised journeys', d:'Every itinerary starts with a conversation about what you love.', icon:'M4 20l4-1 11-11-3-3L5 16l-1 4zM14 6l3 3' },
+        { t:'Flexible itineraries', d:'Weather, mood or a chance invitation to a wedding — we adapt as the day unfolds.', icon:'M4 12a8 8 0 0 1 14-5.3M20 12a8 8 0 0 1-14 5.3M18 3v4h-4M6 21v-4h4' },
+        { t:'Professional guidance', d:'Licensed, first-aid certified and trained for mountain routes.', icon:'M12 3l8 3v6c0 4.5-3.4 8.2-8 9-4.6-.8-8-4.5-8-9V6l8-3zM9 12l2 2 4-4' },
+        { t:'Safe & comfortable', d:'Hand-picked drivers, vetted boutique stays and 24/7 support.', icon:'M3 18v-6a9 9 0 0 1 18 0v6M3 18h4v-5H3M21 18h-4v-5h4' },
+        { t:'Memorable moments', d:'Long dinners, quiet viewpoints and friendships that outlast the trip.', icon:'M12 20s-8-4.8-8-11a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 9c0 6.2-8 11-8 11z' }
+      ],
+      recent: [
+        { cls:'md:col-span-7', ratio:'aspect-[16/10]', title:'Autumn in Sheki', date:'Oct 2026', photos:46, rel:'Silk Road to Sheki', img:I.sheki, desc:'Walnut and chestnut harvest season with a family of four from Edinburgh.' },
+        { cls:'md:col-span-5', ratio:'aspect-[4/5]', title:'Yanar Dag by night', date:'Aug 2026', photos:28, rel:'Fire & Stone', img:I.yanardag, desc:'The burning hillside after dark, with tea and a meteor shower.' },
+        { cls:'md:col-span-5', ratio:'aspect-[4/5]', title:'Snow in Khinalug', date:'Jan 2026', photos:33, rel:'Khinalug & Quba Highlands', img:I.khinalug, desc:'Three days in the highest village of the Caucasus, wrapped in wool socks.' },
+        { cls:'md:col-span-7', ratio:'aspect-[16/10]', title:'Caspian sunset sail', date:'Sep 2025', photos:19, rel:'Bespoke Azerbaijan', img:I.caspian, desc:'Baku Boulevard by boat as the Flame Towers begin to glow.' }
+      ],
+      rev: reviews[idx], prev: () => this.setState({ idx: (idx + 3) % 4 }), next: () => this.setState({ idx: (idx + 1) % 4 }),
+      dots: reviews.map((r, i) => ({ label:'Show review ' + (i + 1), cur: i === idx ? 'true' : 'false', go: () => this.setState({ idx:i }), cls: i === idx ? 'block h-2.5 w-7 rounded-full bg-primary transition-all' : 'block h-2.5 w-2.5 rounded-full bg-muted-foreground/40 transition-all' }))
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Phone — My Journey — Travel Portfolio — Aurelia Journeys</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="/_blob/70d0ec09cb9bf09f570d988b94190c96">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>body{margin:0}</style>
+</helmet>
+
+<div data-theme="{{uiTheme}}" data-font="{{uiFont}}" data-radius="{{uiRadius}}" class="{{uiDark}} min-h-screen overflow-x-clip bg-background font-sans text-foreground antialiased">
+<header class="{{hdr.cls}}">
+<div class="container-x flex h-20 items-center justify-between gap-4">
+<a href="PhoneMain.dc.html" aria-label="Aurelia Journeys home" class="flex items-baseline gap-2"><span class="font-display text-[24px] font-semibold leading-none sm:text-[26px] {{hdr.logo}}">Aurelia</span><span class="text-[10px] font-semibold uppercase tracking-[0.32em] {{hdr.sub}}">Journeys</span></a>
+<nav aria-label="Main" class="hidden items-center gap-0.5 xl:flex">
+<a href="PhoneMain.dc.html" class="nav-link {{hdr.link}}">Home</a>
+<a href="PhoneAbout.dc.html" class="nav-link {{hdr.link}}">About Me</a>
+<a href="PhoneExperiences.dc.html" class="nav-link {{hdr.link}}">Experiences</a>
+<a href="PhoneOffers.dc.html" class="nav-link {{hdr.link}}">Offers<span class="ml-1.5 rounded-full bg-highlight px-1.5 text-[10px] font-bold text-highlight-foreground">{{offerCount}}</span></a>
+<a href="PhoneJourney.dc.html" aria-current="page" class="nav-link {{hdr.link}}">My Journey</a>
+<a href="PhoneReviews.dc.html" class="nav-link {{hdr.link}}">Reviews</a>
+<a href="PhoneContact.dc.html" class="nav-link {{hdr.link}}">Contact</a>
+</nav>
+<div class="flex items-center gap-2">
+<a href="https://wa.me/994501234567" aria-label="Chat on WhatsApp" class="btn btn-icon hidden rounded-full sm:inline-flex {{hdr.icon}}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21l1.6-4.8A8.5 8.5 0 1 1 7.8 19.4L3 21z"></path><path d="M9 9.5c.3 1.8 1.7 3.6 3.6 4.6l1.3-1.1 2 .9-.4 1.8c-3.6.2-7.4-3.4-7.3-7.1l1.8-.4.9 2z"></path></svg></a>
+<a href="PhoneBooking.dc.html" class="btn btn-highlight rounded-full px-4 sm:px-5"><span class="sm:hidden">Book</span><span class="hidden sm:inline">Book a Tour</span></a>
+<button type="button" onClick="{{toggleMenu}}" aria-label="Open menu" aria-expanded="{{menuExpanded}}" class="btn btn-icon rounded-full xl:hidden {{hdr.icon}}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h10"></path></svg></button>
+</div>
+</div>
+</header>
+<sc-if value="{{menuOpen}}" hint-placeholder-val="{{ false }}">
+<div class="overlay" onClick="{{toggleMenu}}"></div>
+<div role="dialog" aria-modal="true" aria-label="Menu" class="sheet-right border-hero bg-hero p-6 text-hero-foreground sm:max-w-md">
+<div class="mb-10 flex items-center justify-between"><span class="font-display text-2xl font-semibold">Aurelia <span class="text-highlight">Journeys</span></span><button type="button" onClick="{{toggleMenu}}" aria-label="Close menu" class="btn btn-icon btn-hero-outline rounded-full"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg></button></div>
+<nav aria-label="Mobile" class="flex flex-col">
+<a href="PhoneMain.dc.html" class="mnav animate-menu-item border-b border-hero-foreground/15 py-3 font-display text-4xl aria-[current=page]:text-highlight" style="animation-delay: .04s">Home</a>
+<a href="PhoneAbout.dc.html" class="mnav animate-menu-item border-b border-hero-foreground/15 py-3 font-display text-4xl aria-[current=page]:text-highlight" style="animation-delay: .08s">About Me</a>
+<a href="PhoneExperiences.dc.html" class="mnav animate-menu-item border-b border-hero-foreground/15 py-3 font-display text-4xl aria-[current=page]:text-highlight" style="animation-delay: .12s">Experiences</a>
+<a href="PhoneOffers.dc.html" class="mnav animate-menu-item border-b border-hero-foreground/15 py-3 font-display text-4xl aria-[current=page]:text-highlight" style="animation-delay: .14s">Special offers</a>
+<a href="PhoneJourney.dc.html" aria-current="page" class="mnav animate-menu-item border-b border-hero-foreground/15 py-3 font-display text-4xl aria-[current=page]:text-highlight" style="animation-delay: .16s">My Journey</a>
+<a href="PhoneReviews.dc.html" class="mnav animate-menu-item border-b border-hero-foreground/15 py-3 font-display text-4xl aria-[current=page]:text-highlight" style="animation-delay: .2s">Reviews</a>
+<a href="PhoneContact.dc.html" class="mnav animate-menu-item border-b border-hero-foreground/15 py-3 font-display text-4xl aria-[current=page]:text-highlight" style="animation-delay: .24s">Contact</a>
+</nav>
+<div class="mt-auto flex flex-col gap-3 pt-8">
+<a href="PhoneBooking.dc.html" class="btn btn-highlight btn-xl rounded-full">Book a Tour</a>
+<a href="https://wa.me/994501234567" class="btn btn-hero-outline btn-xl rounded-full">Chat on WhatsApp</a>
+<p class="text-center text-sm text-hero-foreground/70">hello@aureliajourneys.az · +994 50 123 45 67</p>
+</div>
+</div>
+</sc-if>
+
+
+<section class="pb-10 pt-16 lg:pt-24">
+<div class="container-x flex flex-wrap items-end justify-between gap-8">
+<div class="max-w-3xl"><p class="eyebrow mb-4 animate-rise">My Journey · Travel journal</p><h1 class="animate-rise font-display text-5xl font-medium leading-[0.98] text-primary delay-1 sm:text-7xl lg:text-[80px]">Twelve years, <em class="text-eyebrow">forty-eight</em> places.</h1><p class="mt-6 animate-rise text-lg leading-relaxed text-foreground/85 delay-2">Every tour I’ve guided and every corner of Azerbaijan I’ve explored — the light, the people and the small moments in between.</p></div>
+<div role="tablist" aria-label="View" class="tabs-list"><sc-for list="{{views}}" as="v" hint-placeholder-count="3"><button type="button" role="tab" aria-selected="{{v.on}}" onClick="{{v.pick}}" class="tabs-trigger px-4">{{v.label}}</button></sc-for></div>
+</div>
+</section>
+
+<section aria-label="Filter by destination" class="border-b pb-8"><div class="container-x"><div class="no-scrollbar -mx-5 flex gap-2 overflow-x-auto px-5 sm:mx-0 sm:flex-wrap sm:px-0"><sc-for list="{{filters}}" as="c" hint-placeholder-count="7"><button type="button" class="chip shrink-0" aria-pressed="{{c.on}}" onClick="{{c.pick}}">{{c.label}} <span class="opacity-60">{{c.n}}</span></button></sc-for></div></div></section>
+
+<section aria-live="polite" class="pb-28 pt-10">
+<div class="container-x">
+<sc-if value="{{isGallery}}" hint-placeholder-val="{{ true }}">
+<div class="columns-1 gap-6 sm:columns-2 lg:columns-3">
+<sc-for list="{{entries}}" as="e" hint-placeholder-count="8">
+<button type="button" onClick="{{e.open}}" aria-label="{{e.aria}}" class="group mb-7 block w-full break-inside-avoid animate-rise text-left">
+<span class="relative block overflow-hidden rounded-xl {{e.ratio}}"><img src="{{e.img}}" alt="" class="img-zoom h-full w-full object-cover"><span class="badge badge-overlay absolute left-3.5 top-3.5">{{e.cat}}</span><sc-if value="{{e.video}}" hint-placeholder-val="{{ false }}"><span class="absolute right-3.5 top-3.5 flex h-9 w-9 items-center justify-center rounded-full bg-hero/85 text-hero-foreground"><svg class="size-3.5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 5v14l12-7z"></path></svg></span></sc-if></span>
+<span class="mt-4 flex justify-between gap-3 text-[13px] text-muted-foreground"><span>{{e.loc}}</span><span>{{e.date}}</span></span>
+<span class="mt-1 block font-display text-[26px] font-semibold leading-tight text-primary">{{e.title}}</span>
+<span class="mt-1 block text-sm leading-relaxed text-muted-foreground">{{e.short}}</span>
+</button>
+</sc-for>
+</div>
+</sc-if>
+<sc-if value="{{isTimeline}}" hint-placeholder-val="{{ false }}">
+<div class="mx-auto max-w-4xl">
+<sc-for list="{{years}}" as="y" hint-placeholder-count="2">
+<div class="mb-6 flex gap-5 sm:gap-8"><p class="w-16 shrink-0 font-display text-4xl leading-none text-eyebrow sm:w-24 sm:text-5xl">{{y.y}}</p>
+<div class="flex flex-1 flex-col gap-5 border-l pb-4 pl-6 sm:pl-8"><sc-for list="{{y.items}}" as="e" hint-placeholder-count="2">
+<button type="button" onClick="{{e.open}}" class="group relative flex items-center gap-4 text-left sm:gap-5"><span class="absolute -left-[31px] top-1/2 h-3.5 w-3.5 -translate-y-1/2 rounded-full border-[3px] border-background bg-primary sm:-left-[39px]"></span><span class="block h-20 w-28 shrink-0 overflow-hidden rounded-lg sm:h-24 sm:w-36"><img src="{{e.img}}" alt="" class="img-zoom h-full w-full object-cover"></span><span><span class="block text-[13px] text-muted-foreground">{{e.date}} · {{e.loc}}</span><span class="block font-display text-2xl font-semibold text-primary">{{e.title}}</span><span class="hidden text-sm text-muted-foreground sm:block">{{e.short}}</span></span></button>
+</sc-for></div></div>
+</sc-for>
+</div>
+</sc-if>
+<sc-if value="{{isMap}}" hint-placeholder-val="{{ false }}">
+<div class="flex flex-col gap-6 lg:flex-row">
+<div class="relative aspect-[4/3] min-w-0 flex-1 overflow-hidden rounded-2xl bg-hero">
+<svg viewBox="0 0 800 600" preserveAspectRatio="none" aria-hidden="true" class="absolute inset-0 h-full w-full"><rect x="640" y="0" width="160" height="600" fill="hsl(var(--highlight))" fill-opacity=".08"></rect><path d="M60 230 L150 150 L260 120 L380 90 L470 70 L560 110 L620 170 L660 260 L640 330 L700 420 L640 470 L600 560 L520 520 L470 430 L380 420 L300 380 L220 360 L140 330 L80 300 Z" fill="hsl(var(--hero-foreground))" fill-opacity=".06" stroke="hsl(var(--highlight))" stroke-opacity=".55" stroke-width="1.2"></path><path d="M150 150 Q330 70 560 110" fill="none" stroke="hsl(var(--hero-foreground))" stroke-opacity=".25" stroke-dasharray="4 6"></path><path d="M120 330 Q300 300 470 430 Q560 470 640 470" fill="none" stroke="#6FA3B5" stroke-opacity=".6" stroke-width="2"></path></svg>
+<p class="absolute left-6 top-5 text-xs font-semibold uppercase tracking-[0.24em] text-highlight">Azerbaijan · places I have guided</p>
+<p class="absolute bottom-5 right-6 text-xs text-hero-foreground/60">Greater Caucasus ·· Kura river ·· Caspian Sea</p>
+<sc-for list="{{pins}}" as="p" hint-placeholder-count="7"><button type="button" onClick="{{p.select}}" aria-label="{{p.aria}}" aria-pressed="{{p.on}}" class="group absolute flex min-h-11 min-w-11 -translate-x-1/2 -translate-y-1/2 cursor-pointer flex-col items-center gap-1.5 p-1.5" style="left: {{p.x}}; top: {{p.y}}"><span class="{{p.dot}}"></span><span class="{{p.lbl}}">{{p.name}}</span></button></sc-for>
+</div>
+<div class="card w-full overflow-hidden lg:w-80"><img src="{{sel.img}}" alt="" class="h-48 w-full object-cover"><div class="p-6"><p class="eyebrow">{{sel.region}}</p><p class="mb-2 mt-1 font-display text-3xl text-primary">{{sel.name}}</p><p class="mb-5 text-[15px] text-muted-foreground">{{sel.count}} journal entries · last visited {{sel.last}}</p><button type="button" onClick="{{sel.show}}" class="btn btn-default btn-lg w-full rounded-full">Show these entries</button></div></div>
+</div>
+</sc-if>
+<sc-if value="{{empty}}" hint-placeholder-val="{{ false }}"><div class="card border-dashed p-14 text-center text-muted-foreground">No journal entries for this destination yet.</div></sc-if>
+</div>
+</section>
+
+<sc-if value="{{modal}}" hint-placeholder-val="{{ false }}">
+<div class="overlay" onClick="{{close}}"></div>
+<div role="dialog" aria-modal="true" aria-label="{{cur.title}}" class="fixed inset-x-0 bottom-0 z-50 mx-auto max-h-[92vh] w-full max-w-5xl animate-sheet-bottom overflow-y-auto rounded-t-2xl bg-background sm:bottom-6 sm:rounded-2xl">
+<div class="relative"><img src="{{photo}}" alt="{{cur.title}}, photo {{photoPos}}" class="h-72 w-full object-cover sm:h-[440px]">
+<button type="button" onClick="{{close}}" aria-label="Close" class="btn btn-icon-lg absolute right-4 top-4 rounded-full bg-background/95 hover:bg-background">✕</button>
+<div class="absolute bottom-4 right-4 flex items-center gap-2"><button type="button" onClick="{{pPrev}}" aria-label="Previous photo" class="btn btn-icon-lg rounded-full bg-background/95">←</button><span class="badge border-transparent bg-hero/85 px-3 py-1.5 text-hero-foreground">{{photoPos}}</span><button type="button" onClick="{{pNext}}" aria-label="Next photo" class="btn btn-icon-lg rounded-full bg-background/95">→</button></div></div>
+<div class="flex flex-col gap-8 p-6 sm:p-10 md:flex-row">
+<div class="min-w-0 flex-1"><p class="text-[13px] text-muted-foreground">{{cur.loc}} · {{cur.date}} · {{cur.cat}}</p><h2 class="mb-4 mt-2 font-display text-4xl font-medium text-primary sm:text-5xl">{{cur.title}}</h2><p class="mb-6 text-base leading-relaxed text-foreground/85">{{cur.desc}}</p>
+<div class="grid grid-cols-3 gap-2.5"><sc-for list="{{thumbs}}" as="t" hint-placeholder-count="3"><button type="button" onClick="{{t.pick}}" aria-label="Show photo {{t.n}}" aria-current="{{t.cur}}" class="aspect-[4/3] cursor-pointer overflow-hidden rounded-lg border-2 border-transparent aria-[current=true]:border-primary"><img src="{{t.img}}" alt="" class="h-full w-full object-cover"></button></sc-for></div></div>
+<div class="md:w-72"><p class="eyebrow mb-3">Memorable moments</p><ul class="mb-7 flex list-disc flex-col gap-2 pl-5 text-[15px] leading-relaxed text-foreground/85"><sc-for list="{{cur.moments}}" as="m" hint-placeholder-count="3"><li>{{m}}</li></sc-for></ul>
+<sc-if value="{{cur.rel}}" hint-placeholder-val="{{ true }}"><div class="rounded-xl bg-hero p-5 text-hero-foreground"><p class="text-xs uppercase tracking-widest text-highlight">Related tour</p><p class="mb-3 mt-1 font-display text-2xl">{{cur.rel}}</p><a href="PhoneTourDetail.dc.html" class="text-sm font-semibold text-highlight underline-offset-4 hover:underline">View experience →</a></div></sc-if></div>
+</div>
+</div>
+</sc-if>
+<footer class="bg-hero pb-10 pt-20 text-hero-foreground/80">
+<div class="container-x">
+<div class="grid gap-12 sm:grid-cols-2 lg:grid-cols-[2fr_1fr_1fr_1.4fr]">
+<div>
+<p class="font-display text-3xl text-hero-foreground">Aurelia <span class="text-highlight">Journeys</span></p>
+<p class="mt-4 max-w-sm text-[15px] leading-relaxed">Private and small-group journeys across Azerbaijan — from Baku’s old walls to the villages of the Greater Caucasus — led by licensed guide Leyla Mammadova.</p>
+<div class="mt-6 flex gap-2">
+<a href="https://instagram.com" aria-label="Instagram" class="btn btn-icon btn-hero-outline rounded-full"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle></svg></a>
+<a href="https://youtube.com" aria-label="YouTube" class="btn btn-icon btn-hero-outline rounded-full"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="2.5" y="5.5" width="19" height="13" rx="4"></rect><path d="M10 9.5v5l4.5-2.5z" fill="currentColor"></path></svg></a>
+<a href="https://facebook.com" aria-label="Facebook" class="btn btn-icon btn-hero-outline rounded-full"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M14 8h3V4h-3a4 4 0 0 0-4 4v3H7v4h3v6h4v-6h3l1-4h-4V8z"></path></svg></a>
+</div>
+</div>
+<div><p class="eyebrow mb-4 !text-highlight">Explore</p><ul class="flex flex-col gap-3 text-[15px]"><li><a href="PhoneExperiences.dc.html" class="hover:text-hero-foreground">Experiences</a></li><li><a href="PhoneOffers.dc.html" class="hover:text-hero-foreground">Special offers</a></li><li><a href="PhoneAbout.dc.html" class="hover:text-hero-foreground">About Me</a></li><li><a href="PhoneJourney.dc.html" class="hover:text-hero-foreground">My Journey</a></li><li><a href="PhoneReviews.dc.html" class="hover:text-hero-foreground">Reviews</a></li><li><a href="PhoneContact.dc.html" class="hover:text-hero-foreground">Contact</a></li></ul></div>
+<div><p class="eyebrow mb-4 !text-highlight">Destinations</p><ul class="flex flex-col gap-3 text-[15px]"><li><a href="PhoneExperiences.dc.html" class="hover:text-hero-foreground">Baku &amp; Absheron</a></li><li><a href="PhoneExperiences.dc.html" class="hover:text-hero-foreground">Sheki</a></li><li><a href="PhoneExperiences.dc.html" class="hover:text-hero-foreground">Gobustan</a></li><li><a href="PhoneExperiences.dc.html" class="hover:text-hero-foreground">Khinalug &amp; Quba</a></li><li><a href="PhoneExperiences.dc.html" class="hover:text-hero-foreground">Lankaran</a></li></ul></div>
+<div><p class="eyebrow mb-4 !text-highlight">Get in touch</p><ul class="flex flex-col gap-3 text-[15px]"><li><a href="mailto:hello@aureliajourneys.az" class="hover:text-hero-foreground">hello@aureliajourneys.az</a></li><li><a href="https://wa.me/994501234567" class="hover:text-hero-foreground">+994 50 123 45 67 (WhatsApp)</a></li><li>Icherisheher, Baku</li><li>Mon–Sat · 9:00–19:00 (AZT)</li></ul></div>
+</div>
+<div class="mt-16 flex flex-wrap justify-between gap-4 border-t border-hero-foreground/15 pt-7 text-[13px]">
+<span>© 2026 Aurelia Journeys. Licensed tour guide, Azerbaijan Tourism Board.</span>
+<span class="flex gap-6"><a href="PhoneContact.dc.html" class="underline-offset-4 hover:underline">Privacy Policy</a><a href="PhoneContact.dc.html" class="underline-offset-4 hover:underline">Terms &amp; Conditions</a></span>
+</div>
+</div>
+</footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":6600},"theme":{"editor":"enum","options":["admin","emerald","caspian","pomegranate","graphite"],"default":"admin","section":"Theme"},"mode":{"editor":"enum","options":["admin","light","dark","system"],"default":"admin","section":"Theme"}}'>
+class Component extends DCLogic {
+  constructor(p){ super(p); this.state = { view:'gallery', dest:'All', open:-1, ph:0, pin:'Sheki' }; }
+  img(){ return { baku:'/_blob/53de85c911d3fd172f7f056fc041c3f6', oldcity:'/_blob/71ba1da1636ea18bc8040e2f214c9564', gobustan:'/_blob/1d3b95a6d499c80338e0cfbcce073964', yanardag:'/_blob/caa98c1d37e045432aedeba5937e3fb1', sheki:'/_blob/99cec70a9ac8cc922169a9d4cda6cfd7', khinalug:'/_blob/b1e6bea4cb0d3847910a8759889b2e6b', caspian:'/_blob/feb92edafca2a9ad4057997c2c80419b', lankaran:'/_blob/b1af8e934de14e2a69509a83bda2b0e7' }; }
+  uiDefault(){ return { theme: 'emerald', mode: 'light', radius: 'md', font: 'classic' }; }
+  loadUi(){ try { const v = JSON.parse(window.localStorage.getItem('aj-ui') || 'null'); if (v) this.setState({ ui: { ...this.uiDefault(), ...v } }); } catch (e) {} }
+  uiInit(){
+    this.loadUi();
+    this._onStorage = (e) => { if (!e || !e.key || e.key === 'aj-ui') this.loadUi(); };
+    window.addEventListener('storage', this._onStorage);
+    try { this._bc = new BroadcastChannel('aj-ui'); this._bc.onmessage = (m) => { if (m && m.data) this.setState({ ui: { ...this.uiDefault(), ...m.data } }); }; } catch (e) {}
+    try { this._mq = window.matchMedia('(prefers-color-scheme: dark)'); this._mqh = () => this.forceUpdate(); this._mq.addEventListener('change', this._mqh); } catch (e) {}
+    this._onScroll = () => { const s = (window.scrollY || 0) > 40; if (s !== !!(this.state || {}).scrolled) this.setState({ scrolled: s }); };
+    window.addEventListener('scroll', this._onScroll, { passive: true });
+  }
+  uiDestroy(){
+    window.removeEventListener('storage', this._onStorage); window.removeEventListener('scroll', this._onScroll);
+    try { this._bc && this._bc.close(); } catch (e) {} try { this._mq && this._mq.removeEventListener('change', this._mqh); } catch (e) {}
+  }
+  saveUi(patch){
+    const u = { ...this.uiDefault(), ...((this.state || {}).ui || {}), ...patch };
+    try { window.localStorage.setItem('aj-ui', JSON.stringify(u)); } catch (e) {}
+    try { const bc = new BroadcastChannel('aj-ui'); bc.postMessage(u); bc.close(); } catch (e) {}
+    this.setState({ ui: u });
+  }
+  uiVals(overHero){
+    const st = this.state || {}, p = this.props || {};
+    const u = { ...this.uiDefault(), ...(st.ui || {}) };
+    if (p.theme && p.theme !== 'admin') u.theme = p.theme;
+    if (p.mode && p.mode !== 'admin') u.mode = p.mode;
+    let dark = u.mode === 'dark';
+    if (u.mode === 'system') { try { dark = window.matchMedia('(prefers-color-scheme: dark)').matches; } catch (e) {} }
+    const solid = !overHero || st.scrolled || st.menu;
+    const hdr = solid
+      ? { cls: 'sticky top-0 z-40 border-b bg-background/90 backdrop-blur-md transition-colors duration-300' + (overHero ? ' -mb-20' : ''), link: '', logo: 'text-primary', sub: 'text-eyebrow', icon: 'btn-outline' }
+      : { cls: 'sticky top-0 z-40 -mb-20 border-b border-transparent bg-transparent transition-colors duration-300', link: 'text-hero-foreground hover:bg-hero-foreground/10 hover:text-hero-foreground aria-[current=page]:text-highlight', logo: 'text-hero-foreground', sub: 'text-highlight', icon: 'btn-hero-outline' };
+    return {
+      ui: u, uiTheme: u.theme, uiFont: u.font, uiRadius: u.radius, uiDark: dark ? 'dark' : 'light', isDark: dark, isLight: !dark,
+      offerCount: (() => { try { const D = this.promoData ? this.promoData() : null; return D ? D.campaigns.filter(x => this.campStatus(x) === 'Active' && x.visibility === 'public').length : 4; } catch (e) { return 4; } })(),
+      navOpen: !!st.nav, navExpanded: st.nav ? 'true' : 'false', toggleNav: () => this.setState({ nav: !(this.state || {}).nav }),
+      hdr, menuOpen: !!st.menu, menuExpanded: st.menu ? 'true' : 'false', toggleMenu: () => this.setState({ menu: !(this.state || {}).menu }),
+      cycleMode: () => this.saveUi({ mode: dark ? 'light' : 'dark' }), modeLabel: dark ? 'Switch to light mode' : 'Switch to dark mode',
+      pickTheme: (e) => this.saveUi({ theme: e.target.value })
+    };
+  }
+
+  componentDidMount(){ this.uiInit(); }
+  componentWillUnmount(){ this.uiDestroy(); }
+  renderVals(){
+    const I = this.img(), s = this.state;
+    const E = [
+      { title:'Autumn in Sheki', dest:'Sheki', loc:'Sheki', date:'Oct 2026', y:2026, cat:'Cultural', ratio:'aspect-[4/5]', img:I.sheki, video:true, rel:'Silk Road to Sheki', short:'Walnut harvest season with a family of four from Edinburgh.', desc:'The chestnut forests turned copper this year. We spent mornings in the Khan’s Palace before the crowds and evenings learning to fold piti with Ibrahim’s granddaughter.', moments:['Sunrise from the Sheki fortress walls','A halva master’s 4 a.m. kitchen','Shebeke glass catching late light'], photos:[I.sheki,I.lankaran,I.oldcity] },
+      { title:'Yanar Dag by night', dest:'Absheron', loc:'Absheron peninsula', date:'Aug 2026', y:2026, cat:'Adventure', ratio:'aspect-square', img:I.yanardag, video:false, rel:'Fire & Stone: Gobustan & Yanar Dag', short:'The burning hillside, a meteor shower and tea.', desc:'Natural gas has fed this hillside fire for as long as anyone can remember. We stayed until the Perseids began.', moments:['Perseid meteors over the flames','Ateshgah fire temple at dusk','Mud volcanoes at sunrise'], photos:[I.yanardag,I.gobustan,I.baku] },
+      { title:'Novruz in Icherisheher', dest:'Baku', loc:'Old City, Baku', date:'Mar 2026', y:2026, cat:'Cultural', ratio:'aspect-[3/4]', img:I.oldcity, video:true, rel:'Icherisheher & Flame Towers', short:'Bonfires, samani and spring in the old city.', desc:'Jumping the Novruz bonfires with a group of architects from Copenhagen, then sweets on my mother’s balcony.', moments:['Bonfire jumping in the lanes','Painted eggs and shekerbura','Maiden Tower at night'], photos:[I.oldcity,I.baku,I.caspian] },
+      { title:'Mud volcanoes at dawn', dest:'Gobustan', loc:'Gobustan', date:'Jun 2026', y:2026, cat:'Adventure', ratio:'aspect-[16/11]', img:I.gobustan, video:false, rel:'Fire & Stone: Gobustan & Yanar Dag', short:'Half the world’s mud volcanoes, bubbling quietly.', desc:'We left Baku at 5 a.m. to have the petroglyphs and the volcano field entirely to ourselves.', moments:['40,000-year-old rock carvings','The gaval dash singing stone','Breakfast on the cliffs'], photos:[I.gobustan,I.yanardag,I.caspian] },
+      { title:'Snow in Khinalug', dest:'Quba', loc:'Khinalug, Quba', date:'Jan 2026', y:2026, cat:'Adventure', ratio:'aspect-square', img:I.khinalug, video:false, rel:'Khinalug & Quba Highlands', short:'Three days at 2,300 m, wrapped in wool socks.', desc:'A photographer from Seoul and I spent three quiet, snow-bound days with the Gasimov family in the highest village of the Caucasus.', moments:['Stone houses under fresh snow','Ketch language lessons by the stove','Shahdag at first light'], photos:[I.khinalug,I.sheki,I.lankaran] },
+      { title:'Tea harvest in Lankaran', dest:'Lankaran', loc:'Lankaran', date:'May 2025', y:2025, cat:'Family', ratio:'aspect-[4/5]', img:I.lankaran, video:true, rel:'Lankaran Tea & Hirkan Forest', short:'Three generations picking the first flush.', desc:'Grandparents, parents and four grandchildren — tea picking, Hirkan forest walks and lavangi chicken on the coast.', moments:['First-flush tea picking','Hirkan ironwood forest','Lavangi cooking lesson'], photos:[I.lankaran,I.caspian,I.sheki] },
+      { title:'Caspian sunset sail', dest:'Baku', loc:'Baku Bay', date:'Sep 2025', y:2025, cat:'Private', ratio:'aspect-[16/11]', img:I.caspian, video:false, rel:'Bespoke Azerbaijan', short:'Baku Boulevard by boat as the Flame Towers glow.', desc:'A private anniversary sail along the Bulvar, timed for the moment the Flame Towers light up.', moments:['Flame Towers from the water','Caviar and Shamakhi rosé','A proposal (she said yes)'], photos:[I.caspian,I.baku,I.oldcity] }
+    ];
+    const dests = ['All','Baku','Absheron','Gobustan','Sheki','Quba','Lankaran'];
+    const list = E.map((e, i) => ({ ...e, i })).filter(e => s.dest === 'All' || e.dest === s.dest);
+    const entries = list.map(e => ({ ...e, aria: 'Open ' + e.title + ', ' + e.date, open: () => this.setState({ open:e.i, ph:0 }) }));
+    const yrs = [...new Set(entries.map(e => e.y))].sort((a, b) => b - a).map(y => ({ y, items: entries.filter(e => e.y === y) }));
+    const PIN = { Baku:{ x:'83%', y:'52%', region:'Absheron', img:I.oldcity }, Absheron:{ x:'90%', y:'44%', region:'Absheron peninsula', img:I.yanardag }, Gobustan:{ x:'77%', y:'64%', region:'Absheron', img:I.gobustan }, Sheki:{ x:'38%', y:'28%', region:'Shaki-Zagatala', img:I.sheki }, Quba:{ x:'62%', y:'20%', region:'Quba-Khachmaz', img:I.khinalug }, Lankaran:{ x:'70%', y:'90%', region:'Lankaran-Astara', img:I.lankaran } };
+    const pins = Object.keys(PIN).map(n => { const p = PIN[n], on = s.pin === n, c = E.filter(e => e.dest === n).length;
+      return { name:n, x:p.x, y:p.y, on: on ? 'true' : 'false', aria: n + ', ' + c + ' entries', select: () => this.setState({ pin:n }),
+        dot: on ? 'block h-5 w-5 rounded-full bg-highlight ring-8 ring-highlight/30 transition-all' : 'block h-3.5 w-3.5 rounded-full bg-hero-foreground ring-4 ring-highlight/20 transition-all group-hover:scale-125',
+        lbl: on ? 'whitespace-nowrap text-xs font-bold text-highlight' : 'hidden whitespace-nowrap text-xs font-semibold text-hero-foreground sm:block' }; });
+    const sp = PIN[s.pin], spE = E.filter(e => e.dest === s.pin);
+    const cur = s.open >= 0 ? E[s.open] : E[0], ph = s.ph % cur.photos.length;
+    return {
+      ...this.uiVals(false), I,
+      views: [['gallery','Gallery'],['timeline','Timeline'],['map','Map']].map(([k, l]) => ({ label:l, on: s.view === k ? 'true' : 'false', pick: () => this.setState({ view:k }) })),
+      filters: dests.map(d => ({ label:d, n: d === 'All' ? E.length : E.filter(e => e.dest === d).length, on: s.dest === d ? 'true' : 'false', pick: () => this.setState({ dest:d }) })),
+      isGallery: s.view === 'gallery' && entries.length > 0, isTimeline: s.view === 'timeline' && entries.length > 0, isMap: s.view === 'map', empty: s.view !== 'map' && entries.length === 0,
+      entries, years: yrs, pins,
+      sel: { name:s.pin, region:sp.region, img:sp.img, count:spE.length, last: spE.length ? spE[0].date : '—', show: () => this.setState({ dest:s.pin, view:'gallery' }) },
+      modal: s.open >= 0, cur, photo: cur.photos[ph], photoPos: (ph + 1) + ' / ' + cur.photos.length,
+      close: () => this.setState({ open:-1 }), pPrev: () => this.setState({ ph: (ph + cur.photos.length - 1) % cur.photos.length }), pNext: () => this.setState({ ph: (ph + 1) % cur.photos.length }),
+      thumbs: cur.photos.map((img, i) => ({ img, n: i + 1, cur: i === ph ? 'true' : 'false', pick: () => this.setState({ ph:i }) }))
+    };
+  }
+}
+</script>
+</body>
+</html>

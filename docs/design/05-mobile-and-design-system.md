@@ -1,6 +1,6 @@
 # 05 — Mobile flows and design-system inventory
 
-Source: `design-reference/*.dc.html` (19 screens) plus `design-reference/canvas.json`.
+Source: `design-reference/*.dc.html` (19 screens, plus 14 `Phone*.dc.html` phone-width copies) and `design-reference/canvas.json`.
 Scope: Part A documents the five dedicated 390 px mobile flows (`MHome`, `MExperiences`, `MTour`, `MBooking`, `MAdmin`). Part B is a design-system inventory across all 19 screens.
 
 How to read this document:
@@ -31,7 +31,7 @@ Two canvas notes define the intent (quoted as design documentation):
 - "Use the States tweaks to show the open menu, filter sheet, booking sheet or appearance sheet. The desktop pages are also fully responsive and adapt down to phone width."
 - "On phones and tablets the admin sidebar becomes a top bar with a slide-out menu (tap ☰). Tables turn into stacked cards; side panels open full-screen; sticky action bars keep primary buttons in thumb reach."
 
-`canvas.json` also lists 14 `Phone*.dc.html` artboards ("the real responsive pages rendered in a 390 px frame — generated from the same code as the desktop pages"). **Those files are not in `design-reference/`**; only their titles and heights are known. So there are two distinct mobile concepts: the dedicated `M*` flows (documented here) and the responsive behaviour of the desktop pages (compared in A.7).
+`canvas.json` also lists 14 `Phone*.dc.html` artboards ("the real responsive pages rendered in a 390 px frame — generated from the same code as the desktop pages"). Those files are now in `design-reference/` too. Each is the desktop page's code unchanged except for its `<title>` (prefixed "Phone —") and its internal links (pointing at the other `Phone*` pages), so the responsive behaviour described in A.7 applies to them as written. So there are two distinct mobile concepts: the dedicated `M*` flows (documented here) and the responsive behaviour of the desktop pages (compared in A.7).
 
 ### A.1 Shared mobile shell
 
@@ -832,7 +832,7 @@ Text glyphs used as icons (not SVG): `←` 7, `→` 24, `✕` 25, `✓` 31, `★
 3. **`data-font` → family mapping** is inferred (classic → Cormorant Garamond, modern → Fraunces, sans → Manrope).
 4. **`data-radius` → px mapping** comes from the settings swatches (2 / 6 / 12 / 20 px); how component radii derive from it is unknown.
 5. **`.reveal` / `.parallax` mechanism** (CSS scroll timelines vs. script in `support.js`) is unknown.
-6. **Two mobile concepts.** Dedicated `M*` flows vs. responsive desktop pages; the `Phone*.dc.html` previews named in `canvas.json` are not in the folder.
+6. **Two mobile concepts.** Dedicated `M*` flows vs. responsive desktop pages; the `Phone*.dc.html` previews named in `canvas.json` are the desktop pages' code in a 390 px frame.
 7. **Mobile gaps vs. desktop:** no "Special offers" link in the MHome menu; no children stepper in the MTour sheet; no calendar/time slots/tour picker/submit-error state in MBooking; no confirm step for Decline in MAdmin; the "Journey" tab links to the desktop page; MTour → MBooking does not carry the chosen date and guests.
 8. **Prototype shortcuts to replace:** fixed 390 px width and `min-h` values, `absolute` full-page menu overlay, gallery index based on a literal 390, static carousel dots, hard-coded "today", client-side storage (`aj-ui`, `aj-promo`), random booking references, stub share/wishlist/waitlist actions.
 9. **Accessibility items not evidenced in the files:** focus-visible styles, focus trapping and `Escape` handling for sheets/dialogs, scroll lock, `prefers-reduced-motion` handling, 44 px minimum for chips (36 px) and possibly `btn-sm`/`btn-icon`.

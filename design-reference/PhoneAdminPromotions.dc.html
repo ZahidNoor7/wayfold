@@ -1,0 +1,515 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Phone — Discounts &amp; Offers — Aurelia Admin</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="/_blob/70d0ec09cb9bf09f570d988b94190c96">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>body{margin:0}</style>
+</helmet>
+
+<div data-theme="{{uiTheme}}" data-font="{{uiFont}}" data-radius="{{uiRadius}}" class="{{uiDark}} min-h-screen overflow-x-clip bg-muted/40 font-sans text-foreground antialiased lg:flex">
+<div class="sticky top-0 z-40 flex h-14 items-center justify-between gap-2 border-b bg-background/95 px-3 backdrop-blur lg:hidden">
+<button type="button" onClick="{{toggleNav}}" aria-label="Open navigation" aria-expanded="{{navExpanded}}" class="btn btn-ghost btn-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h10"></path></svg></button>
+<a href="PhoneAdminOverview.dc.html" class="flex items-baseline gap-1.5"><span class="font-display text-xl font-semibold text-primary">Aurelia</span><span class="text-[10px] font-semibold uppercase tracking-[0.28em] text-eyebrow">Admin</span></a>
+<div class="flex items-center"><button type="button" onClick="{{cycleMode}}" aria-label="{{modeLabel}}" class="btn btn-ghost btn-icon"><sc-if value="{{isDark}}" hint-placeholder-val="{{ false }}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path></svg></sc-if><sc-if value="{{isLight}}" hint-placeholder-val="{{ true }}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"></path></svg></sc-if></button><span class="avatar h-8 w-8 text-xs">LM</span></div>
+</div>
+<sc-if value="{{navOpen}}" hint-placeholder-val="{{ false }}">
+<div class="overlay lg:hidden" onClick="{{toggleNav}}"></div>
+<aside role="dialog" aria-modal="true" aria-label="Admin navigation" class="sheet-left overflow-y-auto lg:hidden">
+<div class="flex h-14 items-center justify-between border-b px-4"><span class="flex items-baseline gap-1.5"><span class="font-display text-2xl font-semibold text-primary">Aurelia</span><span class="text-[10px] font-semibold uppercase tracking-[0.28em] text-eyebrow">Admin</span></span><button type="button" onClick="{{toggleNav}}" aria-label="Close navigation" class="btn btn-ghost btn-icon">✕</button></div>
+<div class="py-3"><nav aria-label="Admin (mobile)" class="flex flex-col gap-1 px-3">
+<p class="px-3 pb-1 pt-2 text-xs font-semibold text-muted-foreground">Business</p>
+<a href="PhoneAdminOverview.dc.html" class="side-link h-11 lg:h-10"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="3" y="3" width="7" height="9" rx="1.5"></rect><rect x="14" y="3" width="7" height="5" rx="1.5"></rect><rect x="14" y="12" width="7" height="9" rx="1.5"></rect><rect x="3" y="16" width="7" height="5" rx="1.5"></rect></svg>Overview</a>
+<a href="PhoneAdminBookings.dc.html" class="side-link h-11 lg:h-10"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"></rect><path d="M3 10h18M8 3v4M16 3v4"></path></svg>Bookings<span class="badge badge-highlight ml-auto">7</span></a>
+<p class="px-3 pb-1 pt-4 text-xs font-semibold text-muted-foreground">Content</p>
+<a href="PhoneAdminPackages.dc.html" class="side-link h-11 lg:h-10"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"></path><circle cx="12" cy="9.5" r="2.5"></circle></svg>Packages, reviews &amp; journey</a>
+<a href="PhoneAdminPromotions.dc.html" aria-current="page" class="side-link h-11 lg:h-10"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><path d="M20.6 13.4l-7.2 7.2a2 2 0 0 1-2.8 0L3 13V3h10l7.6 7.6a2 2 0 0 1 0 2.8z"></path><circle cx="7.5" cy="7.5" r="1.5"></circle></svg>Discounts &amp; offers<span class="badge badge-pending ml-auto">2</span></a>
+<p class="px-3 pb-1 pt-4 text-xs font-semibold text-muted-foreground">Website</p>
+<a href="PhoneAdminSettings.dc.html" class="side-link h-11 lg:h-10"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><circle cx="13.5" cy="6.5" r="1.5"></circle><circle cx="17.5" cy="10.5" r="1.5"></circle><circle cx="8.5" cy="7.5" r="1.5"></circle><circle cx="6.5" cy="12.5" r="1.5"></circle><path d="M12 2a10 10 0 1 0 0 20c1 0 1.7-.8 1.7-1.7 0-.5-.2-.9-.5-1.2-.3-.3-.5-.7-.5-1.2 0-.9.8-1.7 1.7-1.7H16a6 6 0 0 0 6-6C22 5.8 17.5 2 12 2z"></path></svg>Settings &amp; appearance</a>
+</nav></div>
+<div class="mt-auto flex flex-col gap-3 border-t p-4">
+<label class="flex flex-col gap-1.5"><span class="text-xs font-semibold text-muted-foreground">Theme</span><select class="select" value="{{ui.theme}}" onChange="{{pickTheme}}"><option value="emerald">Emerald &amp; Gold</option><option value="caspian">Caspian Blue</option><option value="pomegranate">Pomegranate</option><option value="graphite">Graphite</option></select></label>
+<div class="flex items-center gap-3"><span class="avatar">LM</span><span class="min-w-0 flex-1 text-sm"><span class="block font-bold">Leyla Mammadova</span><a href="PhoneMain.dc.html" class="text-eyebrow underline-offset-4 hover:underline">View website ↗</a></span></div>
+</div>
+</aside>
+</sc-if>
+<aside class="hidden shrink-0 border-r bg-card lg:sticky lg:top-0 lg:flex lg:h-screen lg:w-64 lg:flex-col lg:overflow-y-auto">
+<div class="flex h-20 items-center px-5"><a href="PhoneAdminOverview.dc.html" class="flex items-baseline gap-2"><span class="font-display text-2xl font-semibold text-primary">Aurelia</span><span class="text-[10px] font-semibold uppercase tracking-[0.28em] text-eyebrow">Admin</span></a></div>
+<nav aria-label="Admin" class="flex flex-col gap-1 px-3">
+<p class="px-3 pb-1 pt-2 text-xs font-semibold text-muted-foreground">Business</p>
+<a href="PhoneAdminOverview.dc.html" class="side-link h-11 lg:h-10"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="3" y="3" width="7" height="9" rx="1.5"></rect><rect x="14" y="3" width="7" height="5" rx="1.5"></rect><rect x="14" y="12" width="7" height="9" rx="1.5"></rect><rect x="3" y="16" width="7" height="5" rx="1.5"></rect></svg>Overview</a>
+<a href="PhoneAdminBookings.dc.html" class="side-link h-11 lg:h-10"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"></rect><path d="M3 10h18M8 3v4M16 3v4"></path></svg>Bookings<span class="badge badge-highlight ml-auto">7</span></a>
+<p class="px-3 pb-1 pt-4 text-xs font-semibold text-muted-foreground">Content</p>
+<a href="PhoneAdminPackages.dc.html" class="side-link h-11 lg:h-10"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"></path><circle cx="12" cy="9.5" r="2.5"></circle></svg>Packages, reviews &amp; journey</a>
+<a href="PhoneAdminPromotions.dc.html" aria-current="page" class="side-link h-11 lg:h-10"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><path d="M20.6 13.4l-7.2 7.2a2 2 0 0 1-2.8 0L3 13V3h10l7.6 7.6a2 2 0 0 1 0 2.8z"></path><circle cx="7.5" cy="7.5" r="1.5"></circle></svg>Discounts &amp; offers<span class="badge badge-pending ml-auto">2</span></a>
+<p class="px-3 pb-1 pt-4 text-xs font-semibold text-muted-foreground">Website</p>
+<a href="PhoneAdminSettings.dc.html" class="side-link h-11 lg:h-10"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><circle cx="13.5" cy="6.5" r="1.5"></circle><circle cx="17.5" cy="10.5" r="1.5"></circle><circle cx="8.5" cy="7.5" r="1.5"></circle><circle cx="6.5" cy="12.5" r="1.5"></circle><path d="M12 2a10 10 0 1 0 0 20c1 0 1.7-.8 1.7-1.7 0-.5-.2-.9-.5-1.2-.3-.3-.5-.7-.5-1.2 0-.9.8-1.7 1.7-1.7H16a6 6 0 0 0 6-6C22 5.8 17.5 2 12 2z"></path></svg>Settings &amp; appearance</a>
+</nav>
+<div class="mt-auto flex items-center gap-3 border-t p-4"><span class="avatar">LM</span><span class="min-w-0 text-sm"><span class="block font-bold">Leyla Mammadova</span><a href="PhoneMain.dc.html" class="text-eyebrow underline-offset-4 hover:underline">View website ↗</a></span></div>
+</aside>
+
+<main class="min-w-0 flex-1 p-5 sm:p-8">
+<div class="mb-6 flex flex-wrap items-end justify-between gap-4">
+<div><p class="text-[13px] text-muted-foreground">Campaigns, personal discounts and customer requests. Changes go live on your website instantly.</p><h1 class="font-display text-3xl font-semibold text-primary sm:text-4xl">Discounts &amp; offers</h1></div>
+<div class="flex flex-wrap items-center gap-2"><label class="flex w-full items-center gap-2 text-sm sm:w-auto"><span class="shrink-0 text-muted-foreground">Viewing as</span><select class="select h-10 flex-1 sm:w-56 sm:flex-none" value="{{role}}" onChange="{{onRole}}"><option value="owner">Leyla Mammadova · Owner</option><option value="assistant">Kamran Huseynov · Assistant</option></select></label><div class="hidden items-center gap-2 sm:flex">
+<label class="sr-only" for="qtheme">Theme</label>
+<select id="qtheme" class="select h-10 w-40" value="{{ui.theme}}" onChange="{{pickTheme}}"><option value="emerald">Emerald &amp; Gold</option><option value="caspian">Caspian Blue</option><option value="pomegranate">Pomegranate</option><option value="graphite">Graphite</option></select>
+<button type="button" onClick="{{cycleMode}}" aria-label="{{modeLabel}}" class="btn btn-outline btn-icon"><sc-if value="{{isDark}}" hint-placeholder-val="{{ false }}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path></svg></sc-if><sc-if value="{{isLight}}" hint-placeholder-val="{{ true }}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"></path></svg></sc-if></button>
+</div>
+</div>
+</div>
+<sc-if value="{{viewOnly}}" hint-placeholder-val="{{ false }}"><div role="status" class="alert mb-5 flex items-center gap-3 border-amber-500/50 bg-amber-50 text-amber-900 dark:bg-amber-500/10 dark:text-amber-200"><svg class="size-5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"></rect><path d="M8 11V7a4 4 0 0 1 8 0v4"></path></svg><span><strong>View-only access.</strong> Only owners can create campaigns, assign discounts or approve requests. Ask Leyla to change your permissions in Settings.</span></div></sc-if>
+
+<div class="mb-6 grid grid-cols-2 gap-4 xl:grid-cols-5">
+<sc-for list="{{kpis}}" as="k" hint-placeholder-count="5"><button type="button" onClick="{{k.go}}" class="card flex flex-col gap-1 p-4 text-left transition-shadow hover:shadow-md"><span class="text-[13px] font-medium text-muted-foreground">{{k.label}}</span><span class="font-display text-[32px] font-semibold leading-none text-primary">{{k.v}}</span><span class="text-xs text-muted-foreground">{{k.sub}}</span></button></sc-for>
+</div>
+
+<div role="tablist" aria-label="Discount sections" class="tabs-list no-scrollbar mb-6 max-w-full justify-start overflow-x-auto"><sc-for list="{{tabs}}" as="t" hint-placeholder-count="5"><button type="button" role="tab" aria-selected="{{t.on}}" onClick="{{t.pick}}" class="tabs-trigger">{{t.label}}<sc-if value="{{t.n}}" hint-placeholder-val="{{ false }}"><span class="{{t.nCls}}">{{t.n}}</span></sc-if></button></sc-for></div>
+
+<!-- CAMPAIGNS -->
+<sc-if value="{{tCamp}}" hint-placeholder-val="{{ true }}">
+<div class="mb-4 flex flex-wrap items-center justify-between gap-3">
+<div role="group" aria-label="Filter campaigns" class="flex flex-wrap gap-2"><sc-for list="{{cFilters}}" as="c" hint-placeholder-count="5"><button type="button" class="chip h-9 px-3.5 text-[13px]" aria-pressed="{{c.on}}" onClick="{{c.pick}}">{{c.label}} · {{c.n}}</button></sc-for></div>
+<button type="button" onClick="{{newCamp}}" disabled="{{viewOnly}}" class="btn btn-default">+ New campaign</button>
+</div>
+<div class="card overflow-hidden"><ul class="divide-y lg:hidden"><sc-for list="{{camps}}" as="c" hint-placeholder-count="5"><li class="flex flex-col gap-2 p-4"><div class="flex items-start justify-between gap-3"><div class="min-w-0"><p class="font-bold">{{c.name}}</p><p class="text-xs text-muted-foreground">{{c.valid}}</p></div><span class="{{c.stCls}}">{{c.status}}</span></div><div class="flex flex-wrap gap-1.5"><span class="badge badge-highlight">{{c.disc}}</span><span class="{{c.visCls}}">{{c.visTxt}}</span><span class="badge badge-outline">{{c.uses}} uses</span></div><p class="text-[13px] text-muted-foreground">{{c.toursTxt}} · {{c.elig}}</p><div class="flex items-center gap-2 pt-1"><span class="flex items-center gap-2 text-sm font-semibold"><button type="button" role="switch" class="switch" aria-checked="{{c.activeA}}" aria-label="Active: {{c.name}}" disabled="{{viewOnly}}" onClick="{{c.tog}}"><span class="switch-thumb"></span></button>Active</span><button type="button" onClick="{{c.edit}}" disabled="{{viewOnly}}" class="btn btn-outline btn-sm ml-auto">Edit</button><button type="button" onClick="{{c.del}}" disabled="{{viewOnly}}" aria-label="Delete {{c.name}}" class="btn btn-ghost btn-sm text-destructive hover:text-destructive">Delete</button></div></li></sc-for></ul><div class="hidden overflow-x-auto lg:block"><table class="table min-w-[1040px]"><thead><tr><th class="pl-6">Campaign</th><th>Discount</th><th>Applies to</th><th>Valid</th><th>Visibility</th><th>Eligibility</th><th>Uses</th><th>Status</th><th>Active</th><th class="pr-6 text-right">Actions</th></tr></thead><tbody>
+<sc-for list="{{camps}}" as="c" hint-placeholder-count="7"><tr><td class="pl-6"><span class="block font-bold">{{c.name}}</span><sc-if value="{{c.code}}" hint-placeholder-val="{{ false }}"><span class="font-mono text-xs text-muted-foreground">{{c.code}}</span></sc-if></td><td class="whitespace-nowrap font-semibold">{{c.disc}}</td><td class="max-w-[200px] text-[13px] text-muted-foreground">{{c.toursTxt}}</td><td class="whitespace-nowrap text-[13px]">{{c.valid}}</td><td><span class="{{c.visCls}}">{{c.visTxt}}</span></td><td class="text-[13px] text-muted-foreground">{{c.elig}}</td><td>{{c.uses}}</td><td><span class="{{c.stCls}}">{{c.status}}</span></td>
+<td><button type="button" role="switch" class="switch" aria-checked="{{c.activeA}}" aria-label="Active: {{c.name}}" disabled="{{viewOnly}}" onClick="{{c.tog}}"><span class="switch-thumb"></span></button></td>
+<td class="whitespace-nowrap pr-6 text-right"><button type="button" onClick="{{c.edit}}" disabled="{{viewOnly}}" class="btn btn-outline btn-sm">Edit</button> <button type="button" onClick="{{c.del}}" disabled="{{viewOnly}}" aria-label="Delete {{c.name}}" class="btn btn-ghost btn-sm text-destructive hover:text-destructive">Delete</button></td></tr></sc-for>
+</tbody></table></div>
+<sc-if value="{{campEmpty}}" hint-placeholder-val="{{ false }}"><p class="p-10 text-center text-muted-foreground">No campaigns in this view.</p></sc-if></div>
+<p class="mt-3 text-[13px] text-muted-foreground">Expired, scheduled and inactive campaigns are hidden from the website and can’t be applied. Only one discount applies per booking — the best one.</p>
+</sc-if>
+
+<!-- PERSONAL -->
+<sc-if value="{{tMan}}" hint-placeholder-val="{{ false }}">
+<div class="grid gap-6 2xl:grid-cols-[420px_1fr]">
+<section class="card h-fit" aria-labelledby="as">
+<div class="card-header"><h2 id="as" class="card-title">Assign a personal discount</h2><p class="card-description">Applied automatically when this customer books with their email. Single use.</p></div>
+<div class="card-content flex flex-col gap-4">
+<div class="relative flex flex-col gap-2"><label class="label" for="cs">Customer or booking</label><input id="cs" class="input" placeholder="Search name, email or booking ref…" value="{{mq}}" onInput="{{onMq}}" aria-invalid="{{mErr.custInv}}" autocomplete="off">
+<sc-if value="{{showMatches}}" hint-placeholder-val="{{ false }}"><ul role="listbox" class="absolute top-full z-20 mt-1 max-h-64 w-full overflow-y-auto rounded-md border bg-popover p-1 shadow-lg"><sc-for list="{{matches}}" as="m" hint-placeholder-count="4"><li><button type="button" role="option" onClick="{{m.pick}}" class="flex w-full flex-col rounded-sm px-3 py-2 text-left text-sm hover:bg-accent"><span class="font-semibold">{{m.name}} <span class="font-normal text-muted-foreground">· {{m.booking}}</span></span><span class="text-xs text-muted-foreground">{{m.email}} · {{m.tourName}}</span></button></li></sc-for></ul></sc-if>
+<sc-if value="{{mErr.cust}}" hint-placeholder-val="{{ false }}"><span class="field-error" role="alert">{{mErr.cust}}</span></sc-if></div>
+<sc-if value="{{picked}}" hint-placeholder-val="{{ false }}"><div class="flex items-center gap-3 rounded-lg border bg-muted/40 p-3"><span class="avatar h-9 w-9 text-xs">{{picked.init}}</span><div class="min-w-0 flex-1 text-sm"><p class="font-bold">{{picked.name}}</p><p class="truncate text-xs text-muted-foreground">{{picked.email}} · {{picked.booking}} · {{picked.tourName}}</p></div><button type="button" onClick="{{clearPick}}" aria-label="Clear customer" class="btn btn-ghost btn-icon">✕</button></div></sc-if>
+<div class="grid grid-cols-2 gap-3"><label class="flex flex-col gap-2"><span class="label">Type</span><select class="select" value="{{mf.type}}" onChange="{{onMf.type}}"><option value="percent">Percentage</option><option value="fixed">Fixed amount</option></select></label><label class="flex flex-col gap-2"><span class="label">{{mfValueLabel}}</span><input class="input" type="number" min="1" value="{{mf.value}}" onInput="{{onMf.value}}" aria-invalid="{{mErr.valueInv}}"></label></div>
+<sc-if value="{{mErr.value}}" hint-placeholder-val="{{ false }}"><span class="field-error" role="alert">{{mErr.value}}</span></sc-if>
+<label class="flex flex-col gap-2"><span class="label">Applies to</span><select class="select" value="{{mf.tour}}" onChange="{{onMf.tour}}"><option value="any">Any tour</option><sc-for list="{{tourOpts}}" as="o" hint-placeholder-count="6"><option value="{{o.v}}">{{o.l}}</option></sc-for></select></label>
+<label class="flex flex-col gap-2"><span class="label">Expiry date <span class="font-normal text-muted-foreground">(optional)</span></span><input class="input" type="date" value="{{mf.expiry}}" onInput="{{onMf.expiry}}"></label>
+<label class="flex flex-col gap-2"><span class="label">Internal note <span class="font-normal text-muted-foreground">· not shown to the customer</span></span><textarea class="textarea" rows="2" value="{{mf.note}}" onInput="{{onMf.note}}" placeholder="Why this discount was given"></textarea></label>
+<sc-if value="{{mPreview}}" hint-placeholder-val="{{ false }}"><div class="rounded-lg bg-secondary/60 p-3 text-sm">{{mPreview}}</div></sc-if>
+<sc-if value="{{mDup}}" hint-placeholder-val="{{ false }}"><div role="alert" class="alert border-amber-500/50 bg-amber-50 text-sm text-amber-900 dark:bg-amber-500/10 dark:text-amber-200">{{mDup}} Applying will replace it so the customer can’t receive two.</div></sc-if>
+<button type="button" onClick="{{assign}}" disabled="{{viewOnly}}" class="btn btn-default btn-lg">{{assignLabel}}</button>
+</div>
+</section>
+<section class="card overflow-hidden" aria-labelledby="ml">
+<div class="flex items-center justify-between p-5 pb-3 sm:p-6 sm:pb-3"><div><h2 id="ml" class="card-title">Assigned personal discounts</h2><p class="card-description mt-1.5">Full record for auditing — revoked and used discounts stay listed.</p></div></div>
+<ul class="divide-y lg:hidden"><sc-for list="{{mans}}" as="m" hint-placeholder-count="3"><li class="flex flex-col gap-1.5 p-4"><div class="flex items-start justify-between gap-3"><div class="min-w-0"><p class="font-bold">{{m.name}}</p><p class="truncate text-xs text-muted-foreground">{{m.email}} · {{m.booking}}</p></div><span class="{{m.stCls}}">{{m.status}}</span></div><p class="text-sm"><span class="font-semibold">{{m.disc}}</span> · {{m.tourName}} · expires {{m.exp}}</p><p class="text-xs text-eyebrow">Note: {{m.note}}</p><div class="flex items-center justify-between gap-2"><span class="text-xs text-muted-foreground">{{m.by}} · {{m.at}}</span><sc-if value="{{m.canRevoke}}" hint-placeholder-val="{{ true }}"><button type="button" onClick="{{m.revoke}}" disabled="{{viewOnly}}" class="btn btn-ghost btn-sm text-destructive hover:text-destructive">Revoke</button></sc-if></div></li></sc-for></ul>
+<div class="hidden overflow-x-auto lg:block"><table class="table min-w-[860px]"><thead><tr><th class="pl-6">Customer</th><th>Discount</th><th>Applies to</th><th>Expires</th><th>Status</th><th>Assigned</th><th class="pr-6 text-right">Action</th></tr></thead><tbody>
+<sc-for list="{{mans}}" as="m" hint-placeholder-count="3"><tr class="align-top"><td class="pl-6"><span class="block font-bold">{{m.name}}</span><span class="text-xs text-muted-foreground">{{m.email}} · {{m.booking}}</span><span class="mt-1 block text-xs text-eyebrow">Note: {{m.note}}</span></td><td class="whitespace-nowrap font-semibold">{{m.disc}}</td><td class="text-[13px]">{{m.tourName}}</td><td class="whitespace-nowrap text-[13px]">{{m.exp}}</td><td><span class="{{m.stCls}}">{{m.status}}</span></td><td class="text-xs text-muted-foreground">{{m.by}}<br>{{m.at}}</td><td class="pr-6 text-right"><sc-if value="{{m.canRevoke}}" hint-placeholder-val="{{ true }}"><button type="button" onClick="{{m.revoke}}" disabled="{{viewOnly}}" class="btn btn-ghost btn-sm text-destructive hover:text-destructive">Revoke</button></sc-if></td></tr></sc-for>
+</tbody></table></div>
+</section>
+</div>
+</sc-if>
+
+<!-- REQUESTS -->
+<sc-if value="{{tReq}}" hint-placeholder-val="{{ false }}">
+<sc-if value="{{reqOff}}" hint-placeholder-val="{{ false }}"><div class="alert mb-4 flex flex-wrap items-center justify-between gap-3 bg-background"><span><strong>Discount requests are turned off.</strong> Customers can’t send new requests; existing ones are still listed.</span><button type="button" onClick="{{goSettings}}" class="btn btn-outline btn-sm">Open settings</button></div></sc-if>
+<div role="group" aria-label="Filter requests" class="mb-4 flex flex-wrap gap-2"><sc-for list="{{rFilters}}" as="c" hint-placeholder-count="4"><button type="button" class="chip h-9 px-3.5 text-[13px]" aria-pressed="{{c.on}}" onClick="{{c.pick}}">{{c.label}} · {{c.n}}</button></sc-for></div>
+<div class="card overflow-hidden"><ul class="divide-y"><sc-for list="{{reqs}}" as="r" hint-placeholder-count="4"><li><button type="button" onClick="{{r.open}}" class="flex w-full flex-wrap items-center gap-x-4 gap-y-2 px-4 py-4 text-left hover:bg-muted/50 sm:px-6">
+<span class="avatar">{{r.init}}</span><span class="min-w-[180px] flex-1"><span class="block font-bold">{{r.name}} <span class="font-normal text-muted-foreground">· {{r.id}}</span></span><span class="text-[13px] text-muted-foreground">{{r.tourName}} · {{r.guests}} guest(s) · {{r.booking}}</span></span>
+<span class="text-sm"><span class="block text-xs text-muted-foreground">Requested</span><span class="font-semibold">{{r.asked}}</span></span><span class="text-sm"><span class="block text-xs text-muted-foreground">Price after</span><span class="font-semibold">{{r.after}}</span></span>
+<span class="text-xs text-muted-foreground">{{r.at}}</span><span class="{{r.cls}}">{{r.status}}</span></button></li></sc-for></ul>
+<sc-if value="{{reqEmpty}}" hint-placeholder-val="{{ false }}"><p class="p-10 text-center text-muted-foreground">No requests in this view.</p></sc-if></div>
+</sc-if>
+
+<!-- AUDIT -->
+<sc-if value="{{tLog}}" hint-placeholder-val="{{ false }}">
+<div role="group" aria-label="Filter history" class="mb-4 flex flex-wrap gap-2"><sc-for list="{{lFilters}}" as="c" hint-placeholder-count="6"><button type="button" class="chip h-9 px-3.5 text-[13px]" aria-pressed="{{c.on}}" onClick="{{c.pick}}">{{c.label}}</button></sc-for></div>
+<div class="card overflow-hidden"><ul class="divide-y md:hidden"><sc-for list="{{logs}}" as="l" hint-placeholder-count="6"><li class="flex flex-col gap-1 p-4"><div class="flex items-center justify-between gap-2"><span class="text-xs text-muted-foreground">{{l.at}}</span><span class="{{l.cls}}">{{l.kindL}}</span></div><p class="text-sm">{{l.what}}</p><p class="text-xs font-semibold text-muted-foreground">{{l.who}}</p></li></sc-for></ul><div class="hidden overflow-x-auto md:block"><table class="table min-w-[720px]"><thead><tr><th class="pl-6">When</th><th>Who</th><th>What happened</th><th class="pr-6">Type</th></tr></thead><tbody>
+<sc-for list="{{logs}}" as="l" hint-placeholder-count="8"><tr><td class="whitespace-nowrap pl-6 text-[13px] text-muted-foreground">{{l.at}}</td><td class="text-sm font-semibold">{{l.who}}</td><td class="text-sm">{{l.what}}</td><td class="pr-6"><span class="{{l.cls}}">{{l.kindL}}</span></td></tr></sc-for>
+</tbody></table></div></div>
+<p class="mt-3 text-[13px] text-muted-foreground">History can’t be edited or deleted. Every campaign change, assignment, decision and redemption is recorded.</p>
+</sc-if>
+
+<!-- SETTINGS -->
+<sc-if value="{{tSet}}" hint-placeholder-val="{{ false }}">
+<div class="grid max-w-5xl gap-6 lg:grid-cols-2">
+<section class="card" aria-labelledby="rs"><div class="card-header"><h2 id="rs" class="card-title">Customer discount requests</h2><p class="card-description">Let customers ask for a special discount when no offer applies.</p></div>
+<div class="card-content flex flex-col gap-5">
+<div class="flex items-center justify-between gap-4 rounded-lg border p-4"><span><span class="block text-sm font-semibold">Allow discount requests</span><span class="text-xs text-muted-foreground">When off, the request option is hidden on the website.</span></span><button type="button" role="switch" class="switch" aria-checked="{{set.reqA}}" aria-label="Allow discount requests" disabled="{{viewOnly}}" onClick="{{togReq}}"><span class="switch-thumb"></span></button></div>
+<div class="flex flex-col gap-2 rounded-lg border p-4"><div class="flex flex-wrap items-center justify-between gap-2"><span class="label" id="mx">Maximum discount customers can request</span><span class="badge badge-outline gap-1"><svg class="size-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"></rect><path d="M8 11V7a4 4 0 0 1 8 0v4"></path></svg>Private · never shown to customers</span></div>
+<div class="flex items-center gap-2"><input class="input w-24" type="number" min="1" max="90" step="1" aria-labelledby="mx" value="{{maxDraft}}" onInput="{{onMax}}" disabled="{{viewOnly}}" aria-invalid="{{maxErrInv}}"><span class="text-sm text-muted-foreground">% of the trip price · all tours</span><button type="button" onClick="{{saveMax}}" disabled="{{viewOnly}}" class="btn btn-outline btn-sm ml-auto">Save</button></div>
+<sc-if value="{{maxErr}}" hint-placeholder-val="{{ false }}"><span class="field-error" role="alert">{{maxErr}}</span></sc-if>
+<p class="text-xs leading-relaxed text-muted-foreground">Fixed-amount requests are converted to a percentage of the trip price and held to the same limit. Larger requests are blocked with a general message that doesn’t reveal this number.</p>
+<sc-if value="{{overMaxCount}}" hint-placeholder-val="{{ false }}"><p class="text-xs font-semibold text-amber-700 dark:text-amber-400">{{overMaxCount}} pending request(s) are above this limit — you can approve them only up to the limit, or reject.</p></sc-if>
+</div>
+<label class="flex flex-col gap-2"><span class="label">Promised response time</span><select class="select" value="{{set.days}}" onChange="{{onDays}}" disabled="{{viewOnly}}"><option value="1">Within 1 day</option><option value="2">Within 2 days</option><option value="3">Within 3 days</option></select></label>
+<label class="flex flex-col gap-2"><span class="label">Notify customers about decisions by</span><select class="select" value="{{set.notify}}" onChange="{{onNotify}}" disabled="{{viewOnly}}"><option value="email+whatsapp">Email &amp; WhatsApp</option><option value="email">Email only</option><option value="whatsapp">WhatsApp only</option></select></label>
+</div></section>
+<section class="card" aria-labelledby="ps"><div class="card-header"><h2 id="ps" class="card-title">Rules &amp; permissions</h2><p class="card-description">Who can change pricing, and how discounts combine.</p></div>
+<div class="card-content flex flex-col gap-4">
+<div class="rounded-lg bg-secondary/60 p-4 text-sm"><p class="font-semibold">Combining discounts</p><p class="mt-1 text-muted-foreground">Never combined. Each booking gets the single best eligible discount — public offer, private offer, personal discount or approved request. Personal and approved discounts are locked after one use.</p></div>
+<div class="divide-y rounded-lg border text-sm">
+<div class="flex items-center justify-between gap-3 p-3"><span class="flex items-center gap-3"><span class="avatar h-8 w-8 text-xs">LM</span><span><span class="block font-semibold">Leyla Mammadova</span><span class="text-xs text-muted-foreground">Owner</span></span></span><span class="badge badge-confirmed">Full control</span></div>
+<div class="flex items-center justify-between gap-3 p-3"><span class="flex items-center gap-3"><span class="avatar h-8 w-8 bg-secondary text-xs text-secondary-foreground">KA</span><span><span class="block font-semibold">Kamran Huseynov</span><span class="text-xs text-muted-foreground">Assistant</span></span></span><span class="badge badge-secondary">View only</span></div>
+</div>
+<p class="text-xs text-muted-foreground">Only owners can create or edit campaigns, assign personal discounts, and approve or reject requests.</p>
+<div class="rounded-lg border p-4 text-sm"><p class="font-semibold">How limits are enforced</p><ol class="mt-2 flex list-decimal flex-col gap-1 pl-5 text-muted-foreground"><li>Checked in the customer’s browser as they type, with a general message.</li><li>Re-checked by the server when the request is submitted. Tampered or oversized requests are refused (422).</li><li>Re-checked when you decide: the approval can’t exceed what was asked for or your current maximum, and only owners can decide (403).</li></ol></div>
+</div></section>
+</div>
+</sc-if>
+</main>
+
+<!-- CAMPAIGN EDITOR -->
+<sc-if value="{{cOpen}}" hint-placeholder-val="{{ false }}">
+<div class="overlay" onClick="{{closeAll}}"></div>
+<aside role="dialog" aria-modal="true" aria-label="{{cHead}}" class="sheet-right overflow-y-auto sm:max-w-2xl">
+<div class="sticky top-0 z-10 flex items-center justify-between border-b bg-background px-6 py-4"><h2 class="font-display text-3xl font-semibold text-primary">{{cHead}}</h2><button type="button" onClick="{{closeAll}}" aria-label="Close" class="btn btn-outline btn-icon">✕</button></div>
+<div class="flex flex-col gap-5 p-6">
+<div class="grid gap-4 sm:grid-cols-[1fr_180px]"><label class="flex flex-col gap-2"><span class="label">Campaign name</span><input class="input" value="{{cf.name}}" onInput="{{onCf.name}}" aria-invalid="{{cErr.nameInv}}"><sc-if value="{{cErr.name}}" hint-placeholder-val="{{ false }}"><span class="field-error" role="alert">{{cErr.name}}</span></sc-if></label><label class="flex flex-col gap-2"><span class="label">Code <span class="font-normal text-muted-foreground">(optional)</span></span><input class="input font-mono uppercase" value="{{cf.code}}" onInput="{{onCf.code}}" placeholder="AUTUMN15"></label></div>
+<div class="grid gap-4 sm:grid-cols-2"><label class="flex flex-col gap-2"><span class="label">Discount type</span><select class="select" value="{{cf.type}}" onChange="{{onCf.type}}"><option value="percent">Percentage off the trip</option><option value="fixed">Fixed amount off per booking</option></select></label><label class="flex flex-col gap-2"><span class="label">{{cfValueLabel}}</span><input class="input" type="number" min="1" value="{{cf.value}}" onInput="{{onCf.value}}" aria-invalid="{{cErr.valueInv}}"><sc-if value="{{cErr.value}}" hint-placeholder-val="{{ false }}"><span class="field-error" role="alert">{{cErr.value}}</span></sc-if></label></div>
+<div class="grid gap-4 sm:grid-cols-2"><label class="flex flex-col gap-2"><span class="label">Starts</span><input class="input" type="date" value="{{cf.start}}" onInput="{{onCf.start}}"></label><label class="flex flex-col gap-2"><span class="label">Ends</span><input class="input" type="date" value="{{cf.end}}" onInput="{{onCf.end}}" aria-invalid="{{cErr.endInv}}"><sc-if value="{{cErr.end}}" hint-placeholder-val="{{ false }}"><span class="field-error" role="alert">{{cErr.end}}</span></sc-if></label></div>
+<fieldset><legend class="label mb-2">Applicable tour packages</legend><div class="grid gap-2 rounded-lg border p-3 sm:grid-cols-2"><label class="flex items-center gap-2 text-sm font-semibold sm:col-span-2"><input type="checkbox" class="checkbox" checked="{{cfAll}}" onChange="{{togAll}}">All tours</label><sc-for list="{{cfTours}}" as="o" hint-placeholder-count="9"><label class="flex items-center gap-2 text-sm"><input type="checkbox" class="checkbox" checked="{{o.on}}" onChange="{{o.tog}}">{{o.l}}</label></sc-for></div><sc-if value="{{cErr.tours}}" hint-placeholder-val="{{ false }}"><span class="field-error mt-1 block" role="alert">{{cErr.tours}}</span></sc-if></fieldset>
+<fieldset><legend class="label mb-2">Visibility</legend><div role="radiogroup" class="grid gap-2 sm:grid-cols-2"><sc-for list="{{visOpts}}" as="v" hint-placeholder-count="2"><button type="button" role="radio" aria-checked="{{v.on}}" onClick="{{v.pick}}" class="rounded-lg border-2 border-border p-3 text-left aria-checked:border-primary aria-checked:bg-accent"><span class="block text-sm font-bold">{{v.l}}</span><span class="text-xs text-muted-foreground">{{v.d}}</span></button></sc-for></div></fieldset>
+<sc-if value="{{cfPrivate}}" hint-placeholder-val="{{ false }}"><label class="flex flex-col gap-2"><span class="label">Assigned customers <span class="font-normal text-muted-foreground">· emails, one per line</span></span><textarea class="textarea font-mono text-sm" rows="3" value="{{cfAssigned}}" onInput="{{onAssigned}}" aria-invalid="{{cErr.assignedInv}}"></textarea><sc-if value="{{cErr.assigned}}" hint-placeholder-val="{{ false }}"><span class="field-error" role="alert">{{cErr.assigned}}</span></sc-if></label></sc-if>
+<fieldset><legend class="label mb-2">Eligibility <span class="font-normal text-muted-foreground">· leave 0 for no rule</span></legend><div class="grid gap-3 sm:grid-cols-3"><label class="flex flex-col gap-1.5 text-[13px]">Minimum guests<input class="input" type="number" min="0" value="{{cf.minGuests}}" onInput="{{onCf.minGuests}}"></label><label class="flex flex-col gap-1.5 text-[13px]">Minimum children<input class="input" type="number" min="0" value="{{cf.minChildren}}" onInput="{{onCf.minChildren}}"></label><label class="flex flex-col gap-1.5 text-[13px]">Book days ahead<input class="input" type="number" min="0" value="{{cf.bookAhead}}" onInput="{{onCf.bookAhead}}"></label></div></fieldset>
+<label class="flex flex-col gap-2"><span class="label">Description on the Offers page</span><textarea class="textarea" rows="2" value="{{cf.blurb}}" onInput="{{onCf.blurb}}"></textarea></label>
+<div class="flex items-center justify-between gap-4 rounded-lg border p-4"><span><span class="block text-sm font-semibold">Active</span><span class="text-xs text-muted-foreground">Inactive campaigns are hidden and never applied.</span></span><button type="button" role="switch" class="switch" aria-checked="{{cfActive}}" aria-label="Active" onClick="{{togCfActive}}"><span class="switch-thumb"></span></button></div>
+<sc-if value="{{cPreview}}" hint-placeholder-val="{{ false }}"><div class="rounded-lg bg-secondary/60 p-4"><p class="mb-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">Price preview · per adult</p><ul class="flex flex-col gap-1 text-sm"><sc-for list="{{cPreview}}" as="p" hint-placeholder-count="2"><li class="flex justify-between gap-3"><span>{{p.n}}</span><span><span class="mr-2 text-muted-foreground line-through">{{p.o}}</span><strong>{{p.v}}</strong></span></li></sc-for></ul></div></sc-if>
+</div>
+<div class="sticky bottom-0 flex justify-end gap-2 border-t bg-background px-6 py-4"><button type="button" onClick="{{closeAll}}" class="btn btn-outline">Cancel</button><button type="button" onClick="{{saveCamp}}" class="btn btn-default">Save campaign</button></div>
+</aside>
+</sc-if>
+
+<!-- REQUEST DETAIL -->
+<sc-if value="{{rOpen}}" hint-placeholder-val="{{ false }}">
+<div class="overlay" onClick="{{closeAll}}"></div>
+<aside role="dialog" aria-modal="true" aria-label="Request {{rd.id}}" class="sheet-right overflow-y-auto sm:max-w-xl">
+<div class="sticky top-0 z-10 flex items-start justify-between gap-3 border-b bg-background p-6"><div><p class="text-[13px] text-muted-foreground">{{rd.id}} · received {{rd.at}}</p><h2 class="my-1 font-display text-3xl font-semibold text-primary">{{rd.name}}</h2><span class="{{rd.cls}}">{{rd.status}}</span></div><button type="button" onClick="{{closeAll}}" aria-label="Close" class="btn btn-outline btn-icon">✕</button></div>
+<div class="flex flex-col gap-5 p-6">
+<section class="flex flex-col gap-2 rounded-lg bg-muted/60 p-4 text-sm"><div class="flex justify-between gap-3"><span class="text-muted-foreground">Email</span><span class="font-semibold">{{rd.email}}</span></div><div class="flex justify-between gap-3"><span class="text-muted-foreground">Phone</span><span class="font-semibold">{{rd.phone}}</span></div><div class="flex justify-between gap-3"><span class="text-muted-foreground">Booking</span><a href="PhoneAdminBookings.dc.html" class="font-semibold text-primary underline-offset-4 hover:underline">{{rd.booking}}</a></div></section>
+<dl class="grid grid-cols-[140px_1fr] gap-x-4 gap-y-2.5 text-sm"><dt class="text-muted-foreground">Tour</dt><dd class="font-semibold">{{rd.tourName}}</dd><dt class="text-muted-foreground">Guests</dt><dd>{{rd.guests}}</dd><dt class="text-muted-foreground">Trip price</dt><dd>{{rd.base}}</dd><dt class="text-muted-foreground">Requested</dt><dd class="font-semibold">{{rd.asked}} ({{rd.askedAmt}}) → {{rd.after}}</dd><dt class="text-muted-foreground">Your private max</dt><dd>{{rd.max}}% <span class="text-xs text-muted-foreground">· not visible to the customer</span></dd><dt class="text-muted-foreground">Reason</dt><dd class="leading-relaxed">“{{rd.reason}}”</dd><dt class="text-muted-foreground">Existing offers</dt><dd>{{rd.offers}}</dd></dl>
+<sc-if value="{{rd.decided}}" hint-placeholder-val="{{ false }}"><div class="{{rd.decCls}}"><p class="font-bold">{{rd.decTitle}}</p><p class="mt-1">{{rd.decText}}</p><p class="mt-2 text-xs opacity-80">{{rd.decMeta}}</p></div></sc-if>
+<sc-if value="{{rd.pending}}" hint-placeholder-val="{{ true }}">
+<div class="separator"></div>
+<div role="tablist" aria-label="Decision" class="tabs-list grid w-full grid-cols-3"><sc-for list="{{decTabs}}" as="t" hint-placeholder-count="2"><button type="button" role="tab" aria-selected="{{t.on}}" aria-disabled="{{t.dis}}" onClick="{{t.pick}}" class="tabs-trigger aria-disabled:cursor-not-allowed aria-disabled:opacity-40">{{t.label}}</button></sc-for></div>
+<sc-if value="{{rd.overMax}}" hint-placeholder-val="{{ false }}"><div role="alert" class="alert border-amber-500/50 bg-amber-50 text-sm text-amber-900 dark:bg-amber-500/10 dark:text-amber-200">This request ({{rd.askedPct}}%) is above your current private maximum of {{rd.max}}%. You can approve up to {{rd.max}}% or reject it.</div></sc-if>
+<sc-if value="{{decFull}}" hint-placeholder-val="{{ true }}"><p class="rounded-lg bg-secondary/60 p-3 text-sm">Approve <strong>{{rd.asked}}</strong> ({{rd.askedAmt}} off) — customer pays <strong>{{rd.after}}</strong> instead of {{rd.base}}. Linked to {{rd.email}} and {{rd.booking}} · single use.</p></sc-if>
+<sc-if value="{{decLower}}" hint-placeholder-val="{{ false }}"><div class="flex flex-col gap-3">
+<div class="grid grid-cols-2 gap-3"><label class="flex flex-col gap-2"><span class="label">Approve as</span><select class="select" value="{{df.type}}" onChange="{{onDf.type}}"><option value="percent">Percentage</option><option value="fixed">Fixed amount</option></select></label><label class="flex flex-col gap-2"><span class="label">{{dfValueLabel}}</span><input class="input" type="number" min="1" value="{{df.value}}" onInput="{{onDf.value}}" aria-invalid="{{dErrInv}}"></label></div>
+<p class="field-hint">{{lowerHint}}</p>
+<sc-if value="{{lowerWarn}}" hint-placeholder-val="{{ false }}"><p role="alert" class="field-error">{{lowerWarn}}</p></sc-if>
+<p class="rounded-lg bg-secondary/60 p-3 text-sm">Customer pays <strong>{{dfAfter}}</strong> instead of {{rd.base}} · single use</p>
+</div></sc-if>
+<sc-if value="{{decReject}}" hint-placeholder-val="{{ false }}"><label class="flex flex-col gap-2"><span class="label">Reason shown to the customer</span><textarea class="textarea" rows="3" value="{{df.reason}}" onInput="{{onDf.reason}}" aria-invalid="{{dErrInv}}" placeholder="e.g. We can’t discount peak dates, but the Autumn offer applies in October."></textarea></label></sc-if>
+<label class="flex flex-col gap-2"><span class="label">Internal note <span class="font-normal text-muted-foreground">(optional)</span></span><textarea class="textarea" rows="2" value="{{df.note}}" onInput="{{onDf.note}}"></textarea></label>
+<label class="flex items-center gap-3 text-sm font-semibold"><input type="checkbox" class="checkbox h-5 w-5" checked="{{df.notify}}" onChange="{{togNotify}}">Notify {{rd.first}} by {{notifyLabel}}</label>
+<sc-if value="{{dErr}}" hint-placeholder-val="{{ false }}"><span class="field-error" role="alert">{{dErr}}</span></sc-if>
+<sc-if value="{{viewOnly}}" hint-placeholder-val="{{ false }}"><p class="text-sm text-muted-foreground">You have view-only access — only owners can decide.</p></sc-if>
+<div class="flex gap-2"><button type="button" onClick="{{decide}}" disabled="{{viewOnly}}" class="{{decBtnCls}}">{{decBtn}}</button><button type="button" onClick="{{closeAll}}" class="btn btn-outline">Later</button></div>
+</sc-if>
+</div>
+</aside>
+</sc-if>
+
+<sc-if value="{{confirmOpen}}" hint-placeholder-val="{{ false }}">
+<div class="overlay !z-[60]"></div>
+<div role="alertdialog" aria-modal="true" aria-label="Confirm" class="dialog !z-[60]"><div><h2 class="text-lg font-bold">{{confirmTitle}}</h2><p class="mt-2 text-sm text-muted-foreground">{{confirmText}}</p></div><div class="flex justify-end gap-2"><button type="button" onClick="{{cancelConfirm}}" class="btn btn-outline">Cancel</button><button type="button" onClick="{{doConfirm}}" class="btn btn-destructive">{{confirmBtn}}</button></div></div>
+</sc-if>
+<sc-if value="{{toast}}" hint-placeholder-val="{{ false }}"><div role="status" class="toast"><span class="h-2 w-2 rounded-full bg-emerald-500"></span>{{toast}}</div></sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":3300},"startTab":{"editor":"enum","options":["campaigns","personal","requests","history","settings"],"default":"campaigns","section":"States"},"theme":{"editor":"enum","options":["admin","emerald","caspian","pomegranate","graphite"],"default":"admin","section":"Theme"},"mode":{"editor":"enum","options":["admin","light","dark","system"],"default":"admin","section":"Theme"}}'>
+class Component extends DCLogic {
+  constructor(p){ super(p); this.state = { tab: p.startTab || 'campaigns', role:'owner', cFilter:'All', rFilter:'Pending', lFilter:'all', toast:'', drawer:null, edit:null, cf:null, cTouched:false, rSel:null, decMode:'full', df:null, dTouched:false, confirm:null, mq:'', mPick:null, mf:{ type:'percent', value:'10', tour:'any', expiry:'', note:'' }, mTouched:false }; }
+  img(){ return { baku:'/_blob/53de85c911d3fd172f7f056fc041c3f6', oldcity:'/_blob/71ba1da1636ea18bc8040e2f214c9564', gobustan:'/_blob/1d3b95a6d499c80338e0cfbcce073964', yanardag:'/_blob/caa98c1d37e045432aedeba5937e3fb1', sheki:'/_blob/99cec70a9ac8cc922169a9d4cda6cfd7', khinalug:'/_blob/b1e6bea4cb0d3847910a8759889b2e6b', caspian:'/_blob/feb92edafca2a9ad4057997c2c80419b', lankaran:'/_blob/b1af8e934de14e2a69509a83bda2b0e7' }; }
+  uiDefault(){ return { theme: 'emerald', mode: 'light', radius: 'md', font: 'classic' }; }
+  loadUi(){ try { const v = JSON.parse(window.localStorage.getItem('aj-ui') || 'null'); if (v) this.setState({ ui: { ...this.uiDefault(), ...v } }); } catch (e) {} }
+  uiInit(){
+    this.loadUi();
+    this._onStorage = (e) => { if (!e || !e.key || e.key === 'aj-ui') this.loadUi(); };
+    window.addEventListener('storage', this._onStorage);
+    try { this._bc = new BroadcastChannel('aj-ui'); this._bc.onmessage = (m) => { if (m && m.data) this.setState({ ui: { ...this.uiDefault(), ...m.data } }); }; } catch (e) {}
+    try { this._mq = window.matchMedia('(prefers-color-scheme: dark)'); this._mqh = () => this.forceUpdate(); this._mq.addEventListener('change', this._mqh); } catch (e) {}
+    this._onScroll = () => { const s = (window.scrollY || 0) > 40; if (s !== !!(this.state || {}).scrolled) this.setState({ scrolled: s }); };
+    window.addEventListener('scroll', this._onScroll, { passive: true });
+  }
+  uiDestroy(){
+    window.removeEventListener('storage', this._onStorage); window.removeEventListener('scroll', this._onScroll);
+    try { this._bc && this._bc.close(); } catch (e) {} try { this._mq && this._mq.removeEventListener('change', this._mqh); } catch (e) {}
+  }
+  saveUi(patch){
+    const u = { ...this.uiDefault(), ...((this.state || {}).ui || {}), ...patch };
+    try { window.localStorage.setItem('aj-ui', JSON.stringify(u)); } catch (e) {}
+    try { const bc = new BroadcastChannel('aj-ui'); bc.postMessage(u); bc.close(); } catch (e) {}
+    this.setState({ ui: u });
+  }
+  uiVals(overHero){
+    const st = this.state || {}, p = this.props || {};
+    const u = { ...this.uiDefault(), ...(st.ui || {}) };
+    if (p.theme && p.theme !== 'admin') u.theme = p.theme;
+    if (p.mode && p.mode !== 'admin') u.mode = p.mode;
+    let dark = u.mode === 'dark';
+    if (u.mode === 'system') { try { dark = window.matchMedia('(prefers-color-scheme: dark)').matches; } catch (e) {} }
+    const solid = !overHero || st.scrolled || st.menu;
+    const hdr = solid
+      ? { cls: 'sticky top-0 z-40 border-b bg-background/90 backdrop-blur-md transition-colors duration-300' + (overHero ? ' -mb-20' : ''), link: '', logo: 'text-primary', sub: 'text-eyebrow', icon: 'btn-outline' }
+      : { cls: 'sticky top-0 z-40 -mb-20 border-b border-transparent bg-transparent transition-colors duration-300', link: 'text-hero-foreground hover:bg-hero-foreground/10 hover:text-hero-foreground aria-[current=page]:text-highlight', logo: 'text-hero-foreground', sub: 'text-highlight', icon: 'btn-hero-outline' };
+    return {
+      ui: u, uiTheme: u.theme, uiFont: u.font, uiRadius: u.radius, uiDark: dark ? 'dark' : 'light', isDark: dark, isLight: !dark,
+      offerCount: (() => { try { const D = this.promoData ? this.promoData() : null; return D ? D.campaigns.filter(x => this.campStatus(x) === 'Active' && x.visibility === 'public').length : 4; } catch (e) { return 4; } })(),
+      navOpen: !!st.nav, navExpanded: st.nav ? 'true' : 'false', toggleNav: () => this.setState({ nav: !(this.state || {}).nav }),
+      hdr, menuOpen: !!st.menu, menuExpanded: st.menu ? 'true' : 'false', toggleMenu: () => this.setState({ menu: !(this.state || {}).menu }),
+      cycleMode: () => this.saveUi({ mode: dark ? 'light' : 'dark' }), modeLabel: dark ? 'Switch to light mode' : 'Switch to dark mode',
+      pickTheme: (e) => this.saveUi({ theme: e.target.value })
+    };
+  }
+
+  promoTours(){ return { sheki:{ n:'Silk Road to Sheki', p:690 }, khin:{ n:'Khinalug & Quba Highlands', p:480 }, grand:{ n:'Private Grand Azerbaijan', p:2450 }, fire:{ n:'Fire & Stone: Gobustan & Yanar Dag', p:165 }, old:{ n:'Icherisheher & Flame Towers', p:120 }, food:{ n:'Baku Food & Wine Evening', p:85 }, wine:{ n:'Shamakhi Wine Route', p:210 }, lank:{ n:'Lankaran Tea & Hirkan Forest', p:560 }, bespoke:{ n:'Bespoke Azerbaijan', p:3200 } }; }
+  promoDefaults(){ return {
+    settings: { requestsEnabled: true, maxRequestPct: 30, notify: 'email+whatsapp', responseDays: 2, stacking: 'best' },
+    campaigns: [
+      { id:'c1', name:'Autumn in the Caucasus', code:'', type:'percent', value:15, tours:['sheki','khin'], start:'2026-11-01', end:'2026-12-15', visibility:'public', assigned:[], minGuests:0, minChildren:0, bookAhead:0, active:true, uses:41, blurb:'Golden forests, harvest suppers and crisp mountain air — our favourite season, now 15% off.' },
+      { id:'c2', name:'Early Bird 2027', code:'', type:'fixed', value:300, tours:['grand','bespoke'], start:'2026-11-01', end:'2027-01-31', visibility:'public', assigned:[], minGuests:0, minChildren:0, bookAhead:90, active:true, uses:9, blurb:'Plan your 2027 private journey early and save $300 on the whole trip.' },
+      { id:'c3', name:'Family Adventures', code:'', type:'percent', value:10, tours:['fire','lank'], start:'2026-10-15', end:'2027-02-28', visibility:'public', assigned:[], minGuests:0, minChildren:1, bookAhead:0, active:true, uses:17, blurb:'Travelling with children? Take 10% off our two most family-friendly journeys.' },
+      { id:'c4', name:'Groups of 6+', code:'', type:'percent', value:8, tours:['old','food','fire'], start:'2026-11-10', end:'2027-06-30', visibility:'public', assigned:[], minGuests:6, minChildren:0, bookAhead:0, active:true, uses:6, blurb:'Bring the whole crew — groups of six or more save 8% on Baku day tours.' },
+      { id:'c5', name:'Returning Guests', code:'WELCOMEBACK', type:'percent', value:12, tours:['all'], start:'2026-01-01', end:'2027-12-31', visibility:'private', assigned:['priya@example.com','thomas@example.com'], minGuests:0, minChildren:0, bookAhead:0, active:true, uses:12, blurb:'A thank-you for guests travelling with us again.' },
+      { id:'c6', name:'Novruz Spring 2026', code:'', type:'percent', value:20, tours:['all'], start:'2026-03-01', end:'2026-03-31', visibility:'public', assigned:[], minGuests:0, minChildren:0, bookAhead:0, active:true, uses:58, blurb:'Celebrate the spring festival with 20% off.' },
+      { id:'c7', name:'Caspian Summer', code:'', type:'percent', value:12, tours:['old','food'], start:'2027-06-01', end:'2027-08-31', visibility:'public', assigned:[], minGuests:0, minChildren:0, bookAhead:0, active:false, uses:0, blurb:'Long Baku evenings by the sea.' }
+    ],
+    manual: [
+      { id:'m1', name:'Eleanor Whitfield', email:'eleanor@example.com', booking:'AJ-SHE-4821', tour:'any', type:'percent', value:10, expiry:'2027-05-31', note:'Anniversary gesture — second trip with us', by:'Leyla Mammadova', at:'2026-11-02', usedBy:'' },
+      { id:'m2', name:'Omar Haddad', email:'omar@example.com', booking:'AJ-LAN-6618', tour:'lank', type:'fixed', value:80, expiry:'2026-12-31', note:'Compensation for the guesthouse downgrade on his October trip', by:'Leyla Mammadova', at:'2026-11-04', usedBy:'' },
+      { id:'m3', name:'Claire Dubois', email:'claire@example.com', booking:'AJ-OLD-7720', tour:'old', type:'fixed', value:20, expiry:'2026-11-30', note:'Waited 40 min for driver on her first walk', by:'Leyla Mammadova', at:'2026-10-31', usedBy:'AJ-OLD-7720' }
+    ],
+    requests: [
+      { id:'DR-1046', name:'Kenji Watanabe', email:'kenji@example.com', phone:'+81 90 1234 5678', tour:'old', booking:'AJ-OLD-9034', guests:5, type:'percent', value:15, reason:'Photography group of five — we may book Khinalug in spring too.', status:'Pending', at:'2026-11-15 10:20', decision:null },
+      { id:'DR-1045', name:'Rachel Green', email:'rachel@example.com', phone:'+44 7700 900123', tour:'grand', booking:'AJ-GRA-3412', guests:2, type:'percent', value:10, reason:'Our honeymoon — we are flexible by a week either way.', status:'Pending', at:'2026-11-15 09:05', decision:null },
+      { id:'DR-1043', name:'Maria Santos', email:'maria@example.com', phone:'+55 11 91234 5678', tour:'fire', booking:'AJ-FIR-2045', guests:1, type:'percent', value:10, reason:'Student travelling solo.', status:'Approved', at:'2026-11-10 14:12', decision:{ type:'percent', value:8, note:'Approved 8% for students with ID.', by:'Leyla Mammadova', at:'2026-11-11 09:30', notified:true } },
+      { id:'DR-1041', name:'Marco Rossi', email:'marco@example.com', phone:'+39 333 123 4567', tour:'old', booking:'AJ-OLD-7731', guests:5, type:'fixed', value:60, reason:'Large family on a budget.', status:'Rejected', at:'2026-11-08 18:40', decision:{ reason:'This date is already over capacity — we have suggested another date, where the Groups of 6+ offer may apply.', by:'Leyla Mammadova', at:'2026-11-09 08:15', notified:true } }
+    ],
+    log: [
+      { at:'2026-11-15 10:20', who:'Kenji Watanabe (customer)', what:'Requested 15% off Icherisheher & Flame Towers', kind:'request' },
+      { at:'2026-11-15 09:05', who:'Rachel Green (customer)', what:'Requested 10% off Private Grand Azerbaijan', kind:'request' },
+      { at:'2026-11-11 09:30', who:'Leyla Mammadova', what:'Approved DR-1043 at 8% for Maria Santos · customer notified', kind:'approve' },
+      { at:'2026-11-10 08:00', who:'Leyla Mammadova', what:'Created campaign “Groups of 6+” (8%)', kind:'campaign' },
+      { at:'2026-11-09 08:15', who:'Leyla Mammadova', what:'Rejected DR-1041 for Marco Rossi · customer notified', kind:'reject' },
+      { at:'2026-11-04 16:22', who:'Leyla Mammadova', what:'Assigned $80 personal discount to Omar Haddad (AJ-LAN-6618)', kind:'manual' },
+      { at:'2026-11-02 11:05', who:'Leyla Mammadova', what:'Assigned 10% personal discount to Eleanor Whitfield (AJ-SHE-4821)', kind:'manual' },
+      { at:'2026-10-31 19:40', who:'System', what:'Personal discount $20 used on AJ-OLD-7720 (Claire Dubois)', kind:'used' }
+    ]
+  }; }
+  reqPct(type, value, base){ const v = Number(value); return type === 'percent' ? v : base > 0 ? v / base * 100 : 999; }
+  reqBase(tour, guests){ const T = this.promoTours()[tour]; return T ? T.p * Math.max(1, Number(guests) || 1) : 0; }
+  /* Mirrors the server: POST /api/discount-requests. Never trusts the client payload. */
+  serverSubmitRequest(p){
+    const d = this.promoData(), T = this.promoTours()[p.tour], v = Number(p.value), email = String(p.email || '').trim().toLowerCase();
+    const GENERIC = 'We can’t consider a discount this large for this trip. Please request a smaller amount.';
+    if (!d.settings.requestsEnabled) return { ok:false, code:403, error:'Discount requests aren’t available at the moment.' };
+    if (!T) return { ok:false, code:400, error:'This tour can’t be found.' };
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) return { ok:false, code:422, error:'Add a valid email so we can reply.' };
+    if (!(p.type === 'percent' || p.type === 'fixed') || !isFinite(v) || v <= 0) return { ok:false, code:422, error:'Please enter a valid discount.' };
+    const base = this.reqBase(p.tour, p.guests);
+    if (p.type === 'fixed' && v >= base) return { ok:false, code:422, error: GENERIC };
+    if (this.reqPct(p.type, v, base) > d.settings.maxRequestPct) return { ok:false, code:422, error: GENERIC };
+    if (d.requests.some(r => r.email === email && r.tour === p.tour && r.status === 'Pending')) return { ok:false, code:409, error:'You already have a discount request waiting for this tour.' };
+    return { ok:true, value: Math.round(v * 100) / 100 };
+  }
+  /* Mirrors the server: POST /api/admin/discount-requests/:id/decision (owners only). Re-validates every rule. */
+  serverDecide(id, dec){
+    const d = this.promoData(), r = d.requests.find(x => x.id === id), max = d.settings.maxRequestPct;
+    if (dec.role !== 'owner') return { ok:false, code:403, error:'Only owners can approve or reject discount requests.' };
+    if (!r) return { ok:false, code:404, error:'Request not found.' };
+    if (r.status !== 'Pending') return { ok:false, code:409, error:'This request has already been decided.' };
+    if (dec.action === 'reject') return String(dec.reason || '').trim() ? { ok:true } : { ok:false, code:422, error:'Add a reason so the customer understands.' };
+    const base = this.reqBase(r.tour, r.guests), asked = this.reqPct(r.type, r.value, base), give = this.reqPct(dec.type, dec.value, base);
+    if (!(Number(dec.value) > 0)) return { ok:false, code:422, error:'Enter the discount you’re approving.' };
+    if (give > asked + 1e-9) return { ok:false, code:422, error:'You can’t approve more than the customer asked for (' + this.discLabel(r.type, r.value) + ').' };
+    if (give > max + 1e-9) return { ok:false, code:422, error:'That’s above your maximum of ' + max + '%. Approve ' + max + '% or less, or reject.' };
+    return { ok:true };
+  }
+  promoData(){ return ((this.state || {}).promo) || this.promoDefaults(); }
+  promoLoad(){ try { const v = JSON.parse(window.localStorage.getItem('aj-promo') || 'null'); if (v && v.campaigns) this.setState({ promo: v }); } catch (e) {} }
+  promoInit(){
+    this.promoLoad();
+    this._ps = (e) => { if (!e || !e.key || e.key === 'aj-promo') this.promoLoad(); };
+    window.addEventListener('storage', this._ps);
+    try { this._pbc = new BroadcastChannel('aj-promo'); this._pbc.onmessage = (m) => { if (m && m.data && m.data.campaigns) this.setState({ promo: m.data }); }; } catch (e) {}
+  }
+  promoDestroy(){ window.removeEventListener('storage', this._ps); try { this._pbc && this._pbc.close(); } catch (e) {} }
+  promoSave(d){ try { window.localStorage.setItem('aj-promo', JSON.stringify(d)); } catch (e) {} try { const b = new BroadcastChannel('aj-promo'); b.postMessage(d); b.close(); } catch (e) {} this.setState({ promo: d }); }
+  promoNow(){ return '2026-11-15'; }
+  campStatus(c){ const t = this.promoNow(); if (!c.active) return 'Inactive'; if (c.end < t) return 'Expired'; if (c.start > t) return 'Scheduled'; return 'Active'; }
+  money(n){ return '$' + Math.round(n).toLocaleString('en-US'); }
+  discAmt(type, value, base){ return type === 'percent' ? Math.round(base * value / 100) : Math.min(value, base); }
+  discLabel(type, value){ return type === 'percent' ? value + '% off' : '$' + value + ' off'; }
+  daysBetween(a, b){ return Math.round((new Date(b + 'T00:00:00') - new Date(a + 'T00:00:00')) / 86400000); }
+  eligText(c){ const r = []; if (c.minGuests) r.push(c.minGuests + '+ guests'); if (c.minChildren) r.push('at least ' + c.minChildren + ' child'); if (c.bookAhead) r.push('booked ' + c.bookAhead + '+ days ahead'); if (c.visibility === 'private') r.push('assigned guests only'); return r.length ? r.join(' · ') : 'Everyone'; }
+  quote(tid, ad, kd, opt){
+    const o = opt || {}, D = this.promoData(), PT = this.promoTours(), T = PT[tid] || { p:0, n:'' }, base = ad * T.p + kd * T.p / 2, email = (o.email || '').trim().toLowerCase();
+    const c = [];
+    D.campaigns.forEach(x => {
+      if (this.campStatus(x) !== 'Active') return;
+      if (!(x.tours.includes('all') || x.tours.includes(tid))) return;
+      if (x.visibility === 'private' && !(email && x.assigned.includes(email))) return;
+      if (x.minGuests && ad + kd < x.minGuests) return;
+      if (x.minChildren && kd < x.minChildren) return;
+      if (x.bookAhead && (!o.date || this.daysBetween(this.promoNow(), o.date) < x.bookAhead)) return;
+      c.push({ source: x.visibility === 'private' ? 'Private offer' : 'Public offer', label: x.name, type: x.type, value: x.value, amount: this.discAmt(x.type, x.value, base), id: x.id });
+    });
+    if (email) {
+      D.manual.forEach(m => { if (m.email === email && !m.usedBy && m.expiry >= this.promoNow() && (m.tour === 'any' || m.tour === tid)) c.push({ source:'Personal discount', label:'Personal discount from Leyla', type:m.type, value:m.value, amount: this.discAmt(m.type, m.value, base), id:m.id }); });
+      D.requests.forEach(r => { if (r.email === email && r.status === 'Approved' && r.tour === tid && r.decision && !r.usedBy) c.push({ source:'Approved request', label:'Your approved request ' + r.id, type:r.decision.type, value:r.decision.value, amount: this.discAmt(r.decision.type, r.decision.value, base), id:r.id }); });
+    }
+    c.sort((a, b) => b.amount - a.amount);
+    const best = c[0] || null;
+    return { base, best, amount: best ? best.amount : 0, total: base - (best ? best.amount : 0), others: Math.max(0, c.length - 1), all: c };
+  }
+  listPrice(tid){
+    const D = this.promoData(), T = this.promoTours()[tid]; if (!T) return { orig:'', now:'', has:false };
+    const cs = D.campaigns.filter(x => this.campStatus(x) === 'Active' && x.visibility === 'public' && (x.tours.includes('all') || x.tours.includes(tid)) && !x.minGuests && !x.minChildren);
+    const best = cs.map(x => ({ x, amt: this.discAmt(x.type, x.value, T.p) })).sort((a, b) => b.amt - a.amt)[0];
+    const any = D.campaigns.find(x => this.campStatus(x) === 'Active' && x.visibility === 'public' && (x.tours.includes('all') || x.tours.includes(tid)));
+    if (!best) return { has:false, now: this.money(T.p), orig:'', badge: any ? this.discLabel(any.type, any.value) + ' · ' + this.eligText(any) : '', hasNote: !!any, name: any ? any.name : '' };
+    const fixedWhole = best.x.type === 'fixed';
+    return { has:true, orig: this.money(T.p), now: fixedWhole ? this.money(T.p) : this.money(T.p - best.amt), badge: fixedWhole ? '$' + best.x.value + ' off per booking' : '−' + best.x.value + '%', name: best.x.name, ends: 'Ends ' + new Date(best.x.end + 'T00:00:00').toLocaleDateString('en-GB', { day:'numeric', month:'short' }), fixedWhole, strike: !fixedWhole, hasNote: false };
+  }
+
+  componentDidMount(){ this.uiInit(); this.promoInit(); }
+  componentDidUpdate(pp){ if (pp.startTab !== this.props.startTab) this.setState({ tab: this.props.startTab }); }
+  componentWillUnmount(){ this.uiDestroy(); this.promoDestroy(); clearTimeout(this.tt); }
+  flash(m){ clearTimeout(this.tt); this.setState({ toast:m }); this.tt = setTimeout(() => this.setState({ toast:'' }), 3200); }
+  stamp(){ return '2026-11-15 ' + new Date().toTimeString().slice(0, 5); }
+  commit(patch, what, kind, msg){ const d = this.promoData(); this.promoSave({ ...d, ...patch, log: [{ at: this.stamp(), who: 'Leyla Mammadova', what, kind }, ...((patch.log) || d.log)] }); if (msg) this.flash(msg); }
+  renderVals(){
+    const s = this.state, D = this.promoData(), PT = this.promoTours(), today = this.promoNow(), vo = s.role !== 'owner';
+    const tn = (t) => t === 'any' || t === 'all' ? 'Any tour' : (PT[t] ? PT[t].n : t);
+    const fd = (iso) => iso ? new Date(iso + 'T00:00:00').toLocaleDateString('en-GB', { day:'numeric', month:'short', year:'numeric' }) : 'No expiry';
+    const ST = { Active:'badge badge-confirmed', Scheduled:'badge badge-completed', Expired:'badge badge-secondary', Inactive:'badge badge-outline text-muted-foreground', Pending:'badge badge-pending', Approved:'badge badge-confirmed', Rejected:'badge badge-cancelled', Used:'badge badge-completed', Revoked:'badge badge-cancelled' };
+    const camps0 = D.campaigns.map(c => ({ ...c, status: this.campStatus(c) }));
+    const pend = D.requests.filter(r => r.status === 'Pending').length;
+    const manStatus = (m) => m.revoked ? 'Revoked' : m.usedBy ? 'Used' : (m.expiry && m.expiry < today) ? 'Expired' : 'Active';
+    // campaigns
+    const camps = camps0.filter(c => s.cFilter === 'All' || c.status === s.cFilter).map(c => ({ ...c, disc: this.discLabel(c.type, c.value), toursTxt: c.tours.includes('all') ? 'All tours' : c.tours.map(tn).join(', '), valid: fd(c.start).replace(/ \d{4}$/, '') + ' – ' + fd(c.end),
+      visTxt: c.visibility === 'public' ? 'Public' : 'Private · ' + c.assigned.length + ' guest(s)', visCls: c.visibility === 'public' ? 'badge badge-secondary' : 'badge badge-outline', elig: this.eligText(c), stCls: ST[c.status], activeA: c.active ? 'true' : 'false',
+      tog: () => this.commit({ campaigns: D.campaigns.map(x => x.id === c.id ? { ...x, active: !c.active } : x) }, (c.active ? 'Deactivated' : 'Activated') + ' campaign “' + c.name + '”', 'campaign', c.active ? '“' + c.name + '” deactivated — removed from website' : '“' + c.name + '” activated'),
+      edit: () => this.setState({ drawer:'camp', edit:c.id, cTouched:false, cf: { ...c, value: String(c.value), minGuests: String(c.minGuests), minChildren: String(c.minChildren), bookAhead: String(c.bookAhead), assignedTxt: c.assigned.join('\n') } }),
+      del: () => this.setState({ confirm: { kind:'camp', id:c.id, title:'Delete “' + c.name + '”?', text:'It will stop applying immediately. Past bookings keep their price and the history stays in the audit log.', btn:'Delete campaign' } }) }));
+    const cf = s.cf || {}, cErrAll = {};
+    if (s.cf) { if ((cf.name || '').trim().length < 3) cErrAll.name = 'Give the campaign a name.'; const v = Number(cf.value); if (!(v > 0)) cErrAll.value = 'Enter a discount above 0.'; else if (cf.type === 'percent' && v > 90) cErrAll.value = 'Percentages can’t exceed 90%.'; if (cf.end < cf.start) cErrAll.end = 'End date must be after the start date.'; if (!cf.tours || !cf.tours.length) cErrAll.tours = 'Choose at least one tour.'; if (cf.visibility === 'private' && !(cf.assignedTxt || '').trim()) cErrAll.assigned = 'Add at least one customer email.'; }
+    const cErr = {}; ['name','value','end','tours','assigned'].forEach(k => { cErr[k] = s.cTouched ? (cErrAll[k] || '') : ''; cErr[k + 'Inv'] = cErr[k] ? 'true' : 'false'; });
+    const setCf = (patch) => this.setState({ cf: { ...this.state.cf, ...patch } });
+    const onCf = {}; ['name','code','type','value','start','end','minGuests','minChildren','bookAhead','blurb'].forEach(k => onCf[k] = (e) => setCf({ [k]: k === 'code' ? e.target.value.toUpperCase() : e.target.value }));
+    const cfTours = Object.keys(PT).map(k => ({ l: PT[k].n, on: (cf.tours || []).includes(k) && !(cf.tours || []).includes('all') ? 'true' : (cf.tours || []).includes('all') ? 'true' : 'false', tog: () => { let t = (this.state.cf.tours || []).filter(x => x !== 'all'); t = t.includes(k) ? t.filter(x => x !== k) : [...t, k]; setCf({ tours: t }); } }));
+    const cPrevT = s.cf ? ((cf.tours || []).includes('all') ? Object.keys(PT) : (cf.tours || [])).slice(0, 4) : [];
+    const cPreview = s.cf && Number(cf.value) > 0 && cf.type === 'percent' ? cPrevT.map(k => ({ n: PT[k].n, o: this.money(PT[k].p), v: this.money(PT[k].p - this.discAmt('percent', Number(cf.value), PT[k].p)) })) : s.cf && Number(cf.value) > 0 ? cPrevT.map(k => ({ n: PT[k].n + ' (2 adults)', o: this.money(PT[k].p * 2), v: this.money(PT[k].p * 2 - this.discAmt('fixed', Number(cf.value), PT[k].p * 2)) })) : '';
+    // personal
+    const CUST = [ ['Eleanor Whitfield','eleanor@example.com','AJ-SHE-4821','sheki'], ['Thomas Becker','thomas@example.com','AJ-GRA-3307','grand'], ['Henrik Larsen','henrik@example.com','AJ-KHI-2210','khin'], ['Kenji Watanabe','kenji@example.com','AJ-OLD-9034','old'], ['Marco Rossi','marco@example.com','AJ-OLD-7731','old'], ['Rachel Green','rachel@example.com','AJ-GRA-3412','grand'], ['Omar Haddad','omar@example.com','AJ-LAN-6618','lank'], ['Priya Raman','priya@example.com','AJ-FOO-1194','food'], ['Claire Dubois','claire@example.com','AJ-OLD-7720','old'], ['Fatima Al-Mansoori','fatima@example.com','AJ-LAN-5512','lank'] ].map(([name, email, booking, tour]) => ({ name, email, booking, tour, tourName: tn(tour), init: name.split(' ').map(w => w[0]).join('').slice(0, 2) }));
+    const mq = s.mq.trim().toLowerCase();
+    const matches = !s.mPick && mq.length >= 1 ? CUST.filter(c => (c.name + c.email + c.booking).toLowerCase().includes(mq)).slice(0, 6).map(c => ({ ...c, pick: () => this.setState({ mPick: c, mq: c.name, mf: { ...this.state.mf, tour: c.tour } }) })) : [];
+    const mf = s.mf, mErrAll = {}, pk = s.mPick;
+    if (!pk) mErrAll.cust = 'Search and select a customer or booking.';
+    const mv = Number(mf.value); if (!(mv > 0)) mErrAll.value = 'Enter a discount above 0.'; else if (mf.type === 'percent' && mv > 90) mErrAll.value = 'Percentages can’t exceed 90%.';
+    if (mf.expiry && mf.expiry < today) mErrAll.value = (mErrAll.value ? mErrAll.value + ' ' : '') + 'Expiry date is in the past.';
+    const mErr = {}; ['cust','value'].forEach(k => { mErr[k] = s.mTouched ? (mErrAll[k] || '') : ''; mErr[k + 'Inv'] = mErr[k] ? 'true' : 'false'; });
+    const dup = pk ? D.manual.find(m => m.email === pk.email && manStatus(m) === 'Active' && (m.tour === 'any' || mf.tour === 'any' || m.tour === mf.tour)) : null;
+    const pkBase = pk ? (PT[mf.tour === 'any' ? pk.tour : mf.tour] || { p:0 }).p * 2 : 0;
+    const mans = D.manual.map(m => { const st = manStatus(m); return { ...m, disc: this.discLabel(m.type, m.value), tourName: tn(m.tour), exp: fd(m.expiry), status: st === 'Used' ? 'Used on ' + m.usedBy : st, stCls: ST[st], canRevoke: st === 'Active',
+      revoke: () => this.setState({ confirm: { kind:'revoke', id:m.id, title:'Revoke ' + m.name + '’s discount?', text:'It will no longer apply to new bookings. The record stays in the audit log.', btn:'Revoke' } }) }; });
+    // requests
+    const reqs = D.requests.filter(r => s.rFilter === 'All' || r.status === s.rFilter).map(r => { const base = (PT[r.tour] || { p:0 }).p * r.guests;
+      return { ...r, init: r.name.split(' ').map(w => w[0]).join('').slice(0, 2), tourName: tn(r.tour), asked: this.discLabel(r.type, r.value), after: this.money(base - this.discAmt(r.type, r.value, base)), cls: ST[r.status], open: () => { const over = this.reqPct(r.type, r.value, this.reqBase(r.tour, r.guests)) > D.settings.maxRequestPct; this.setState({ drawer:'req', rSel: r.id, decMode: over ? 'lower' : 'full', dTouched:false, dErr:'', df: { type: 'percent', value: String(over ? D.settings.maxRequestPct : Math.max(1, Math.floor(this.reqPct(r.type, r.value, this.reqBase(r.tour, r.guests)) / 2))), reason:'', note:'', notify:true } }); } }; });
+    const rr = s.rSel ? D.requests.find(r => r.id === s.rSel) : null;
+    let rd = { first:'' };
+    const df = s.df || {};
+    if (rr) { const P = (PT[rr.tour] || { p:0 }).p, base = P * rr.guests, offer = this.quote(rr.tour, rr.guests, 0, { email: rr.email });
+      rd = { ...rr, first: rr.name.split(' ')[0], tourName: tn(rr.tour), base: this.money(base), asked: this.discLabel(rr.type, rr.value), after: this.money(base - this.discAmt(rr.type, rr.value, base)), cls: ST[rr.status], reason: rr.reason || '—',
+        offers: offer.best ? offer.best.label + ' (' + this.discLabel(offer.best.type, offer.best.value) + ') already applies — the better of the two will be used, never both.' : 'None — no current offer applies',
+        pending: rr.status === 'Pending', decided: rr.status !== 'Pending',
+        decCls: rr.status === 'Approved' ? 'alert border-emerald-600/40 bg-emerald-50 text-emerald-900 dark:bg-emerald-500/10 dark:text-emerald-200' : 'alert alert-destructive',
+        decTitle: rr.status === 'Approved' ? 'Approved · ' + this.discLabel(rr.decision.type, rr.decision.value) : 'Rejected',
+        decText: rr.status === 'Approved' ? 'Linked to ' + rr.email + ' and ' + rr.booking + (rr.usedBy ? ' · used on ' + rr.usedBy : ' · not used yet') + (rr.decision.note ? ' · Note: ' + rr.decision.note : '') : (rr.decision && rr.decision.reason) || '',
+        decMeta: rr.decision ? 'By ' + rr.decision.by + ' · ' + rr.decision.at + (rr.decision.notified ? ' · customer notified' : ' · customer not notified') : '' };
+      const askedPct = this.reqPct(rr.type, rr.value, base); rd.baseNum = base; rd.askedPct = Math.round(askedPct * 10) / 10; rd.overMax = askedPct > D.settings.maxRequestPct + 1e-9; rd.max = D.settings.maxRequestPct; rd.askedAmt = this.money(this.discAmt(rr.type, rr.value, base)); }
+    const dv = Number(df.value), decPayload = rr ? (s.decMode === 'reject' ? { role: s.role, action:'reject', reason: df.reason } : s.decMode === 'full' ? { role: s.role, action:'approve', type: rr.type, value: rr.value } : { role: s.role, action:'approve', type: df.type, value: dv }) : null;
+    const lowerLive = rr && s.decMode === 'lower' && dv > 0 ? this.serverDecide(rr.id, decPayload) : { ok:true };
+    const NL = { 'email+whatsapp':'email & WhatsApp', email:'email', whatsapp:'WhatsApp' }[D.settings.notify];
+    const logs = D.log.filter(l => s.lFilter === 'all' || l.kind === s.lFilter).map(l => ({ ...l, kindL: { request:'Request', approve:'Approved', reject:'Rejected', campaign:'Campaign', manual:'Personal', used:'Redeemed', settings:'Settings', revoke:'Revoked' }[l.kind] || l.kind, cls: { request:'badge badge-pending', approve:'badge badge-confirmed', reject:'badge badge-cancelled', campaign:'badge badge-secondary', manual:'badge badge-outline', used:'badge badge-completed', settings:'badge badge-outline', revoke:'badge badge-cancelled' }[l.kind] || 'badge badge-outline' }));
+    const close = () => this.setState({ drawer:null, edit:null, cf:null, rSel:null, df:null });
+    const setS = (patch, what) => this.commit({ settings: { ...D.settings, ...patch } }, what, 'settings', 'Settings saved — live on your website');
+    const activeN = camps0.filter(c => c.status === 'Active').length;
+    return {
+      ...this.uiVals(false), role: s.role, viewOnly: vo, onRole: (e) => this.setState({ role: e.target.value }),
+      kpis: [ { label:'Active campaigns', v: String(activeN), sub: camps0.filter(c => c.status === 'Active' && c.visibility === 'public').length + ' public · ' + camps0.filter(c => c.status === 'Active' && c.visibility === 'private').length + ' private', go: () => this.setState({ tab:'campaigns', cFilter:'Active' }) },
+        { label:'Pending requests', v: String(pend), sub: 'Reply within ' + D.settings.responseDays + ' days', go: () => this.setState({ tab:'requests', rFilter:'Pending' }) },
+        { label:'Personal discounts', v: String(D.manual.filter(m => manStatus(m) === 'Active').length), sub: D.manual.filter(m => m.usedBy).length + ' used', go: () => this.setState({ tab:'personal' }) },
+        { label:'Redemptions', v: String(D.campaigns.reduce((a, c) => a + c.uses, 0)), sub:'Across all campaigns', go: () => this.setState({ tab:'history', lFilter:'used' }) },
+        { label:'Discount requests', v: D.settings.requestsEnabled ? 'On' : 'Off', sub: D.settings.requestsEnabled ? 'Shown on website' : 'Hidden from website', go: () => this.setState({ tab:'settings' }) } ],
+      tabs: [['campaigns','Campaigns', D.campaigns.length, 'ml-1.5 rounded-full bg-muted-foreground/15 px-1.5 text-xs'],['personal','Personal discounts', D.manual.length, 'ml-1.5 rounded-full bg-muted-foreground/15 px-1.5 text-xs'],['requests','Requests', pend, 'ml-1.5 rounded-full bg-amber-500 px-1.5 text-xs text-white'],['history','Audit log', 0, ''],['settings','Settings', 0, '']].map(([k, l, n, c]) => ({ label:l, n: n || '', nCls:c, on: s.tab === k ? 'true' : 'false', pick: () => this.setState({ tab:k }) })),
+      tCamp: s.tab === 'campaigns', tMan: s.tab === 'personal', tReq: s.tab === 'requests', tLog: s.tab === 'history', tSet: s.tab === 'settings',
+      cFilters: ['All','Active','Scheduled','Expired','Inactive'].map(f => ({ label:f, n: f === 'All' ? camps0.length : camps0.filter(c => c.status === f).length, on: s.cFilter === f ? 'true' : 'false', pick: () => this.setState({ cFilter:f }) })),
+      camps, campEmpty: camps.length === 0,
+      newCamp: () => this.setState({ drawer:'camp', edit:null, cTouched:false, cf: { name:'', code:'', type:'percent', value:'10', start: today, end:'2026-12-31', tours:[], visibility:'public', assignedTxt:'', minGuests:'0', minChildren:'0', bookAhead:'0', blurb:'', active:true } }),
+      cOpen: s.drawer === 'camp', cHead: s.edit ? 'Edit campaign' : 'New campaign', cf, onCf, cErr, cfTours, cfAll: (cf.tours || []).includes('all') ? 'true' : 'false',
+      togAll: () => setCf({ tours: (cf.tours || []).includes('all') ? [] : ['all'] }), cfValueLabel: cf.type === 'fixed' ? 'Amount off ($)' : 'Percentage off (%)',
+      visOpts: [['public','Public','Shown on the Offers page and applied to everyone eligible'],['private','Private','Only for customers you assign — not shown publicly']].map(([v, l, d]) => ({ l, d, on: cf.visibility === v ? 'true' : 'false', pick: () => setCf({ visibility: v }) })),
+      cfPrivate: cf.visibility === 'private', cfAssigned: cf.assignedTxt || '', onAssigned: (e) => setCf({ assignedTxt: e.target.value }),
+      cfActive: cf.active ? 'true' : 'false', togCfActive: () => setCf({ active: !cf.active }), cPreview,
+      saveCamp: () => { if (Object.keys(cErrAll).length) { this.setState({ cTouched:true }); return; }
+        const rec = { name: cf.name.trim(), code: (cf.code || '').trim(), type: cf.type, value: Number(cf.value), tours: cf.tours, start: cf.start, end: cf.end, visibility: cf.visibility, assigned: cf.visibility === 'private' ? cf.assignedTxt.split(/[\s,]+/).map(x => x.trim().toLowerCase()).filter(Boolean) : [], minGuests: Number(cf.minGuests) || 0, minChildren: Number(cf.minChildren) || 0, bookAhead: Number(cf.bookAhead) || 0, blurb: cf.blurb, active: cf.active };
+        if (s.edit) this.commit({ campaigns: D.campaigns.map(c => c.id === s.edit ? { ...c, ...rec } : c) }, 'Edited campaign “' + rec.name + '” (' + this.discLabel(rec.type, rec.value) + ')', 'campaign', 'Campaign updated');
+        else this.commit({ campaigns: [{ ...rec, id: 'c' + Date.now(), uses:0 }, ...D.campaigns] }, 'Created campaign “' + rec.name + '” (' + this.discLabel(rec.type, rec.value) + ')', 'campaign', 'Campaign created' + (rec.active ? ' — live on the website' : ''));
+        close(); },
+      mq: s.mq, onMq: (e) => this.setState({ mq: e.target.value, mPick:null }), matches, showMatches: matches.length > 0, picked: pk || '', clearPick: () => this.setState({ mPick:null, mq:'' }),
+      mf, onMf: (() => { const o = {}; Object.keys(mf).forEach(k => o[k] = (e) => this.setState({ mf: { ...this.state.mf, [k]: e.target.value } })); return o; })(), mErr,
+      mfValueLabel: mf.type === 'fixed' ? 'Amount off ($)' : 'Percentage off (%)', tourOpts: Object.keys(PT).map(k => ({ v:k, l: PT[k].n })),
+      mPreview: pk && mv > 0 ? 'On ' + tn(mf.tour === 'any' ? pk.tour : mf.tour) + ' for 2 adults: ' + this.money(pkBase) + ' → ' + this.money(pkBase - this.discAmt(mf.type, mv, pkBase)) + (mf.expiry ? ' · expires ' + fd(mf.expiry) : ' · no expiry') : '',
+      mDup: dup ? pk.name + ' already has an active personal discount (' + this.discLabel(dup.type, dup.value) + ' on ' + tn(dup.tour) + ').' : '', assignLabel: dup ? 'Replace & apply discount' : 'Apply discount',
+      assign: () => { if (Object.keys(mErrAll).length) { this.setState({ mTouched:true }); return; }
+        const rec = { id: 'm' + Date.now(), name: pk.name, email: pk.email, booking: pk.booking, tour: mf.tour, type: mf.type, value: mv, expiry: mf.expiry, note: mf.note || '—', by: 'Leyla Mammadova', at: today, usedBy:'' };
+        const manual = [rec, ...D.manual.map(m => dup && m.id === dup.id ? { ...m, revoked:true } : m)];
+        this.commit({ manual }, 'Assigned ' + this.discLabel(rec.type, rec.value) + ' personal discount to ' + rec.name + ' (' + rec.booking + ')' + (dup ? ' — replaced previous one' : ''), 'manual', 'Discount applied to ' + rec.name + '’s booking');
+        this.setState({ mPick:null, mq:'', mTouched:false, mf: { type:'percent', value:'10', tour:'any', expiry:'', note:'' } }); },
+      mans,
+      reqOff: !D.settings.requestsEnabled, goSettings: () => this.setState({ tab:'settings' }),
+      rFilters: ['Pending','Approved','Rejected','All'].map(f => ({ label:f, n: f === 'All' ? D.requests.length : D.requests.filter(r => r.status === f).length, on: s.rFilter === f ? 'true' : 'false', pick: () => this.setState({ rFilter:f }) })),
+      reqs, reqEmpty: reqs.length === 0,
+      rOpen: s.drawer === 'req' && !!rr, rd, df, onDf: (() => { const o = {}; ['type','value','reason','note'].forEach(k => o[k] = (e) => this.setState({ df: { ...this.state.df, [k]: e.target.value } })); return o; })(),
+      togNotify: () => this.setState({ df: { ...df, notify: !df.notify } }), notifyLabel: NL,
+      decTabs: [['full','Approve in full'],['lower','Approve lower'],['reject','Reject']].map(([k, l]) => ({ label:l, on: s.decMode === k ? 'true' : 'false', dis: k === 'full' && rd.overMax ? 'true' : 'false', pick: () => { if (k === 'full' && rd.overMax) return; this.setState({ decMode:k, dTouched:false, dErr:'' }); } })),
+      decFull: s.decMode === 'full', decLower: s.decMode === 'lower', decReject: s.decMode === 'reject', dfValueLabel: df.type === 'fixed' ? 'Amount off ($)' : 'Percentage off (%)',
+      dfAfter: rr && dv > 0 ? this.money(rd.baseNum - this.discAmt(df.type, dv, rd.baseNum)) : '—', lowerHint: rr ? 'Up to ' + (rd.overMax ? rd.max + '% (your maximum)' : this.discLabel(rr.type, rr.value).replace(' off', '') + ' — what ' + rd.first + ' asked for') : '',
+      lowerWarn: s.decMode === 'lower' && !lowerLive.ok ? lowerLive.error : '',
+      dErr: s.dErr || '', dErrInv: s.dErr ? 'true' : 'false',
+      decBtn: s.decMode === 'reject' ? 'Reject & notify' : s.decMode === 'full' ? 'Approve ' + (rr ? this.discLabel(rr.type, rr.value) : '') + ' & notify' : 'Approve lower & notify', decBtnCls: s.decMode === 'reject' ? 'btn btn-destructive' : 'btn btn-default',
+      decide: () => { const res = this.serverDecide(rr.id, decPayload); if (!res.ok) { this.setState({ dErr: res.error + ' (' + res.code + ')' }); return; }
+        const ok = s.decMode !== 'reject', dec = ok ? { type: decPayload.type, value: Number(decPayload.value), note: df.note, by:'Leyla Mammadova', at: this.stamp(), notified: df.notify, partial: s.decMode === 'lower' } : { reason: df.reason.trim(), note: df.note, by:'Leyla Mammadova', at: this.stamp(), notified: df.notify };
+        this.commit({ requests: D.requests.map(r => r.id === rr.id ? { ...r, status: ok ? 'Approved' : 'Rejected', decision: dec } : r) }, (ok ? 'Approved ' + rr.id + ' at ' + this.discLabel(dec.type, dec.value) + (dec.partial ? ' (requested ' + this.discLabel(rr.type, rr.value) + ')' : ' in full') : 'Rejected ' + rr.id) + ' for ' + rr.name + (df.notify ? ' · customer notified by ' + NL : ''), ok ? 'approve' : 'reject', (ok ? 'Approved' : 'Rejected') + (df.notify ? ' — ' + rd.first + ' notified by ' + NL : ''));
+        close(); },
+      lFilters: [['all','All'],['campaign','Campaigns'],['manual','Personal'],['request','Requests'],['approve','Approved'],['reject','Rejected'],['used','Redeemed'],['settings','Settings']].map(([k, l]) => ({ label:l, on: s.lFilter === k ? 'true' : 'false', pick: () => this.setState({ lFilter:k }) })), logs,
+      set: { reqA: D.settings.requestsEnabled ? 'true' : 'false', max: D.settings.maxRequestPct, days: String(D.settings.responseDays), notify: D.settings.notify },
+      togReq: () => setS({ requestsEnabled: !D.settings.requestsEnabled }, (D.settings.requestsEnabled ? 'Turned off' : 'Turned on') + ' customer discount requests'),
+      onMax: (e) => this.setState({ maxDraft: e.target.value, maxErr:'' }), maxDraft: s.maxDraft != null ? s.maxDraft : String(D.settings.maxRequestPct), maxErr: s.maxErr || '', maxErrInv: s.maxErr ? 'true' : 'false',
+      saveMax: () => { const v = Number(s.maxDraft != null ? s.maxDraft : D.settings.maxRequestPct); if (!(v >= 1 && v <= 90) || Math.round(v) !== v) { this.setState({ maxErr:'Enter a whole number from 1 to 90.' }); return; } setS({ maxRequestPct: v }, 'Set private maximum discount request to ' + v + '%'); this.setState({ maxDraft: null }); },
+      overMaxCount: D.requests.filter(r => r.status === 'Pending' && this.reqPct(r.type, r.value, this.reqBase(r.tour, r.guests)) > D.settings.maxRequestPct).length,
+      onDays: (e) => setS({ responseDays: Number(e.target.value) }, 'Set response time to ' + e.target.value + ' day(s)'),
+      onNotify: (e) => setS({ notify: e.target.value }, 'Changed request notifications'),
+      closeAll: close,
+      confirmOpen: !!s.confirm, confirmTitle: s.confirm ? s.confirm.title : '', confirmText: s.confirm ? s.confirm.text : '', confirmBtn: s.confirm ? s.confirm.btn : '', cancelConfirm: () => this.setState({ confirm:null }),
+      doConfirm: () => { const c = s.confirm; if (c.kind === 'camp') { const x = D.campaigns.find(k => k.id === c.id); this.commit({ campaigns: D.campaigns.filter(k => k.id !== c.id) }, 'Deleted campaign “' + x.name + '”', 'campaign', 'Campaign deleted'); }
+        else { const m = D.manual.find(k => k.id === c.id); this.commit({ manual: D.manual.map(k => k.id === c.id ? { ...k, revoked:true } : k) }, 'Revoked personal discount for ' + m.name, 'revoke', 'Discount revoked'); }
+        this.setState({ confirm:null }); },
+      toast: s.toast
+    };
+  }
+}
+</script>
+</body>
+</html>
